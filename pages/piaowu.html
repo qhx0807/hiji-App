@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>充值缴费</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery.flexslider-min.js"></script>
+		<style type="text/css">
+			.boxs li {
+			    padding: 0 !important;border: none;
+			}
+			.boxs li a{
+			    padding: 15px 0px !important;
+   				margin: 0 14px;
+			}
+
+			.boxs li img{
+				width: 8%;
+				margin-right: 5px;
+			}
+			.mui-bar-nav{
+				box-shadow: none;
+			}
+			.fr{
+				margin-top: 2px;
+			}
+			.boxs{border: none;}
+			.youjian{position: relative;left: 10px;}
+			.self-paybt a{font-size: 14px;}
+			body{background-color: #fff;}
+			.self-paybt a:last-child{padding: 0;color: #777;display: none;}
+			.closeMs {
+			    position: absolute;
+			    top: 23%;
+			    width: 32px;
+			    height: 32px;
+			    right: 16%;
+			    z-index: 99999;
+			}
+			.ruleCt {
+			    position: absolute;
+			    padding-right: 15px;
+			    background-color: #fff;
+			    top: 22%;
+			    left: 14%;
+			    width: 72%;
+			    bottom: 20%;
+			    padding: 15px 5px;
+			    border-radius: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav fineB" style="box-shadow: none !important;">
+		  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		    <h1 class="mui-title">充值缴费</h1>
+		</header>
+		<script src="../js/statusBar.js"></script><!--状态栏-->
+		<div id="container">
+			<div id="main">
+				<ul class="boxs self-paytop">
+					<li class="show_arrive_date aClick" onclick="prompt()">
+						<a href="alipays://platformapi/startapp?appId=20000193" class="date fineB">
+							<img src="../img/tickets/shuifei.png"/>
+							<strong>水费</strong>
+							<div class="fr" style="text-align: right;"><img class="youjian" src="../img/youjiantou.svg"/></div>
+						</a>
+					</li>
+					<li class="show_arrive_date aClick" onclick="prompt()">
+						<a href="alipays://platformapi/startapp?appId=20000193" class="date fineB" >
+							<img src="../img/tickets/dianfei.png"/>
+							<strong>电费</strong>
+							<div class="fr" style="text-align: right;"><img class="youjian" src="../img/youjiantou.svg"/></div>
+						</a>
+					</li>
+					<li class="show_arrive_date aClick" onclick="prompt()">
+						<a href="alipays://platformapi/startapp?appId=20000193" class="date fineB">
+							<img src="../img/tickets/qifei.png"/>
+							<strong>气费</strong>
+							<div class="fr" style="text-align: right;"><img class="youjian" src="../img/youjiantou.svg"/></div>
+						</a>
+					</li>
+					<li class="aClick">
+						<a href="javascript:;" onclick="phoneRecharge()" class="fineB">
+							<img src="../img/tickets/huafei.png"/>
+							<strong>充话费</strong>
+							<div class="fr" style="text-align: right;"><img class="youjian" src="../img/youjiantou.svg"/></div>
+						</a>
+					</li>
+					<li class="aClick">
+						<a href="javascript:;" onclick="dataflow()" class="fineB">
+							<img src="../img/tickets/liuliang.png"/>
+							<strong>充流量</strong>
+							<div class="fr" style="text-align: right;"><img class="youjian" src="../img/youjiantou.svg"/></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center;color: #999;line-height: 1.3;position: fixed;bottom: 10px;width: 100%;">
+			-HI集为用户提供平台-<br />-充值商品由江苏千米网络科技股份有限公司提供-
+		</div>
+		<!--遮罩1-->
+		<div id="maskInfo1" class="maskInfo" style="display: none;z-index:9999;"><div class="ruleCt" style="padding-bottom: 50px;padding: 0;"></div></div>
+		<script type="text/html" id="maskTpl">
+
+			<img src="../img/mainHtml/mclose.svg" class="closeMs"/>
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;">
+			<%if(popdata.modelContent){%>
+			<img src="<%=popdata.modelContent%>" style="border-radius: 3px;width: 100%;height: 100%;" onclick="popGo('<%=popdata.id%>','<%=popdata.modelUrl%>','<%=popdata.name%>','one')"/>
+			<%}%>
+			</div>
+		</script>
+	</body>
+	<script src="../js/app.js"></script>
+	<script type="text/javascript" src="../js/artTemplate-native.js"></script>
+
+	<script type="text/javascript">
+		$('.ruleCt').click(function(){
+			event.stopPropagation()
+		})
+
+		//流量充值
+		function dataflow(){
+			if(plus.storage.getItem('myToken')){
+				openview({
+					view:"tickets/dataflowRecharge.html",
+					id:"dataflowRecharge"
+				})
+			}else{
+				mui.toast('请登录');
+				openview({
+					view:'login.html'
+				});
+			}
+		}
+		function prompt(){
+			mui.alert('如未成功跳转,请在手机上安装支付宝!')
+		}
+
+		(function(){
+			//获取缓存
+			mui.plusReady(function(){
+				var myuserid = plus.storage.getItem('userid');
+				var oldToken = plus.storage.getItem('oldToken');
+				var version = plus.storage.getItem('version');
+				var platform  = plus.storage.getItem('platform');
+				/*弹框*/
+				mui.ajax(serverUrl + '/api/index/showmodal', {
+					data:{version:version,platform:platform},
+	                type: 'post',
+	                timeout: 10000,
+	                headers: { "token": plus.storage.getItem('oldToken') ,'city':plus.storage.getItem('cityNum')},
+	                success: function(data, type, xhr) {
+	                   	plus.nativeUI.closeWaiting();
+	                		console.log('弹窗',data)
+	                		if(data.errno == 0){
+	                			if(data.data && data.data.length){
+	                				mui.each(data.data,function(index,item){
+		                				if(item.typeName == 'rechargeIndex'){
+		                					if(item.modelState == 1){
+	                            			 	$('#maskInfo1').show();
+	                            			 	$('#maskInfo1').html(template('maskTpl',{popdata:item}))
+	                            			 	$('#maskInfo1').click(function(){
+												event.preventDefault()
+												$('#maskInfo1').fadeOut(200);
+											})
+											$('.closeMs').click(function(){
+												event.stopPropagation();
+												$(this).parent().fadeOut(200);
+											})
+	                            			}else{
+	                            			 	$('#maskInfo1').hide()
+	                            			}
+		                				}
+                            		})
+	                			}
+	                		}
+	                },
+	                error: function(xhr, type, errorThrown) {
+	                		console.log('首页弹窗',type)
+	                    console.log('响应失败');
+	                   	plus.nativeUI.closeWaiting();
+	                }
+	            });
+				//点击固话充值跳转
+				window.phoneRecharge = function(){
+
+				 	if(plus.storage.getItem('myToken')){
+						 openview({
+						 	view:"tickets/phoneRecharge.html"
+						 })
+					}else{//没登陆直接打开登录页面
+						mui.toast('请登录');
+						openview({
+							view:'login.html'
+						});
+					}
+				}
+
+			})
+		})();
+	</script>
+	<script type="text/javascript">
+		//天天特价  discountGoods, 领嗨豆  getHIdou, 团购  groupBuying, 本地生活 localLife, 跨境优品   loveToGogoods, 电影 movie,
+		//充值缴费   payment,  为民服务  serveForPeople,  购物中心 shopCenter, 注册  signUp, 特色馆 specialBar
+		mui.plusReady(function () {
+			var startTime, endTime, stayTime, flagback = 0;
+			startTime = new Date().getTime();
+			var old_back = mui.back;
+			//改写返回键返回的函数，返回时传页面停留时间
+			mui.back = function(){
+				endTime = new Date().getTime();//返回时间
+				stayTime = Math.ceil((endTime - startTime) / 1000);
+				console.log('充值缴费'+stayTime);
+				plus.statistic.eventDuration( "payment", stayTime);
+				//计算事件，计算出返回时在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				old_back();
+			}
+			plus.webview.currentWebview().addEventListener( "popGesture", function(){
+				flagback++;
+				if(flagback == 1){
+					endTime = new Date().getTime();
+					stayTime = Math.ceil((endTime - startTime) / 1000);
+					plus.statistic.eventDuration( "payment", stayTime);
+					//计算事件，计算出苹果右滑返回后在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				}
+			}, false );
+		});
+	</script>
+
+</html>

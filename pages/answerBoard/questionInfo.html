@@ -1,0 +1,664 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>某一类的问答列表</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../../css/mui.min.css" rel="stylesheet" />   
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../css/config.css"/>
+</head>
+<style type="text/css">
+	.mui-bar-nav{box-shadow: none !important}
+	.baocun{text-align:right}
+	.baocun img{vertical-align:middle;margin:0 12px;width:25%}
+	.search{height:100%}
+	.searchBox{position:relative;height:100%}
+	.searchBox img:first-child{width:80%;left:10%;-webkit-transform:translateX(-50%);top:50%;-webkit-transform:translateY(-50%);position:absolute;z-index:1;max-height:45px}
+	.searchBox .searchIcon{position:absolute;left:calc(10% + 10px);left:-webkit-calc(10% + 10px);left:-moz-calc(10% + 10px);-webkit-transform:translateY(-50%);position:absolute;top:50%;z-index:23;width:13px}
+	.answerImf img{width:3.5rem;height:3.5rem;border-radius:3px;margin-right:5px}
+	.follow{position:relative;background-color:#fff;padding:18px 15px 15px}
+	.followA{background-color:#fff;padding:5px 15px 0}
+	.follow:after{position:absolute;content:'';height:1px;left:10px;right:10px;-webkit-transform:scaleY(.3);background:#CACACA;bottom:0}
+	.follow:last-child:after{height:0}
+	.noafter:after{position:absolute;right:10px;bottom:0;left:10px;height:0px;background:#cacaca;content:'';-webkit-transform:scaleY(.3);}
+	.fchidl{display:flex;align-items:center;justify-content:space-between}
+	.Avator{width:2rem;height:2rem;margin-right:15px}
+	.userAvator{width:2rem;height:2rem;border-radius:50%;margin-right:15px}
+	.userAvator2{width:1.5rem;height:1.5rem;border-radius:50%;margin-right:15px}
+	.fchidl>div{vertical-align:middle;display:flex;font-size:15px;text-align:left;align-items:center}
+	.text{color:#999}
+	.diyButton{background:url(../../img/answer/bouttonbr.png) no-repeat;background-position:left top;background-size:100% 100%;text-align:center;padding:5px 12px}
+	.QAhead{text-align:center;background-color:#f3f3f3}
+	.QAhead span{position:relative;display:inline-block;height:38px;line-height:38px;color:#343434;font-size:15px;margin:0 10px;padding:0 5px}
+	.QAhead span.active{color:#f93a38}
+	.QAhead span:after{content:"";width:0;height:1px;background-color:#f31414;position:absolute;bottom:0;left:50%}
+	.QAhead span.active:after{transition:all .3s;width:100%!important;left:0!important}
+	.listCon{border-bottom:1px solid #ddd}
+	.listCon p{padding:10px 0 0 0}
+	.bottomop{display:flex;align-items:center}
+	.bottomop img{width:20px}
+	.flexr{justify-content:space-between}
+	.lookall{background:url(../../img/answer/lookall.png) no-repeat;background-position:center;background-size:50%;text-align:center;margin:10px 0}
+ 	.flexrr{display: flex;justify-content: flex-end;}
+	#listOldDiv{position: relative;}
+	.mui-bar-nav.mui-bar .mui-icon{margin-left: 0;}
+	.answerImf{padding: 0 15px;}
+	.answerImf .anImg{width:calc((100vw - 50px) / 4);width:-webkit-calc((100vw - 50px) / 4);width:-moz-calc((100vw - 50px) / 4);height:calc((100vw - 50px) / 4);height:-webkit-calc((100vw - 50px) / 4);height:-moz-calc((100vw - 50px) / 4);border-radius:3px;display: inline-block;}
+		
+</style>
+<body style="background-color: white;padding-bottom: 0;">
+	<header class="mui-bar mui-bar-nav fineB" id="header">
+		<a class="goBack mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		<h1 class="mui-title search">
+			<div class="searchBox">
+				<img src="../../img/answer/searchBar.png"/>
+				<img class="searchIcon" src="../../img/answer/search.png"/>
+				<div style="position: absolute;left: calc(10% + 30px);left: -webkit-calc(10% + 30px);left: -moz-calc(10% + 30px);font-size: 12px;top:50%;-webkit-transform: translateY(-50%);">
+					请输入您想找的内容
+				</div>
+			</div>
+		</h1>
+		 
+	</header>
+	<script src="../../js/statusBar.js"></script><!--状态栏--> 
+	<div id="main">	
+		<div style="height: 20px;"></div>
+		<div style="display: flex;justify-content: space-around;padding: 0 60px;">
+			<button type="button" class="mui-btn mui-btn-danger goask" style="padding:8px 20px!important;margin:0 auto 20px;">问大家</button>
+			<button type="button" class="mui-btn mui-btn-blue goaskZ" style="padding:8px 20px!important;margin:0 auto 20px;">问专家</button>
+		</div>
+	</div>
+	<div class="QandA"> 
+		<div class="QAhead" style="position: -webkit-sticky; position:sticky; top: 70px;z-index: 9;display: block;width: 100%;">
+			<span class="active aClick">最新</span>
+			<span class="aClick">已解答</span> 
+		</div>
+		<div id="listOldDiv">
+			
+			<div id="listConW1" class="listSon" style="display: block;"></div><!--我要问 盒子1--> 
+			<div id="listConW2" class="listSon" style="display: none;"></div><!-- 盒子2-->
+			
+			<script type="text/html" id="listDataS">
+				<%for(var i=0;i<dataList.length;i++){%>
+					<div class="listCon" onclick="openDetail(<%=dataList[i].id%>,<%=dataList[i].user_id%>)">
+						<div class="follow" > <!--问题-->
+							<div class="fchidl">
+								<div><img data-src="<%=dataList[i].avatar%>" src="" class="userAvator mr25 loadPics"/><div><%=dataList[i].nickname%></div></div> 
+								<%if(qustType == 1){%>
+									<div class="butright"><div class="activecl">已解答</div> </div> 
+								<%}else{%>
+									<div class="butright"><div class="diyButton activecl goanswer">抢答</div> </div> 
+								<%}%>
+							</div>  
+							<p class="ft15 maincl" style="-webkit-user-select: text;"><%=dataList[i].content%></p> 
+							<%if(dataList[i].pic && dataList[i].pic.length){%>
+								<div class="answerImf" style="padding: 0;">
+									<%for(var j = 0 ;j<dataList[i].pic.length;j++){%>
+										<img class="anImg loadPics" src="<%=dataList[i].pic[j].picImg%>" data-preview-src="" data-preview-group="<%=i%>"/>
+										<!--<div class="anImg loadPics" style="background: url(<%=dataList[i].pic[j].picImg%>) no-repeat;background-size: cover;"></div>-->
+									<%}%> 
+							 	</div>
+							<%}%> 
+						 	<div class="bottomop flexr"> 
+						 		<div class="activecl ft14">
+						 			<%if(dataList[i].onlyExpert == 1){%>
+							 			仅限特邀专家回答
+							 		<%}%>
+						 		</div>
+								<div class="bottomop flexrr"> 
+									<div class="bottomop mr25">
+										<%if(dataList[i].likeUserId){%>
+											<img class="mr20" src="../../img/answer/liked.png" onclick="goZan(this,<%=dataList[i].id%>,<%=dataList[i].user_id%>)"/>
+										<%}else{%>
+											<img class="mr20" src="../../img/answer/unlike.png" onclick="goZan(this,<%=dataList[i].id%>,<%=dataList[i].user_id%>)"/>
+											<%}%>
+											 <span class="activecl ft12"><%=dataList[i].likes%></span>
+									</div> 
+									<div class="disablecl ft12"><%=dataList[i].answerNums%>人回答</div>
+								</div>
+						 	</div>  
+						</div> 
+						<div class="commentsShow" data-id="<%=dataList[i].id%>"></div>
+						 
+					</div>
+				<%}%>	
+			</script>
+			<!--回答模板-->
+			<script type="text/html" id="cmtTpl">
+			
+				<%for(var i=0;i<list.length;i++){%> 
+					<div class="followA"> <!--回答-->
+						<div class="fchidl">
+							<div>
+								<img src="<%=list[i].avatar%>" class="userAvator2 mr25"/>
+								<div class="disablecl"> <%=list[i].nickname%> </div>
+							</div> 
+						</div>  
+						<p class="ft14 disablecl" style="-webkit-user-select: text;"><%=list[i].commont%></p> 
+					</div>
+					<%if(list[i].pics && list[i].pics.length){%>
+						<div class="answerImf">
+							<%for(var j = 0 ;j<list[i].pics.length;j++){%>
+								<img class="anImg loadPics" src="<%=list[i].pics[j].picImg%>" data-preview-src="" data-preview-group="<%=i%>"/>
+								<!--<div class="anImg loadPics" style="background: url(<%=list[i].pics[j].picImg%>) no-repeat;background-size: cover;"></div>-->
+							<%}%> 
+					 	</div>
+					<%}%>  
+				<%}%> 
+				<div class="lookall ft12 disablecl" > 查看全部回答  </div> 
+			
+			</script>
+			<div class="upload text-center text-xs gray" id="upload"><img src='../../img/balls.svg' /></div><!--加载中-->
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/mui.zoom.js"></script>
+	<script src="../../js/mui.previewimage.js"></script>
+	<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function refreshFun(){
+			shopData(0,0,false);//默认推荐
+		}
+		mui.plusReady(function(){
+			downRe(refreshFun);
+		})	
+		/*tab切换*/
+		var flag0 = 0,flag1 = 0,//是否   第一次点击
+	     	SH0 = 0,SH1  = 0;/*保存的状态栏高度*/
+		var listCon = document.getElementsByClassName('QAhead')[0].getElementsByTagName('span');
+		var listSon = document.getElementsByClassName('listSon');
+		
+		[].forEach.call(listCon,function(ele,index){
+			ele.onclick = function(){
+				if(!ele.className.indexOf('active')>-1){
+					[].forEach.call(listCon,function(ele2,index2){
+						ele2.className = '';
+					})
+					ele.className = 'active aClick';
+					[].forEach.call(listSon,function(ele3,index3){
+						ele3.style.display = 'none';
+					})
+					listSon[index].style.display = 'block';
+					
+					if(index == 0){
+						if(flag0==0){
+							shopData(index,0);
+						}else{
+							$(window).scrollTop(SH0);
+						}
+					}else if(index == 1){
+						if(flag1==0){
+							shopData(index,1);
+						}else{
+							$(window).scrollTop(SH1);
+						}
+					}
+				}
+			}
+		})
+	
+		shopData(0,0,false);//默认最新tab
+		document.addEventListener('refreash', function() {
+					shopData(0,0,false);
+				})
+		function shopData(typeNum,gender,refresh){
+			var Spagenum = 2; //实到页数
+			var Ypagenum = 1; //应到页数
+			if(typeNum == 0){
+				flag0++;
+				if(flag0 == 2){
+					$(window).scrollTop(280);
+				}
+			}else if(typeNum == 1){
+				flag1++;
+				if(flag1 == 1){
+					$(window).scrollTop(280);
+				}
+			}
+			mui("#upload")[0].innerHTML = "<img src='../../img/balls.svg' />";
+			mui.plusReady(function(){
+				var myuserid = plus.storage.getItem('userid'),
+				    cityNum = plus.storage.getItem('cityNum'),
+					oldToken = plus.storage.getItem('oldToken'),
+					groupId = plus.webview.currentWebview().groupId; 
+				
+	 		window.goZan = function(obj,id,userid){
+					event.stopPropagation()
+	 			if(plus.storage.getItem('myToken')){
+					var curThis = $(obj); 
+					
+					if(curThis.attr('src') == '../../img/answer/unlike.png'){
+						likeThis(curThis,id,userid,cityNum,myuserid,oldToken,'POST','../../img/answer/liked.png');
+					}else{ 
+						likeThis(curThis,id,userid,cityNum,myuserid,oldToken,'delete','../../img/answer/unlike.png'); 
+					}
+				}else{
+					mui.toast('请登录');
+					openview({
+						view:'../login.html'
+					});
+				}
+	 			
+			}
+				if(typeNum == 0){
+					var dataJson = {
+						'userId':myuserid,
+						'numsPerPage':5,
+						'currentPage':1,
+						'orderType':'DESC',
+						'orderField':'create_time',
+						'typeId':2,
+						'questionStates':0,
+						'faqsType':groupId
+					}
+				}else if(typeNum == 1){
+					var dataJson = {
+						'userId':myuserid,
+						'numsPerPage':5,
+						'currentPage':1,
+						'orderType':'DESC',
+						'orderField':'create_time',
+						'typeId':2,
+						'questionStates':1,
+						'faqsType':groupId
+					}
+				}
+				console.log(dataJson);
+				mui.ajax(serverUrl + '/api/friends/newslist', {
+					data: dataJson,
+					dataType: 'json',
+					type: 'post',
+					timeout: 8000,
+					headers: {"token": oldToken,'city': cityNum},
+					success: function(data, type, xhr) {
+						console.error('问答动态'+typeNum, data);
+						if(data.errno == 0) {
+							var dataObj = {};
+							var nowArray = data.data.data;
+							if(nowArray.length){
+								/*如果第一页就加载完毕*/
+								if(data.data.count <= 2){
+									mui("#upload")[0].innerHTML = "到底了";
+								}
+								
+								for(var j = 0 ;j<nowArray.length;j++){//整理数据
+									if(nowArray[j].avatar && nowArray[j].avatar!='null'){//整理头像
+										if(JSON.parse(nowArray[j].avatar)[0].picImg.indexOf('http') == -1){
+											nowArray[j].avatar = serverimgUrl + JSON.parse(nowArray[j].avatar)[0].picImg;
+										}else{
+											nowArray[j].avatar = JSON.parse(nowArray[j].avatar)[0].picImg
+										}
+									}else{
+										nowArray[j].avatar = '../../img/10.png'
+									}
+									if(nowArray[j].nickname && nowArray[j].nickname !='null'){
+										if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(nowArray[j].nickname)){
+											nowArray[j].nickname = nowArray[j].nickname.substring(0,3)+"****"+nowArray[j].nickname.substring(7,11)
+										}
+									}else{
+										nowArray[j].nickname = '匿名'
+									}
+									if(!nowArray[j].answerNums){
+										nowArray[j].answerNums = 0
+									}else if((nowArray[j].answerNums / 1000)>1){
+										nowArray[j].answerNums = parseInt(nowArray[j].answerNums / 1000) +'K+'
+									}
+									if(!nowArray[j].likes || nowArray[j].likes<0){
+										nowArray[j].likes = 0
+									} 
+									if(nowArray[j].pic && nowArray[j].pic!='null'){
+										nowArray[j].pic = JSON.parse(nowArray[j].pic);
+										for(var k = 0; k<nowArray[j].pic.length;k++){
+											if(nowArray[j].pic[k].picImg.indexOf('http') == -1){
+                                                nowArray[j].pic[k].picImg = serverimgUrl + nowArray[j].pic[k].picImg;
+                                            }
+										}
+									}
+								}
+									 
+								dataObj.dataList = nowArray;
+								dataObj.qustType = typeNum; 
+								document.getElementsByClassName("listSon")[typeNum].innerHTML = template("listDataS", dataObj);
+								lazyLoad(true,50);//懒加载
+								 
+								$(window).scroll(function() {
+									if(document.getElementsByClassName("listSon")[typeNum].style.display == 'block'){//判断是否是 当前显示的盒子
+										var scrollTop = $(this).scrollTop();
+										if(typeNum == 0){
+											SH0 = $(this).scrollTop();
+										}else if(typeNum == 1){
+											SH1 = $(this).scrollTop();
+										}
+										var scrollHeight = $(document).height();
+										var windowHeight = $(this).height();　　
+										if(scrollTop + windowHeight == scrollHeight) {
+											if(Spagenum <= data.data.totalPages && Spagenum == Ypagenum + 1) { //当前页小于等于总页数时请求下一页
+												mui("#upload")[0].innerHTML = "<img src='../../img/balls.svg' />";
+												Ypagenum++; //满足加载情况,应到页数+1
+												console.log('发起请求,实到' + Spagenum + '页');
+												console.log('发起请求,应到' + Ypagenum + '页');
+												if(typeNum == 0){
+													var dataJson1 = {
+														'userId':myuserid,
+														'numsPerPage':5,
+														'currentPage':Spagenum,
+														'orderType':'DESC',
+														'orderField':'create_time',
+														'typeId':2,
+														'questionStates':0,
+														'faqsType':groupId
+													}
+												}else if(typeNum == 1){
+													var dataJson1 = {
+														'userId':myuserid,
+														'numsPerPage':5,
+														'currentPage':Spagenum,
+														'orderType':'DESC',
+														'orderField':'create_time',
+														'typeId':2,
+														'questionStates':1,
+														'faqsType':groupId
+													}
+												}
+												mui.ajax(serverUrl + '/api/friends/newslist', {
+													data: dataJson1,
+													dataType: 'json',
+													type: 'post',
+													timeout: 8000,
+													headers: {"token": oldToken,'city': cityNum},
+													success: function(data) {
+														console.error('问答动态续'+typeNum, data);
+														if(data.errno == 0) {
+															var dataObj = {};
+															var nowArray = data.data.data;
+															
+															for(var j = 0 ;j<nowArray.length;j++){//整理数据
+																if(nowArray[j].avatar && nowArray[j].avatar!='null'){//整理头像
+																	if(JSON.parse(nowArray[j].avatar)[0].picImg.indexOf('http') == -1){
+																		nowArray[j].avatar = serverimgUrl + JSON.parse(nowArray[j].avatar)[0].picImg;
+																	}else{
+																		nowArray[j].avatar = JSON.parse(nowArray[j].avatar)[0].picImg
+																	}
+																}else{
+																	nowArray[j].avatar = '../img/10.png'
+																}
+																if(nowArray[j].nickname && nowArray[j].nickname !='null'){
+																	if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(nowArray[j].nickname)){
+																		nowArray[j].nickname = nowArray[j].nickname.substring(0,3)+"****"+nowArray[j].nickname.substring(7,11)
+																	}
+																}else{
+																	nowArray[j].nickname = '匿名'
+																}
+																if(!nowArray[j].answerNums){
+																	nowArray[j].answerNums = 0
+																}else if((nowArray[j].answerNums / 1000)>1){
+																	nowArray[j].answerNums = parseInt(nowArray[j].answerNums / 1000) +'K+'
+																}
+																if(!nowArray[j].likes){
+																	nowArray[j].likes = 0
+																}
+//																if(!nowArray[j].onlyExpert){
+//																	nowArray[j].onlyExpert = 0
+//																}
+//																if(!nowArray[j].assignedExpert){
+//																	nowArray[j].assignedExpert = 0
+//																}
+																if(nowArray[j].pic && nowArray[j].pic!='null'){
+																	nowArray[j].pic = JSON.parse(nowArray[j].pic);
+																	for(var k = 0; k<nowArray[j].pic.length;k++){
+																		if(nowArray[j].pic[k].picImg.indexOf('http') == -1){
+			                                                                nowArray[j].pic[k].picImg = serverimgUrl + nowArray[j].pic[k].picImg;
+			                                                            }
+																	}
+																}
+															}
+															
+															dataObj.dataList = nowArray;
+															dataObj.qustType = typeNum; 
+															document.getElementsByClassName("listSon")[typeNum].innerHTML += template("listDataS", dataObj);
+															lazyLoad(false,50);//懒加载
+														}
+														mui("#upload")[0].innerHTML = " ";
+														Spagenum++; //加载成功,当前页+1
+														console.log('成功+1,实到' + Spagenum);
+														console.log('成功+1,应到' + Spagenum);
+													},
+													error: function(xhr, type, errorThrown) {
+														Ypagenum--; //失败是应到-1
+														mui.toast("当前网络不好请重试");
+														mui("#upload")[0].innerHTML = "";
+													}
+												});
+												$('.listCon').each(function(){
+													if($(this).find('.followA').length==1){
+														$(this).find('.follow').addClass('noafter')
+													}
+												})
+											} else if(Spagenum == data.data.totalPages + 1) { //当前页不小于等于总页数时请求下一页
+												mui("#upload")[0].innerHTML = "到底了";
+											}
+										} 
+									}
+								});
+							}else{
+								mui("#upload")[0].innerHTML = "没有数据";
+							}
+							
+							//评论数据
+							$('.commentsShow').each(function(){
+								var newsId= $(this).attr('data-id'); 
+								var curShow = $(this);
+								mui.ajax(serverUrl + '/api/friends/newscomment/newsId/'+newsId, {
+									dataType: 'json',
+									type: 'get',
+									timeout: 8000,
+									headers: {"token": oldToken,'city': cityNum},
+									success: function(data, type, xhr) {
+										console.error('评论详情', data);
+										 
+										if(data.errno == 0) {
+											var cmtArray = data.data;
+											var newCmt = []
+											if(cmtArray && cmtArray.length>0){
+												if(cmtArray.length >2){
+													for(var i = 0;i<2;i++){
+														if(!cmtArray[i].nickname){ 
+															cmtArray[i].nickname =  '匿名'
+														}else{
+															if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(cmtArray[i].nickname)){
+																cmtArray[i].nickname = cmtArray[i].nickname.substring(0,3)+"****"+cmtArray[i].nickname.substring(7,11)
+															}
+														}
+														
+														if(cmtArray[i].pics && cmtArray[i].pics!='null'){
+															cmtArray[i].pics = JSON.parse(cmtArray[i].pics);
+															for(var j = 0; j<cmtArray[i].pics.length;j++){
+																if(cmtArray[i].pics[j].picImg.indexOf('http') == -1){
+	                                                                cmtArray[i].pics[j].picImg = serverimgUrl + cmtArray[i].pics[j].picImg;
+	                                                            }
+															}
+														}
+                                                        if(cmtArray[i].avatar && cmtArray[i].avatar!='null'){
+                                                            if(JSON.parse(cmtArray[i].avatar)[0].picImg.indexOf('http') == -1){
+                                                                cmtArray[i].avatar = serverimgUrl + JSON.parse(cmtArray[i].avatar)[0].picImg;
+                                                            }else{
+                                                                cmtArray[i].avatar = JSON.parse(cmtArray[i].avatar)[0].picImg
+                                                            }
+                                                        }else{
+                                                            cmtArray[i].avatar = '../../img/10.png'
+                                                        }
+                                                        
+//														var dt = new Date(cmtArray[i].create_time).getTime(); 
+//														cmtArray[i].create_time = getDateDiff(dt);
+														newCmt.push(cmtArray[i])
+													} 
+												}else{
+													for(var i = 0;i<cmtArray.length;i++){
+														if(!cmtArray[i].nickname){ 
+															cmtArray[i].nickname =  '匿名'
+														}else{
+															if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(cmtArray[i].nickname)){
+																cmtArray[i].nickname = cmtArray[i].nickname.substring(0,3)+"****"+cmtArray[i].nickname.substring(7,11)
+															}
+														}
+														
+														if(cmtArray[i].pics && cmtArray[i].pics!='null'){
+															cmtArray[i].pics = JSON.parse(cmtArray[i].pics);
+															for(var j = 0; j<cmtArray[i].pics.length;j++){
+																if(cmtArray[i].pics[j].picImg.indexOf('http') == -1){
+	                                                                cmtArray[i].pics[j].picImg = serverimgUrl + cmtArray[i].pics[j].picImg;
+	                                                            }
+															}
+														}
+                                                        if(cmtArray[i].avatar && cmtArray[i].avatar!='null'){
+                                                            if(JSON.parse(cmtArray[i].avatar)[0].picImg.indexOf('http') == -1){
+                                                                cmtArray[i].avatar = serverimgUrl + JSON.parse(cmtArray[i].avatar)[0].picImg;
+                                                            }else{
+                                                                cmtArray[i].avatar = JSON.parse(cmtArray[i].avatar)[0].picImg
+                                                            }
+                                                        }else{
+                                                            cmtArray[i].avatar = '../../img/10.png'
+                                                        }
+                                                            
+//														var dt = new Date(cmtArray[i].create_time).getTime(); 
+//														cmtArray[i].create_time = getDateDiff(dt);
+														newCmt.push(cmtArray[i])
+													} 
+												}
+//												alert(JSON.stringify(newCmt))
+												curShow.html(template('cmtTpl',{list:newCmt}));
+												$('.listCon').each(function(){
+													if($(this).find('.followA').length==1){
+														$(this).find('.follow').addClass('noafter')
+													}
+												})
+											}
+											
+										 
+										}else{
+											mui.toast('当前网络不好,请重试');
+										}
+									},
+									error: function(xhr, type, errorThrown) {
+										console.error('评论列表,响应失败');
+										mui.toast('当前网络不好,请重试');
+									}
+								});
+							}) 
+							 
+						}else{
+							mui.toast('当前网络不好,请重试');
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.error('交友列表,响应失败');
+						mui.toast('当前网络不好,请重试');
+					}
+				});
+				
+			})
+		}
+		
+		
+		
+		
+		
+		/*打开详情*/
+		function openDetail(id,userId){
+			openview({
+				view:'answerInfo.html',
+				id:'answerInfo',
+				extrasobj:{answerId:id,toUserId:userId}
+			})
+		}
+		//问专家
+		mui.plusReady(function(){
+			var groupid = plus.webview.currentWebview().groupId;
+			
+			$('.goaskZ').click(function(){
+				openview({
+					view:'expert.html',
+					id:'expert',
+					extrasobj:{exGroup:groupid,onlyExpert:1}
+				})
+			}) 
+		})
+		 
+		//直接提问
+		$('.goask').click(function(){
+			var groupid = plus.webview.currentWebview().groupId;
+			event.stopPropagation()
+			if(plus.storage.getItem('myToken')){
+				openview({
+					view:'ask.html',
+					id:'ask',
+					extrasobj:{exGroup:groupid,onlyExpert:2}
+				})
+			}else{
+				mui.toast('请登录');
+				openview({
+					view:'../login.html'
+				});
+			}
+		})
+		
+		//分享
+		$('#share').click(function(){
+			
+		})
+		//搜索
+		$('.search').click(function(){
+			openview({
+				view:'searchQa.html'
+			})
+		})
+		//抢答
+		$('.goanswer').click(function(){
+			event.stopPropagation()
+			openview({
+				view:'goAnswer.html'
+			})
+		})
+		
+		//查看全部
+		$('.listCon').click(function(){
+			openview({
+				view:'answerInfo.html'
+			})
+		})
+		mui.previewImage();
+	</script>
+	<script type="text/javascript">
+		//天天特价  discountGoods, 领嗨豆  getHIdou, 团购  groupBuying, 本地生活 localLife, 跨境优品   loveToGogoods, 电影 movie,
+		//充值缴费   payment,  为民服务  serveForPeople,  购物中心 shopCenter, 注册  signUp, 特色馆 specialBar
+		mui.plusReady(function () {
+			var startTime, endTime, stayTime, flagback = 0;
+			startTime = new Date().getTime();
+			var old_back = mui.back;
+			//改写返回键返回的函数，返回时传页面停留时间 
+			mui.back = function(){
+				endTime = new Date().getTime();//返回时间
+				stayTime = Math.ceil((endTime - startTime) / 1000);   
+				console.log('购物中心'+stayTime); 
+				plus.statistic.eventDuration( "AnswerListClass", stayTime);
+				//计算事件，计算出返回时在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				old_back(); 
+			}
+			plus.webview.currentWebview().addEventListener( "popGesture", function(){
+				flagback++;
+				if(flagback == 1){
+					endTime = new Date().getTime();
+					stayTime = Math.ceil((endTime - startTime) / 1000);  
+					plus.statistic.eventDuration( "AnswerListClass", stayTime);
+					//计算事件，计算出苹果右滑返回后在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				}
+			}, false );
+		});
+	</script> 
+</body>
+
+</html> 

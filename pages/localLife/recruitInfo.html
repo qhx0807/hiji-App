@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>职位详情</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" href="../../css/reset.css"> 
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>  
+		<script src="../../js/mui.min.js"></script> 
+		<script src="../../js/app.js"></script>
+		<!--引入模板引擎-->
+		<script src="../../js/artTemplate-native.js"></script>
+		<style type="text/css">
+			 #main{
+			 	background: white;
+			 }
+			.message{
+				position: relative;
+				display: flex;
+				padding: 15px 0;
+				align-items: center;
+			}
+			.jobInfo p{
+				position: relative;
+				margin-bottom: 10px;
+			}
+			 
+			.jobInfo{
+				background: white;
+				padding: 15px;
+				margin-top: 10px;
+			}
+			.message:after{
+				position: absolute;
+				content: '';
+				height: 1px;
+				background: #CCCCCC;
+				left: 15px;
+				bottom: 0;
+				right: 15px;
+				-webkit-transform: scaleY(0.3);
+			}
+			.message:last-of-type:after{
+				position: absolute;
+				content: '';
+				height: 0px;
+				background: #CCCCCC;
+				left: 0.8rem;
+				bottom: 0;
+				right: 0;
+				-webkit-transform: scaleY(0.3);
+			}
+			.message .msgIcon{
+				flex-basis:0.8rem;
+				text-align: center;
+			}
+			.message img{ 
+				width: 0.5rem;
+			}
+			.message .mui-icon{
+			 	padding-right: 10px;
+			 	color: tomato;
+			 	 
+			 }
+			 .msgtxt{
+			 	 padding-left: 15px;
+			 	line-height: 1.35;
+			 	 flex-grow : 1; 
+			 }
+			 
+			 .msgtxt>*{
+			 	width: 100%;
+			 	display: inline-block;
+			 }
+			 .msgtxt h5{
+			 	font-weight: 700;
+			 	font-size: 0.18rem;
+			 	color: black;
+			 	line-height: 1.5;
+			 } 
+			 .msgtxt h5 span{
+			 	color: orangered;
+			 }
+			 .msgtxt span{
+			 	position: absolute;
+			 	right: 15px;
+			 }
+			 .mui-bar-tab a{
+			 	color: darkgray;
+				display: table-cell;
+				vertical-align: bottom;
+				text-align: center;
+			}
+			.msgtxt small{
+				font-size: 0.14rem;
+			}
+			.msgtxt ul{
+				margin: 20px 0 10px 0;
+			}
+			.msgtxt ul li{
+				display: inline-block;
+				margin-right: 15px;
+				font-size: 0.16rem;
+			}
+			.msgtxt ul img{
+				width: 20px;
+				vertical-align: middle;
+			}
+			.jobInfo{
+				margin-bottom: 85px;
+			}
+			.jobInfo div{
+				font-size: 0.13rem;
+				line-height: 1.5;
+			}
+			.jobInfo p:after{
+				position: absolute;
+				content: '';
+				height: 1px;
+				background: #CCCCCC;
+				left: 0;
+				bottom: -10px;
+				right:0;
+				-webkit-transform: scaleY(0.3);
+			}
+			.sendb{
+				background: white;
+				padding: 15px 0;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				
+			}
+			.sendb button{
+				margin: auto;
+				width: calc(100% - 30px); 
+				width: -webkit-calc(100% - 30px); 
+				width: -moz-calc(100% - 30px); 
+				font-size: 0.16rem;
+				padding: 10px!important;
+			}
+			</style>
+		</head>
+	
+		<body>
+			<header class="mui-bar mui-bar-nav" id="header"> 
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			    <h1 class="mui-title findUser">职位详情</h1>
+			    <!--<a href="javascript:;" style="line-height: 50px;color:white;font-size: 25px;" class="fr baocun">+</a>-->
+			</header>
+			<script src="../../js/statusBar.js"></script>
+			<!--状态栏-->
+			<!--<div id="container">-->
+			<div id="main" style="display: none;"> 
+				 <div class="message msgcmt">
+				 	<div class="msgtxt">
+				 		<h5><b id="title">web前端工程师</b>  <span><!--<small>【12-20K】</small>--></span></h5>
+				 		<ul>
+				 			<li><img src="../../img/jcity.svg" alt="" /> <b style="font-weight: 500;" id="addresss">成都</b> </li>
+				 			<!--<li><img src="../../img/jtime.svg" alt="" /> 4-5年</li>
+				 			<li><img src="../../img/jclt.svg" alt="" /> 本科</li>
+				 			<li><img src="../../img/jtime.svg" alt="" /> 全职</li>-->
+				 		</ul>
+				 		<!--<small style="color: gray;">职位诱惑：五险一金，项目奖金，年底双薪等</small><br />-->
+				 	</div> 
+				 	
+				 </div>
+				 <div class="message msgcmt">
+				 	<div class="msgIcon">
+				 		<a class="react phone" id="phonenum" href="tel:0"> 
+							<i class="text-icon" style="color: #b44163;font-size: 45px;">✆</i>
+						</a>
+				 	</div>
+				 	<div class="msgtxt" style="padding-left: 0;padding-right: 15px;"> 
+				 		<small id="company"></small><br />
+				 		<small id="Contact" style="color: gray;">成都高新区<br /></small>
+				 		<small id="telnum" style="color: gray;">未融资 | 移动互联网，电子商务 </small>
+				 	</div> 
+				 </div>
+		 		<!--职位详情-->
+			 	<div class="jobInfo">
+			 		<p><img src="../../img/jobicon.svg" alt="" /> <span class="black">职位描述</span></p><br />
+			 		<div id="contents">
+			 			水水水水水水水水水水水水水水
+			 		</div>
+			 	</div>
+			</div>	
+		
+	<script type="text/javascript">
+		
+		mui.plusReady(function(){ 
+			plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});
+			//获取数据
+			var oldtoken = plus.storage.getItem('oldToken');
+			var cityNum  = plus.storage.getItem('cityNum');
+			var nowid = plus.webview.currentWebview().name;
+			mui.ajax(serverUrl+'/api/localservice/localserviceinfo',{
+				data:{"sericeId":nowid},
+				type:'post',
+				timeout:10000,
+				headers:{"token":oldtoken,'city':cityNum},	               				
+				success:function(data){
+					console.log('获取数据返回',data);
+					if(data.errno == 0){
+						if (data.data[0].content.indexOf('content')>-1) {
+							mui('#contents')[0].innerHTML = JSON.parse(data.data[0].content).content;
+							mui('#title')[0].innerHTML = JSON.parse(data.data[0].content).title;
+						} else{
+							mui('#contents')[0].innerHTML = data.data[0].content;
+							mui('#title')[0].innerHTML = data.data[0].name;
+						}
+						
+						mui('#addresss')[0].innerHTML = data.data[0].address;
+						if(data.data[0].type_name == 4){
+							mui('#company')[0].innerHTML = data.data[0].name;
+						}
+						
+						mui('#Contact')[0].innerHTML = "联系人: "+data.data[0].link_man;
+						mui('#telnum')[0].innerHTML = "电话: "+data.data[0].phone;
+						mui('#phonenum')[0].href = 'tel:'+data.data[0].phone;
+						mui('#main')[0].style.display = 'block';
+						plus.nativeUI.closeWaiting();
+						//轮播图
+						
+					}else{
+						mui.toast('获取用户信息失败');
+						plus.nativeUI.closeWaiting(); 
+						console.log(data.errmsg);
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();
+					mui.toast('当前网络不好请重试');
+				}
+			});
+		})
+	</script> 	
+</body>
+   
+</html> 

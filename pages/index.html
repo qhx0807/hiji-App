@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>封面index</title>
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			html, body { background-color: #fff;line-height: 17px !important;font-size: 18px; }
+			.demo-icon{ display: block;font-size: 18px;margin-bottom: 4px;margin-top: 2px; }
+			.mui-bar-tab .mui-tab-item{font-size: 10px!important;color: #999 !important;}
+			.mui-bar{ box-shadow: rgba(175, 166, 166, 0.85) 0px 0px 1px !important; border: none !important; box-shadow: none !important; background-color: #fff; };
+			.mui-bar-tab{ display: line !important; }
+			.mui-bar-tab .mui-tab-item.mui-active{ color: #F53C42!important; }
+			#header a b{ display: block; width: 26px; height: 26px; margin: 0 auto; transition: all .1s; background-size: 26px 26px; }
+			.mainB{ background: url(../img/mainHtml/Ushouye.png) no-repeat; }
+			.mainBActive{ background: url(../img/mainHtml/Cshouye.png) no-repeat; }
+			.gouwuB{ background: url(../img/mainHtml/Ugouwu.png) no-repeat; }
+			.gouwuBActive{ background: url(../img/mainHtml/Cgouwu.png) no-repeat; }
+			.youB{ background: url(../img/mainHtml/Uyou.png) no-repeat; }
+			.youBActive{ background: url(../img/mainHtml/Cyou.png) no-repeat; }
+			.kefuB{ background: url(../img/mainHtml/Ukefu.png) no-repeat; }
+			.kefuBActive{ background: url(../img/mainHtml/Ckefu.png) no-repeat; }
+			.wodeB{ background: url(../img/mainHtml/Uwode.png) no-repeat; }
+			.wodeBActive{ background: url(../img/mainHtml/Cwode.png) no-repeat; }
+			#biankuang{
+			    position: fixed;
+			    left: 0;
+			    bottom: 50px;
+			    display: inline-block;
+			    width: 100%;
+			    height: 1px;
+			    background-color: #eaeaea;
+			    z-index: 100;
+			}
+			header{
+				padding-top: 20px;
+				padding-top: constant(safe-area-inset-top)!important;
+			}
+			.infoNum2{ position: absolute; top: 0; right: 8px;font-size: 11px;padding: 2px 5px 2px 4px; }
+		</style>
+	</head>
+	<body>
+		<nav class="mui-bar mui-bar-tab" id="header">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="main.html" style="position: relative !important;top: 2px !important;">
+				<b id="Bmain" class="Bicon mainBActive"></b>
+				<span class="mui-tab-label">首 页</span>
+			</a>
+			<a id="cart" class="mui-tab-item" href="cart.html" style="position: relative !important;top: 2px !important;">
+				<b id="Bgouwu" class="Bicon gouwuB"></b>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a id="circle" class="mui-tab-item" href="circle.html" style="position: relative !important;top: 2px !important;display: none;">
+				<b id="Byou" class="Bicon youB"></b>
+				<em id="mmsg" class="mui-badge infoNum2 mui-badge-danger" style="display: none;"></em>
+				<span class="mui-tab-label">HI友圈</span>
+			</a>
+			<a id="qq" class="mui-tab-item" href="qq.html" style="position: relative !important;top: 2px !important;">
+				<b id="Bkefu" class="Bicon kefuB"></b>
+				<span class="mui-tab-label">客服</span>
+			</a>
+			<a class="mui-tab-item" href="center.html" id="center" style="position: relative !important;top: 2px !important;">
+				<b id="Bwode" class="Bicon wodeB"></b>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<span id="biankuang"></span>
+
+		<script type="text/javascript" src="../js/update_all.js"></script>
+		<script type="text/javascript" charset="utf-8">
+
+			var subpages = ['main.html', 'cart.html', 'circle.html','qq.html','center.html'];
+			var subpages_id = ['main', 'cart', 'circle','qq','center'];
+			var subpage_style = { top: '0px', bottom: '51px',bounce: 'vertical', };
+			var aniShow = {};
+			//创建子页面，首个选项卡页面显示，其它均隐藏;
+			mui.plusReady(function() {
+				document.addEventListener('refresh3', function() {
+					showMessage();
+				})
+
+
+				//显示   广告导航页面
+				openview({
+					view: 'guide.html',
+					id: 'guide',
+				});
+				//版本控制
+				plus.runtime.getProperty(plus.runtime.appid,function(inf){
+		        	plus.storage.setItem("version",inf.version);
+			    });
+			    if(/android/i.test(navigator.userAgent)){
+					plus.storage.setItem("platform",'andriod');
+				}else{
+					plus.storage.setItem("platform",'apple');
+				}
+			    //版本控制结束
+			    function friendOpen(){
+			    		if(/android/i.test(navigator.userAgent)){
+			    			doGame();//转盘抽奖
+			    			mui('#circle')[0].style.display = '';
+						mui.fire(plus.webview.getWebviewById('center.html'),'openf');
+						mui.fire(plus.webview.getWebviewById('main.html'),'openf');
+			    		}else{
+			    			var cityNum  = plus.storage.getItem('cityNum'),
+						oldToken = plus.storage.getItem('oldToken');
+			    			mui.ajax(serverUrl + '/api/index/ishowelement', {
+		                    data: { 'platform':'ios','version':plus.storage.getItem("version")},
+		                    type: 'post',
+		                    timeout: 10000,
+		                    headers: { "token": oldToken ,'city':cityNum},
+		                    success: function(data, type, xhr) {
+		                        console.log("是否打开HI友圈",JSON.stringify(data));
+		                        if(data.errno == 0 && data.data.ishow == 1){
+		                        		doGame();//转盘抽奖
+		                        		mui('#circle')[0].style.display = '';
+									mui.fire(plus.webview.getWebviewById('center.html'),'openf');
+									mui.fire(plus.webview.getWebviewById('main.html'),'openf');
+		                        }else{
+		                       	 	mui('#circle')[0].style.display = 'none';
+		                        }
+
+		                    },
+		                    error: function(xhr, type, errorThrown) {
+		                        console.log('响应失败');
+		                    }
+		                });
+			    		}
+			    }
+//              plus.storage.removeItem("$gameTime");
+				function doGame(){
+					//转盘抽奖
+					if(!JSON.parse(plus.storage.getItem("$gameTime")) || (JSON.parse(plus.storage.getItem("$gameTime")).gameData != new Date().getDate())){
+						var cityNum  = plus.storage.getItem('cityNum'),
+						oldToken = plus.storage.getItem('oldToken');
+						mui.ajax(serverUrl + '/api/index/gamedata', {
+		                    data: { gameId:2},
+		                    type: 'post',
+		                    timeout: 10000,
+		                    headers: { "token": oldToken ,'city':cityNum},
+		                    success: function(data, type, xhr) {
+		                        console.log("游戏数据 ",data);
+		                        if(data.errno == 0){
+		                        	if(data.data.game){
+		                        		var ele =data.data.game;
+		                        		if(ele.startTime && ele.endTime){
+		                        			var nowdate = Date.now();
+		                        			if(nowdate >= ele.startTime && nowdate<ele.endTime){
+		                        				openview({
+												view: 'lottery.html',
+												id: 'lottery',
+											});
+		                        			}
+		                        		}
+
+		                        	}
+
+		                        }
+
+		                    },
+		                    error: function(xhr, type, errorThrown) {
+		                        console.log('响应失败');
+		                    }
+		                });
+					}
+				}
+
+			   	//切换定位, 通过更改缓存 实现 切换地区
+			   	var cityNum = plus.storage.getItem('cityNum');
+				if(cityNum == null){plus.storage.setItem("cityNum",'4');}
+			   	document.addEventListener('switchCity', function(obj) {
+					geoInf({'address':{'city':obj.detail.name}},true);
+
+				})
+
+			   	function distance(lat,lng,goalLat,goalLng){  //经度:lng,106.844003
+	                var EARTH_RADIUS = 6378.137;//地球赤道半径
+	                if(lat != '' && lng != '' && goalLat != '' && goalLng != ''){
+	                      var radLat1 = rad(goalLat);
+	                       var radLat2 = rad(lat);
+	                      var a = radLat1 - radLat2;
+	                      var b = rad(goalLng) - rad(lng);
+	                      var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+	                      s = s * EARTH_RADIUS;
+	                       s = Math.round(s * 10000) / 10000;
+	                       return s*1000;
+	                }else{
+	                    return 0;
+	                }
+	                function rad(d){
+	                   return d * Math.PI / 180.0;
+	                }
+	            }
+			   	Array.prototype.min = function () {
+   	            	var min = this[0];
+   	            	this.forEach(function(ele, index,arr) {
+   	            		if(ele < min) { min = ele; }
+   	            	})
+   	            	return min;
+   	            }
+			   	var nanjiang = [106.844003,32.350423];/*南江*/
+			   	var xuanhan = [107.731522,31.361482];/*宣汉*/
+			   	var linshui = [106.937265,30.346808];/*邻水*/
+			   	var chongqing = [106.550464,29.563761];/*重庆*/
+			   	var nameArray = ['南江','宣汉','邻水','重庆'];
+			   	var alljingwei = [nanjiang,xuanhan,linshui,chongqing];
+
+			   	//地图定位初始化
+				function geoInf(position,Manual) {
+					var cityNum = plus.storage.getItem('cityNum');
+					if(cityNum == null){cityNum = 4}
+					//参数解释   0=其他    1=邻水   2=宣汉  3=南江
+					//所属城市 1重庆 2南江 3宣汉  4邻水
+					if(Manual){/*手动传值时*/
+						var nowCity = position.address.city;
+					}else{
+						var wode = [position.coords.longitude,position.coords.latitude];
+
+						plus.storage.setItem("longLat",JSON.stringify(wode));/*经纬度存入缓存*/
+						//定位传入 后台
+						sendLocation(position.coords.longitude,position.coords.latitude);
+						var distanceA = [];
+		   	            alljingwei.forEach(function(ele,index){
+		   	            	distanceA.push(distance(wode[1],wode[0],ele[1],ele[0]))
+		   	            })
+		   	            var nowCity = nameArray[distanceA.indexOf(distanceA.min())];
+					}
+
+					if(nowCity.indexOf('宣汉')>-1 && cityNum != 3){
+						switchFun('宣汉','3',Manual);
+					}else if(nowCity.indexOf('南江')>-1 && cityNum != 2){
+						switchFun('南江','2',Manual);
+					}else if(nowCity.indexOf('邻水')>-1 && cityNum != 4){
+						switchFun('邻水','4',Manual);
+					}else if(nowCity.indexOf('重庆')>-1 && cityNum != 1){
+						switchFun('重庆','1',Manual);
+					}
+
+				}
+
+				//定位传入后台
+				function sendLocation(lont,lat){
+					console.log('首页定位'+ lont+' '+lat);
+					if(plus.storage.getItem('myToken')){
+						var myuserid = plus.storage.getItem('userid'),
+						    cityNum  = plus.storage.getItem('cityNum'),
+							oldToken = plus.storage.getItem('oldToken');
+						//转换因子
+						var city={};
+						city.longitude = lont;
+						city.latitude = lat;
+						//地球半径
+						var R = 6371.393;
+						var girthY = R * 2 * Math.PI;
+						var girthX = Math.cos(city.latitude / 180 * Math.PI) * girthY ;
+						//x轴转换因子
+						city.xFactor = girthX / 360;
+						//y轴转换因子
+						city.yFactor = girthY / 360;
+						mui.ajax(serverUrl+'/api/index/userlocal',{
+							data:{"location":JSON.stringify(city),"userid":myuserid},
+							dataType:'json',
+							type:'post',
+							timeout:5000,
+							headers: {"token": oldToken,'city': cityNum},
+							success:function(data,type,xhr){
+								console.log('定位传入返回'+JSON.stringify(data));
+							},
+							error:function(xhr,type,errorThrown){
+								loadNum++;
+								if(loadNum<10){
+									console.error('再次登陆'+loadNum);
+									Sign();//递归请求
+								}else{
+									mui.toast('当前网络不好请重试！');
+									console.log('获取自动登录token响应失败');
+								}
+							}
+						});
+					}else{
+						console.log('未登录')
+					}
+
+				}
+
+				function switchFun(city,num,Manual){
+					if(Manual){//手动
+						plus.storage.setItem("cityNum",num);
+						plus.storage.setItem("open19",'open19');
+		            		Preloading();//重新载入底部webview
+		            		mui.toast('切换成功');
+		            		clearInterval(friendOpenTime);
+						var friendOpenTime = setTimeout(function(){
+							friendOpen();
+						},1000)
+					}else{//自动
+						mui.confirm('您离'+city+'最近,是否切换至'+city+'市 !', '提示', ['取消', '确定'], function(e) {
+				            if (e.index == 1) {
+					            	plus.storage.setItem("cityNum",num);
+					            	Preloading();
+					            	mui.toast('切换成功');
+					            	clearInterval(friendOpenTime);
+								var friendOpenTime = setTimeout(function(){
+									friendOpen();
+								},1000)
+				            }
+				        })
+					}
+				}
+				function getGeocode() {/*定位取经纬度*/
+					plus.geolocation.getCurrentPosition(geoInf, function(e) {
+						mui.toast("获取定位失败,请在设置中打开定位,或手动切换最近的城市!");
+					}, {
+						geocode: true,provider: 'amap'
+					});
+				}
+				if(plus.storage.getItem('showLocal')){getGeocode();}//在登录之后 才提示 定位权限
+				//地图定位初始化结束
+				plus.storage.removeItem('oldToken');
+				Sign();
+				var timeSign = null,timeMsg = null;
+				var loadNum = 0;
+				var loadNum2 = 0;
+				clearInterval(timeSign);
+				clearInterval(timeMsg);
+				timeSign = setInterval(Sign,3000000);//两小时自动更新一次token
+				timeMsg = setInterval(showMessage,300000);//5min自动更新一次消息
+				var timeSign2  =  setInterval(function(){
+					loadNum2++;
+					if(plus.storage.getItem('oldToken') || loadNum2==10){
+
+						friendOpen()//是否是否调起交友圈模块
+						//sharecode();//获取分享有礼 时间区间 和邀请码
+						clearInterval(timeSign2);
+					}else{
+						Sign();
+					}
+				},1000)
+				function Sign(){//登录方法
+					//设置默认token
+					if(!plus.storage.getItem('myToken')){//没有用户token
+						mui.ajax(serverUrl+'/api/useraccount/login',{
+							data:{"phone":18180924082,"password":'12345a'},
+							dataType:'json',
+							type:'post',
+							timeout:5000,
+							success:function(data,type,xhr){
+								console.log('默认账号登录返回',data);
+								plus.storage.setItem("oldToken",xhr.getResponseHeader('token'));
+								showMessage();
+								if(/android/i.test(navigator.userAgent)){
+									checkUpdate(true); 
+								}else{
+									checkUpdateIos();
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								loadNum ++;
+								if(loadNum<3){
+									mui.toast('当前网络不好,再次连接');
+								}
+								console.log('获取默认token响应失败');
+							}
+						});
+					}else{
+						var Acc_pass = JSON.parse(plus.storage.getItem("Acc_pass"));
+						//根据缓存密码自动登录, 重新获取Token
+						mui.ajax(serverUrl+'/api/useraccount/login',{
+							data:{"phone":Acc_pass[0],"password":Acc_pass[1]},
+							dataType:'json',
+							type:'post',
+							timeout:5000,
+							success:function(data,type,xhr){
+								console.log('自动登录返回',data);
+								plus.storage.setItem("oldToken",xhr.getResponseHeader('token'));
+								//app升级方法
+								if(/android/i.test(navigator.userAgent)){
+									checkUpdate(true); 
+								}else{
+									checkUpdateIos();
+								}
+								if(data.data.store && data.data.store.canCheckUp == 1){
+									plus.storage.setItem('canCheckUp','yes')
+								}else{
+									plus.storage.setItem('canCheckUp','no')
+								}
+								if(data.data.store && data.data.store.canReviewCheckUp == 1){
+									plus.storage.setItem('canReviewCheckUp','yes')
+								}else{
+									plus.storage.setItem('canReviewCheckUp','no')
+								}
+
+								showMessage();
+							},
+							error:function(xhr,type,errorThrown){
+								loadNum ++;
+								if(loadNum<3){
+									mui.toast('当前网络不好,再次连接');
+								}
+								console.log('获取默认token响应失败');
+							}
+						});
+					}
+				}//登录方法结束
+
+				//消息通知
+				function showMessage(){
+
+					var oldToken = plus.storage.getItem('oldToken');
+					var myuserid = plus.storage.getItem('userid');
+					//显示消息条数
+					if(plus.storage.getItem('myToken')){
+						mui.fire(plus.webview.getWebviewById('circle.html'),'refreshC');
+						mui.fire(plus.webview.getWebviewById('center.html'),'refreshCT');
+						mui.ajax(serverUrl+'/api/index/message',{
+							data:{userid:myuserid,msgType:2},
+							dataType:'json',
+							type:'post',
+							timeout:10000,
+							headers:{"token":oldToken},
+							success:function(data,type,xhr){
+								plus.nativeUI.closeWaiting();
+								console.log('消息hi',data);
+						       	if(data.errno == 0){
+							       	if(data.data && data.data.length){
+							       		var noread = 0 ;
+							       		for(var i =0;i<data.data.length;i++){
+							       			if(!data.data[i].isRead){
+							       				noread++;
+							       			}
+							       		}
+							       		if(noread > 0){
+						       				mui('#mmsg')[0].style.display = 'block';
+						     				mui('#mmsg')[0].innerHTML = noread;
+							       		}else{
+							       			mui('#mmsg')[0].style.display = 'none';
+							       		}
+									}
+						       	}
+						       	plus.nativeUI.closeWaiting();
+							},
+							error:function(xhr,type,errorThrown){
+								plus.nativeUI.closeWaiting();
+							}
+						});
+					}
+
+				}
+
+				//首页webview预加载
+				function Preloading(){
+					var self = plus.webview.currentWebview();
+					for (var i = 0; i < 5; i++) {
+						var temp = {};
+						plus.webview.getWebviewById(subpages[i]) && (plus.webview.getWebviewById(subpages[i]).close());
+						var sub = plus.webview.create(subpages[i],subpages[i], subpage_style);
+						if (i > 0) {
+							sub.hide();
+						}else{
+							temp[subpages[i]] = "true";
+							mui.extend(aniShow,temp);
+						}
+						self.append(sub);
+					}
+				}
+				Preloading();
+				//首页webview预加载结束
+			});
+
+
+			 //当前激活选项
+			var activeTab = subpages[0];
+			 //选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if(targetTab != "qq.html"){
+					var qqmin = plus.webview.getWebviewById('qqmin');
+					if(qqmin){
+						qqmin.close();
+					}
+				}
+			    if(targetTab=="qq.html"){
+					if (targetTab == activeTab) {
+						return;
+					}else{
+						plus.webview.show(targetTab,"fade-in",300);
+						mui.fire(plus.webview.getWebviewById('qq.html'),'refresh')
+					}
+				}else{
+					if (targetTab == activeTab) {
+						return;
+					}
+					plus.webview.show(targetTab,"fade-in",300);
+					//隐藏当前;
+				}
+
+				plus.webview.hide(activeTab);
+				var activeTabS = activeTab,targetTabS = targetTab;//待优化
+				activeTab = targetTab;
+				//更改当前活跃的选项卡
+				var Bicons = document.getElementsByClassName('Bicon');
+				var pagesBtn = ['main.html', 'cart.html', 'circle.html','qq.html','center.html'];
+				var iconBtn = ['Bmain', 'Bgouwu', 'Byou','Bkefu','Bwode'];
+				var classU = ['mainB', 'gouwuB', 'youB','kefuB','wodeB'];
+				var classC = ['mainBActive', 'gouwuBActive', 'youBActive','kefuBActive','wodeBActive'];
+				//变灰
+				document.getElementById(iconBtn[pagesBtn.indexOf(activeTabS)]).className = classU[pagesBtn.indexOf(activeTabS)];
+				//变亮
+				document.getElementById(iconBtn[pagesBtn.indexOf(targetTabS)]).className = classC[pagesBtn.indexOf(targetTabS)];
+				//更改当前活跃的选项卡结束
+
+			});
+			//自定义事件，模拟点击“首页选项卡”
+			document.addEventListener('gohome', function(obj) {
+				var hrefid=obj.detail.hrefid;
+				var defaultTab = document.getElementById(hrefid);
+				//模拟首页点击
+				mui.trigger(defaultTab, 'tap');
+				//切换选项卡高亮
+				var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+				if (defaultTab !== current) {
+					current.classList.remove('mui-active');
+					defaultTab.classList.add('mui-active');
+				}
+			});
+
+		</script>
+	</body>
+
+</html>

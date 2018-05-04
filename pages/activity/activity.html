@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>活动</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" href="../../css/reset.css">
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style type="text/css">
+		header{
+			box-shadow: none!important;
+		}
+		.activityIcon{
+			width: 0.3rem;
+			margin: 0 5px 0 15px;
+			vertical-align: middle;
+		}
+		dl.list{
+			border: none;
+		}
+		.aclist{
+			padding: 0 auto 0.05rem auto;
+			display: flex;
+			align-items: center;
+		}
+		.acleft img{ 
+			width: 1rem; 
+			max-height: 1rem;
+		}
+		.acright{ 
+			width:-moz-calc(100% - 1rem);
+			width:-webkit-calc(100% - 1rem);
+			width: calc(100% - 1rem);
+			font-size: 0.14rem; 
+    		padding-left: 5%; 
+    		line-height: 1.5;
+		}
+		 
+		.ddafter{ 
+			padding:12px 12px;
+			position: relative; 
+		}
+		.ddafter:not(:last-child):after{
+			content: '';
+			position: absolute;
+			width: 100%;
+			display: block;
+			bottom: 0;
+			height: 1px;
+			left: 0;
+			background-color: rgba(0,0,0,0.1);
+			-webkit-transform: scaleY(0.5);
+		}
+		
+	 
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		    <h1 class="mui-title">活动</h1>
+		</header>	
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="main">		
+			<div style="background-color: white;" id="Alist"></div>
+			<!--渲染数据-->
+			<script type="text/html" id="Alist-detail">
+				<% for(var i = 0;i<objData.length;i++){ %>
+					<div class="mui-table-view-cell ddafter" onclick="activity(<%= objData[i].id %>)">
+						<div class="mui-row aclist">
+							 <div class="acleft">
+							 	<%if(objData[i].picImg){%>
+							 		<img name="<%= objData[i].picImg%>" onerror="this.src='../../img/market/none.png'" src="<%= objData[i].picImg%>" alt="" />
+							 	<%}else{%>
+							 		<img src="../../img/market/none.png" alt="" />
+							 	<%}%>	
+							 	
+							 </div>
+							 <div class="acright"> 
+							 	<div class=""><%= objData[i].title %></div>
+							 	<div style="color: #999;"><small><img src="../../img/market/time.png" style="width: 12px;"/> <%= objData[i].begin_time%> ~ <%= objData[i].end_time%></small></div>
+							 	<!--<div><small>店铺名称： <%= objData[i].site %></small></div>-->
+							 </div>
+						</div>
+					</div>
+				<% } %>
+			</script>
+			<div id="nulldiv" style="text-align:center;margin-top: 40%;font-size: 14px;color: #999;display: none;">
+				<img style="width: 30%;margin-bottom: 5%; " src="../../img/unllfabu.svg"/>
+				<br />
+				没有相关活动
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript"> 
+		mui.plusReady(function(){
+			var oldToken = plus.storage.getItem('oldToken'),
+		 		cityNum = plus.storage.getItem('cityNum'),
+		 		myuserid = plus.storage.getItem('userid');
+			//铺数据
+			plus.nativeUI.showWaiting("加载中...",{width:'100px',height:'80px'});
+			var oldToken = plus.storage.getItem('oldToken');
+			mui.ajax(serverUrl+'/api/index/couponoractivity',{
+				data:{"type":1},
+				type:'post',
+				timeout:10000,
+				headers:{"token":oldToken,"city":cityNum},	 
+				success:function(data){
+					console.log('活动列表返回',data);
+					if(data.errno == 0){
+						if(data.data.length){
+							var dateObj={};
+							for(var i = 0;i < data.data.length;i++){
+								var dt = new Date(data.data[i].begin_time);
+					       		var dt2 = new Date(data.data[i].end_time);
+								var date = [
+								  [dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join('-')].join(' ').replace(/(?=\b\d\b)/g, '0'); // 正则补零
+								var date2 = [
+								  [dt2.getFullYear(), dt2.getMonth() + 1, dt2.getDate()].join('-')].join(' ').replace(/(?=\b\d\b)/g, '0'); // 正则补零
+								
+								data.data[i].begin_time = date;
+								data.data[i].end_time = date2;
+							}
+							dateObj.objData=data.data;
+							dateObj.url = serverimgUrl;
+							mui('#Alist')[0].innerHTML = template('Alist-detail',dateObj);
+						}else{
+							mui('#nulldiv')[0].style.display = 'block';
+						}
+					}else{
+						mui.toast('响应失败  !');
+						mui('#nulldiv')[0].style.display = 'block';
+					}
+					plus.nativeUI.closeWaiting();
+				},
+				error:function(xhr){
+					mui('#nulldiv')[0].style.display = 'block';
+					plus.nativeUI.closeWaiting();
+					mui.toast('响应失败  !');
+				}
+			});
+		});
+		//打开详情
+		function activity(id){
+			openview({
+				view:'activityDetail.html',
+				id:'activityDetail', 
+				extrasobj:{activityId:id}
+			})
+		}
+	</script>
+	<script type="text/javascript">
+		//天天特价  discountGoods, 领嗨豆  getHIdou, 团购  groupBuying, 本地生活 localLife, 跨境优品   loveToGogoods, 电影 movie,
+		//充值缴费   payment,  为民服务  serveForPeople,  购物中心 shopCenter, 注册  signUp, 特色馆 specialBar
+		mui.plusReady(function () {
+			var startTime, endTime, stayTime, flagback = 0;
+			startTime = new Date().getTime();
+			var old_back = mui.back;
+			//改写返回键返回的函数，返回时传页面停留时间 
+			mui.back = function(){
+				endTime = new Date().getTime();//返回时间
+				stayTime = Math.ceil((endTime - startTime) / 1000);   
+				console.log('购物中心-活动'+stayTime); 
+				plus.statistic.eventDuration( "shopCenterActivity", stayTime);
+				//计算事件，计算出返回时在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				old_back(); 
+			}
+			plus.webview.currentWebview().addEventListener( "popGesture", function(){
+				flagback++;
+				if(flagback == 1){
+					endTime = new Date().getTime();
+					stayTime = Math.ceil((endTime - startTime) / 1000);  
+					plus.statistic.eventDuration( "shopCenterActivity", stayTime);
+					//计算事件，计算出苹果右滑返回后在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				}
+			}, false );
+		});
+	</script> 
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商店楼层列表</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" href="../../css/reset.css">
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.min.js"></script> 
+		<script src=" ../../js/hmt.js" type="text/javascript"></script>
+		<script src="../../js/other.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/app.js" type="text/javascript" ></script>
+		
+		<!--引入模板引擎-->
+		<script src="../../js/artTemplate-native.js" type="text/javascript" ></script>
+		<style type="text/css">
+			.mui-bar{
+				height: 50px;
+				box-shadow: none;
+			}
+			.ac1,.ac2{
+				color: red;
+			}
+			.mui-title,.mui-icon{
+				line-height: 50px;
+			}
+			.mui-bar .mui-icon{
+				padding: 0;
+			}
+			#main{
+				margin-top: 50px;
+			}
+			.grade-eject>ul, .Category-eject>ul, .Sort-eject>ul{
+				height: auto;
+			}
+			/*这一页*/
+			.grade-eject, .Category-eject, .Sort-eject{
+				height: 327px;
+			}
+			div.screening>ul{padding: 5px 50px;}
+			
+			div.screening>ul>li{
+				border-left:none!important;
+			}
+			div.screening>ul{
+				border-bottom:1px solid #eee; 
+			}
+			dl.list dt, dl.list dd,dl.list{
+				border-bottom: 0;
+				margin: 0 5px;
+				position: relative;
+			}
+			dl.list dt:not(:last-child):after, dl.list dd:not(:last-child):after,dl.list:not(:last-child):after{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				display: block;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(0.5);
+			}
+			.dealcard .dealcard-block-right:after{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				display: none;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(0.5);
+			}
+			.dealcard .title, .cinemacard .title{
+				color: #999;
+				font-size: 12px !important;
+			}
+			.dealcard .strong, .dealcard .strong{
+				color: #999;
+				font-size: 20px !important;
+				line-height: 30px;
+			}
+			.dealcard .title, .dealcard .price{
+				height: 30px;
+				margin: 5px 0;
+			}
+			.right{
+				text-align: right;
+			}
+			.middle{
+				text-align: center;
+			}
+			.strong-color{
+				color: #f53c42 !important;
+			}
+			.Lgray{
+				font-size: 12px !important;
+				color: #999 !important;
+				margin-top: 14px;
+			}
+			.mui-badge-blue, .mui-badge-primary{
+				background-color: #fff;
+				border: 1px solid #999;
+				color: #999 !important;
+			}
+			.dealcard .title span{
+				top: 0;
+				left: 0;
+				position: relative;
+			}
+			.bage{
+				width: 100%;
+			}
+			dl.list .dd-padding, dl.list dt, dl.list dd>.react {
+				padding: 10px;
+				margin: 10px 0;
+			}
+			.dealcard .dealcard-brand, .cinemacard .cinemacard-brand{
+				font-size: 16px;
+			}
+			.dealcard .dealcard-brand{
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				display: block;
+				line-height: 22px;
+			}
+			.dealcard .title span, .dealcard .price span {
+				font-size: .12rem;
+			}
+			.dealcard .dealcard-img{
+				width: 28%;
+				height: auto !important;
+				max-height: 106px !important;
+				margin-top: -4px;
+				border-radius: 0 !important;
+			}
+			.dealcard .dealcard-block-right {
+				padding-left: 10px;
+				float: right;
+				width: 70%;
+				max-height: 106px;
+				overflow: hidden;
+			}
+			.mui-bar-nav.mui-bar .mui-icon{margin-left: 0;}
+			.imgbox{
+				background-image: none;
+			}
+			.dealcard-img img {
+				max-width: 100%;
+				max-height: 106px;
+			}
+			.moreone{
+				line-height: 50px;
+			}
+			dl.list .db>.react{
+				padding: 0;
+				margin: 0;
+			}
+			dl.list .db{
+				height: 50px;
+			}
+			.grade-eject>ul>li, .Category-eject>ul>li, .Sort-eject>ul>li{
+				line-height: 40px;
+			}
+			.Regional{
+				background-image: none !important; 
+			}
+			#upload{ 
+				text-align: center;font-size: 15px;line-height: 30px;min-height: 40px;
+			}
+			#upload img{width: 60px;margin-top: -15px;
+			}
+			div.screening>ul>li{
+				width: 50%;
+			}
+			.mui-icon-arrowright{
+				line-height: 100px;
+				color: #999;
+				float: right;
+			}
+			.info{
+				line-height: 30px;
+			}
+			dl.list{
+				border-top: 0; 
+				margin-bottom:10px!important ;
+			}
+			.grade-w-roll{top: 98px;}
+			.grade-eject>ul>li, .Category-eject>ul>li, .Sort-eject>ul>li{border-bottom: none!important;position: relative;}
+			.grade-eject>ul>li:after, .Category-eject>ul>li:after, .Sort-eject>ul>li:after{content: '';
+				display: block;
+				height: 1px;
+				background-color: #eee;
+				-webkit-transform: scaleY(.5);right: 5px;
+			}
+			div.screening>ul>li{
+				background: url(../../img/localLife/xiala.png) no-repeat 68% center;
+    			background-size: 12%;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			<h1 class="mui-title">商店列表</h1>
+		</header>
+		
+		 <div class="screening" id="screeningdiv" style="top: 50px;">
+		    <ul>
+		        <li class="allf" style="background: none;">全部</li>
+		        <li class="Brand">楼层 &nbsp;&nbsp;</li>
+		    </ul>
+		</div>
+		
+		<div class="Category-eject">
+		    <ul class="Category-w" id="Categorytw">
+		        <li class="ac1" data-id="">全部</li>
+		        <li data-id="UG">UG</li>
+		        <li data-id="LG">LG</li>
+		        <li data-id="L1">L1</li>
+		        <li data-id="L2">L2</li>
+		        <li data-id="L3">L3</li>
+		        <li data-id="L4">L4</li>
+		        <li data-id="L5">L5</li>
+		        <li data-id="L6">L6</li>
+		        <li data-id="L7">L7</li>
+		        <li data-id="L8">L8</li>
+		    </ul>
+		</div>
+		<div class="Sort-eject Sort-height">
+		    <ul class="Sort-Sort" id="Sort-Sort">
+		    	<li class="ac2" data-id="">全部业态</li>
+		    </ul>
+		    <script type="text/html" id="ytTpl">
+		    		<% for(var i=0;i<list.length;i++){ %>
+		    			<li data-id="<%=list[i].id%>"><%=list[i].type_name%></li>
+		    			<%}%>
+		    	</script> 
+		</div>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="container">		
+			<div id="main">
+				<div class="guess-like">
+					<div id="storeItem"></div>
+				</div>
+				<div class="upload text-center text-xs gray" id="upload"></div>
+					<div id="nulldiv" style="text-align:center;margin-top: 40%;font-size: 14px;color: #999;display: none;">
+					<img style="width: 30%;margin-bottom: 5%; " src="../../img/unllfabu.svg"/>
+					<br />
+					没有相关信息
+				</div>
+			</div>
+		</div>
+		
+		<!--模板渲染数据-->
+		<script id="storeItem-detail" type="text/html">
+			<%if(recommentLi.length==0){%>
+				<!--<div style="font-size:14px;color:gray;padding: 10px;text-align: center;">暂无数据,看看别的吧</div>-->
+			<%}else{%>
+				
+				
+				<% for(var i=0;i<recommentLi.length;i++){ %>
+					  
+					 <dl class="list" id="goodsList">
+						<dd class="goodsItem">
+							<a class="react" onclick="goInfo('<%=recommentLi[i].store_id%>')">
+								<div class="dealcard">
+									<div class="dealcard-img imgbox">
+										<%if(!recommentLi[i].logo){%>
+											<img src="../../img/market/shop.png"/>
+										<%}else if(recommentLi[i].logo.indexOf('http')<0){%>
+										<img src="<%=myurl%><%=recommentLi[i].logo%>"/>
+											<%}else{%>
+												<img src="<%=recommentLi[i].logo%>"/>
+											<%}%>
+									</div>
+									<div class="dealcard-block-right mui-row">
+										<div class="mui-col-sm-10 mui-col-xs-10">
+											<div class="dealcard-brand single-line"><%= recommentLi[i].barnd_name %></div>
+											<!--<p class="info"><%= recommentLi[i].store_type %></p>-->
+											<p class="info"><%= recommentLi[i].floor_name %>楼<%= recommentLi[i].door_no %>号店铺</p>
+											<p class="info"><!--<img src="../../img/market/findstore.png" style="width: 10px;margin-right: 5px;"/>-->店内电话:<%= recommentLi[i].phone %></p>
+										</div>
+										<div class="mui-col-sm-2 mui-col-xs-2">
+											<span class="mui-icon mui-icon-arrowright"></span>
+										</div>
+									</div>
+								</div>
+							</a>
+						</dd>
+					</dl>
+				<% } %>
+			<%}%>
+		</script>
+	</body>
+
+	<script type="text/javascript">
+		var Spagenum = 2;//实到页数
+		var Ypagenum = 1;//应到页数 
+		mui.plusReady(function(){
+		 plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});//显示等待框
+		 var oldToken = plus.storage.getItem('oldToken'),
+		 		cityNum = plus.storage.getItem('cityNum'),
+		 		myuserid = plus.storage.getItem('userid');
+		 order('');//初始化
+		 //获取业态
+//		 mui.ajax(serverUrl+'/api/mall/mallcategory',{
+//				data:{"gid":0},
+//				type:'post',
+//				timeout:10000,
+//				headers:{"token":oldToken},	              				
+//				success:function(data,type,xhr){ 
+//					if(data.data.length!=0){ 
+//						var ytList = {};
+//						ytList.list = data.data;
+//						document.getElementById('Sort-Sort').innerHTML+=template('ytTpl',ytList);
+//						
+//					 	$('.Sort-Sort li').click(function(){
+//							$('.Sort-Sort li').removeClass("ac2");
+//							$(this).addClass("ac2")
+//							$(".Sort-eject").removeClass("grade-w-roll");
+//							var ac1name = $('.ac1').attr("data-id");
+//							order(ac1name,$(this).attr("data-id"))
+//						})
+//					}
+//					
+//				},
+//				error:function(xhr,type,errorThrown){
+//				}
+//			});
+		$(".allf").click(function(){
+			$(this).css('color','red')
+			$('.Brand').css('color','black')
+			order('');
+		})
+	 	$('.Category-w li').click(function(){
+	 		$('.Brand').css('color','red')
+	 		$(".allf").css('color','black')
+			$('.Category-w li').removeClass("ac1");
+			$(this).addClass("ac1") 
+			$(".Category-eject").removeClass("grade-w-roll")
+				var ac2name = $('.ac2').attr("data-id"); 
+						order($(this).attr("data-id"))
+		})
+	 	
+			//按照选择排序
+		  function order(floor){
+ 				var currentPage =1, numsPerPage=8;
+			
+			plus.nativeUI.showWaiting()
+			mui.ajax(serverUrl +'/api/mall/storelist',{
+				data:{currentPage:currentPage,numsPerPage:numsPerPage,floor:floor,commercial_type_name:'',subcommercial_type_name:'',store_distinction:'1'},//以及业态
+				dataType:'json',
+				type:'post',
+				timeout:10000,
+				headers:{"token":oldToken,"city":cityNum},	 
+				success:function(data,type,xhr){
+					console.log('店 列表',data)
+					if(data.data.data.length!=0){
+						console.log(JSON.stringify(data))
+						var recommentObj = {};  
+						recommentObj.myurl = serverimgUrl;
+						recommentObj.recommentLi = data.data.data;
+	//					recommentObj.recommentImg = img;
+						var html2 = template('storeItem-detail',recommentObj);
+						document.getElementById('storeItem').innerHTML= html2;
+						mui("#upload")[0].innerHTML = "";
+			               //上滑加载
+		                   $(window).scroll(function(){
+	
+							　　var scrollTop = $(this).scrollTop();
+							　　var scrollHeight = $(document).height();
+							　　var windowHeight = $(this).height();
+							　　if(scrollTop + windowHeight == scrollHeight){
+								if(Spagenum<=data.data.totalPages && Spagenum==Ypagenum+1){//当前页小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "<img src='../../img/balls.svg' />";
+									Ypagenum++;//满足加载情况,应到页数+1
+									console.log('发起请求,实到'+Spagenum+'页');									
+									console.log('发起请求,应到'+Ypagenum+'页');
+									mui.ajax(serverUrl +'/api/mall/storelist',{
+										data:{currentPage:Spagenum,numsPerPage:numsPerPage,floor:floor,commercial_type_name:'',subcommercial_type_name:'',store_distinction:'1'},
+										dataType:'json',
+										type:'post',
+										timeout:10000,
+										headers:{"token":oldToken,"city":cityNum},	 
+										success:function(data,type,xhr){
+											plus.nativeUI.closeWaiting();
+											var recommentObj = {};  
+											recommentObj.myurl = serverimgUrl;
+											recommentObj.recommentLi = data.data.data;
+											var html2 = template('storeItem-detail',recommentObj);
+											document.getElementById('storeItem').innerHTML+= html2;
+											mui("#upload")[0].innerHTML = " ";
+											Spagenum++;//加载成功,当前页+1
+											console.log('成功+1,实到'+Spagenum);
+											console.log('成功+1,应到'+Spagenum);
+											 
+										},
+										error:function(xhr,type,errorThrown){
+											Ypagenum--;//失败是应到-1
+											mui.toast("当前网络不好请重试");
+											mui("#upload")[0].innerHTML = "";
+										}
+									});
+								}else if(Spagenum == data.data.totalPages+1){//当前页不小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "到底了";
+								}
+							  }
+						  });//加载下一部分结束
+					}else{
+						document.getElementById('storeItem').innerHTML = '<div style="font-size:14px;color:gray;padding: 10px;text-align: center;">暂无数据,看看别的吧</div>'
+					}
+					plus.nativeUI.closeWaiting();//关闭等待框
+
+				},
+				error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();//关闭等待框
+					mui("#upload")[0].innerHTML = ""; 
+					mui('#nulldiv')[0].style.display = 'block'; 
+				}
+			});
+			
+		} 
+			
+			//跳转详情
+			window.goInfo =  function(store_id){
+				 openview({
+				 	view:"shophome.html",
+				 	extrasobj:{storeId:store_id,storeType:1}
+				 })
+			}
+			
+		});
+		
+		
+	</script>
+	<script type="text/javascript">
+		//天天特价  discountGoods, 领嗨豆  getHIdou, 团购  groupBuying, 本地生活 localLife, 跨境优品   loveToGogoods, 电影 movie,
+		//充值缴费   payment,  为民服务  serveForPeople,  购物中心 shopCenter, 注册  signUp, 特色馆 specialBar
+		mui.plusReady(function () {
+			var startTime, endTime, stayTime, flagback = 0;
+			startTime = new Date().getTime();
+			var old_back = mui.back;
+			//改写返回键返回的函数，返回时传页面停留时间 
+			mui.back = function(){
+				endTime = new Date().getTime();//返回时间
+				stayTime = Math.ceil((endTime - startTime) / 1000);   
+				console.log('购物中心-'+stayTime); 
+				plus.statistic.eventDuration( "shopCenterShop", stayTime);
+				//计算事件，计算出返回时在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				old_back(); 
+			}
+			plus.webview.currentWebview().addEventListener( "popGesture", function(){
+				flagback++;
+				if(flagback == 1){
+					endTime = new Date().getTime();
+					stayTime = Math.ceil((endTime - startTime) / 1000);  
+					plus.statistic.eventDuration( "shopCenterShop", stayTime);
+					//计算事件，计算出苹果右滑返回后在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+				}
+			}, false );
+		});
+	</script> 
+
+</html>

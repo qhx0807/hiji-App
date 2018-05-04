@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>我关注的</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">  
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/> 
+		<link rel="stylesheet" type="text/css" href="../../css/config.css"/> 
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/artTemplate-native.js"></script>
+		 
+	</head>
+	<style type="text/css">
+		.follow{position:relative;}
+		.follow{background-color:#fff;padding:15px 10px;}
+		.follow:after{position:absolute;right:10px;bottom:0;left:10px;height:1px;background:#cacaca;content:'';-webkit-transform:scaleY(.3);}
+		.follow:last-child:after{height:0;}
+		.fchidl{display:flex;align-items:center;justify-content:space-between;}
+		.userAvator{margin-right:15px;width:3rem;height:3rem;border-radius:50%;}
+		.fchidl>div{display:flex;vertical-align:middle;text-align:left;font-size:15px;align-items:center;}
+		.text{color:#999;}
+		.diybtn{background: url(../../img/makeFriend/follow.png) no-repeat;background-size: 100% 100%;background-position: left top;color: white;padding: 6px 0px;width: 75px;text-align: center;}
+  		.diybtn2{background: url(../../img/makeFriend/unfollw.png) no-repeat;background-size: 100% 100%;background-position: left top;color: #31c58b;padding: 6px 0px;width: 75px;text-align: center;}
+		.yhm{width:calc((100vw - 50px)/3);width:-webkit-calc((100vw - 50px)/3);width:-moz-calc((100vw - 50px)/3);height: calc((100vw - 20px)/3);height: -webkit-calc((100vw - 20px)/3);height: -moz-calc((100vw - 20px)/3);margin-left: 5px;margin-top:10px ;}
+		
+	</style>
+
+	<body style="background-color: #F3F3F3;">
+
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize back"></a>
+			<h1 class="mui-title findUser">我关注的</h1>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="main">
+			  
+			 <div id="meLike"></div>
+			 <script type="text/html" id="meLikeTpl">
+			 	 						 
+			 	<div class="listCon">
+			 		<%for(var i = 0;i<list.length;i++){%>
+			 			<%if(list[i].user_id && list[i].user_id!=null){%>
+			 				<div class="follow" onclick="goOtherIndex(<%=list[i].user_id%>)"> 
+							<div class="fchidl">
+								<div>
+									<%if(list[i].avatar && list[i].avatar!= 'null'){%>
+										<img src="<%= list[i].avatar%>" class="userAvator mr25"/>
+										<%}else{%>
+											<img src="../../img/10.png" class="userAvator mr25"/>
+										<%}%>
+
+									<div>
+										<%= list[i].nickname%>
+										
+									</div>
+								</div> 
+								<div class="disablecl ft12" data-id="<%=list[i].user_id%>"> 
+									<%if(list[i].eachOther == 1){%>
+										<div class="diybtn" style="display: none;">
+											 关注
+											</div>
+										<div class="diybtn2">
+											互相关注
+										</div> 
+										<%}else{%>
+											<div class="diybtn2">
+												取消关注
+											</div>
+											<div class="diybtn" style="display: none;">
+												关注
+											</div> 
+											<%}%>
+									
+					           </div> 
+							</div>  
+						</div>
+			 				<%}%>
+						
+					<%}%>
+				 
+				</div> 
+			 	
+			 	
+			 </script>
+    		
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		var old_back = mui.back;
+			mui.back = function(){
+			var parentPage =plus.webview.getWebviewById('mycircleIndex');
+			mui.fire(parentPage,'refresh');
+			old_back();
+		};
+ 		function goOtherIndex(id){
+ 			openview({
+	    		view:'elsecircleIndex.html',
+	    		id:'elsecircleIndex',
+	    		extrasobj:{userId:id}
+	    	})
+ 		}
+		mui.plusReady(function(){
+			var oldToken = plus.storage.getItem('oldToken');
+			var cityNum = plus.storage.getItem('cityNum');
+			var	myuserid = plus.storage.getItem('userid');
+			var fmsg = plus.webview.currentWebview().page;
+			
+			mui.ajax(serverUrl+'/api/friends/likeusers',{
+				data:{"userId":myuserid},
+				type:'post',
+				timeout:8000,
+				headers:{"token":oldToken,"city":cityNum},	              				
+				success:function(data,type,xhr){
+					console.log('获取数据返回',data);
+					if(data.errno == 0){
+						if(data.data.ILikeUsers && data.data.ILikeUsers.length){
+							[].forEach.call(data.data.ILikeUsers,function(ele){
+									if(!ele.nickname){
+										ele.nickname = '匿名'
+									}else{ 
+										if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(ele.nickname)){
+											ele.nickname = ele.nickname.substring(0,3)+"****"+ele.nickname.substring(7,11);
+										}
+									} 
+									if(ele.avatar && ele.avatar!='null'){
+										if(JSON.parse(ele.avatar)[0].picImg.indexOf('http')== -1){
+											ele.avatar = serverimgUrl + JSON.parse(ele.avatar)[0].picImg;
+										}else{
+											ele.avatar = JSON.parse(ele.avatar)[0].picImg;
+										}
+									}else{
+										ele.avatar = '../../img/10.png'
+									}
+									if(data.data.LikeMeUsers && data.data.LikeMeUsers.length){
+										[].forEach.call(data.data.LikeMeUsers,function(ele2){
+										 
+											if(ele.user_id == ele2.user_id){
+												ele.eachOther = 1
+											}
+										})
+									}
+								})
+							console.log('wl',data.data.ILikeUsers)
+							
+							var likeMeObj = {}
+							likeMeObj.list = data.data.ILikeUsers;
+							likeMeObj.url = serverimgUrl;
+							var html = template('meLikeTpl', likeMeObj); 
+							document.getElementById('meLike').innerHTML = html;	
+							if(fmsg == 'fmsg'){
+								$('.disablecl').hide();
+							}
+							$('.diybtn').click(function(){ 
+								var curL = $(this);
+					    		var likerId = $(this).parent().attr('data-id');
+					    		//关注 
+					    		followBack(curL,likerId,'put')
+					    		 
+					    	})
+							
+							//取消关注
+							$('.diybtn2').click(function(){
+								var curL = $(this);
+					    		var likerId = $(this).parent().attr('data-id');
+					    		followBack(curL,likerId,'get')
+					    		
+					    	})
+							
+						}else{
+							document.getElementById('meLike').innerHTML = "<div style='text-align: center;padding: 30px;color:#666;font-size: 14px;'>还未关注任何人哦</div>";
+						}
+					}else{
+						console.log(data.errmsg); 
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					console.log('获取数据,响应失败');
+				}
+			});
+			
+		})
+		
+	</script>
+
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>创建圈子</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />   
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/> 
+		<link rel="stylesheet" type="text/css" href="../../css/config.css"/> 
+	</head>
+	<style type="text/css"> 
+	 	.rule{position:absolute;top:50%;left:0;width:100%;-webkit-transform: translateY(-50%);}
+		.rule img{margin: auto;display: block;width: 40%;height: calc( 100vw * 0.4);}
+		.circleInput{display: flex;justify-content: center;align-items: center;border-bottom: 1px solid #fa3b3c;width: 80%;margin: auto;margin-top: 20px;}
+		.circleInput input{border: none;width: 80%;margin: 0;text-align: center;width:65%;}
+		.chargeUnit{text-align: center;padding: 20px 5px;}
+		.diybut{color: #999;background:url(../../img/makeFriend/cc.png) no-repeat;background-size: 100% 100%;background-position: left top;width: 70px;text-align: center;padding: 8px 0;display: inline-block;margin: 5px;} 
+		.diybuted{background:url(../../img/makeFriend/dd.png) no-repeat;color: white;background-size: 100% 100%;background-position: left top;width: 70px;text-align: center;padding: 8px 0;display: inline-block;margin: 5px;}
+	    .disbg{border: none;background-color: #f3f3f3;border-radius: 5px;display: block;width: 90%;margin: auto;}
+	    .onepic{position: relative;}
+	    .doc-form-file{width: 40%;position: absolute;top: 0;left: 50%;-webkit-transform: translateX(-50%);opacity: 0;bottom: 60%;}
+	   
+	</style>
+	<body style="background-color: white;padding-bottom: 0;">
+		 
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="goBack mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			<h1 class="mui-title">创建圈子</h1>
+			<a class="mui-pull-right ft14 nextStep disablecl" style="line-height: 50px;color: #555;">完成</a> 
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="main">
+		 	<!--遮罩-->
+			<div id="maskInfo">
+			<div class="rule">
+				<div class="onePic">
+					 <!--<input class="doc-form-file" type="file">-->
+					<img src="../../img/answer/goanswer/addpic.png" onclick="galleryImgsSelected()" class="disreve" />
+				</div>
+				<div class="circleInput">
+			 	 	<input type="text" id="Cname" placeholder="请输入圈子名称" />
+			 	</div>
+			 	<div class="chargeUnit ft14">
+			 		<!--<div class="diybut">
+			 			科技
+			 		</div> 
+			 		<div class="diybut">
+			 			文艺
+			 		</div>
+			 		<div class="diybut">
+			 			时尚
+			 		</div>
+			 		<div class="diybut">
+			 			娱乐
+			 		</div>
+			 		<div class="diybut">
+			 			经济
+			 		</div>
+			 		<div class="diybut">
+			 			教育
+			 		</div>
+			 		<div class="diybut">
+			 			健康
+			 		</div>
+			 		<div class="diybut">
+			 			生活
+			 		</div>-->
+			 	</div>
+				<textarea id="Cmiaoshu" class="disbg ft14" minlength='4' maxlength='40' rows="3" placeholder="圈子简介（选填）"></textarea>
+				
+			</div>	
+			</div>
+		</div>  
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var Apic = '';//图片存放数组 
+			function galleryImgsSelected(){//从相册中选择图片
+				mui.plusReady(function(){
+				    plus.gallery.pick( function(e){
+				    	Apic = [];
+			    		if(0!=e.files[0].indexOf("file://")){
+							e.files[0]="file://"+e.files[0];//图片地址
+						}
+			    		var nowpic = Math.random().toString(36).substr(2) + '.jpg';//随机字符串
+			    		var endpic = e.files[0].split('.')[0]+"/" +nowpic;
+			    		//压缩方法
+		    			plus.zip.compressImage({
+							src:e.files[0],
+							dst:endpic,
+							overwrite:true, 
+							quality:30
+						},
+						function(obj) {
+							console.log(obj.target);
+							Apic = obj.target;
+							if(0!=obj.target.indexOf("file://")){
+								obj.target="file://"+obj.target;
+							}
+							mui('.disreve')[0].src = obj.target;
+						},function(error) {
+							mui.toast('图片获取错误，请重试');  
+						});
+				    		
+				    }, function ( e ) {  
+		    		},{filter:"image",multiple:true,maximum:1,system:false,onmaxed:function(){
+				    }});
+				})	
+			}//从相册中选择图片结束
+			
+			//发送 发布
+			mui('.nextStep')[0].addEventListener('tap',function(){
+				mui.plusReady(function(){
+				var hidou = plus.webview.currentWebview().charges; 
+					var cityNum  = plus.storage.getItem('cityNum'),
+						oldToken = plus.storage.getItem('oldToken'),
+					 	myuserid = plus.storage.getItem('userid'),
+				 	    Cname = mui('#Cname')[0],
+				 	    Cmiaoshu = mui('#Cmiaoshu')[0];
+				 	if(!Cname.value){
+				 		mui.toast('请填写名称');
+				 	}else if(!Apic){
+				 		mui.toast('请选择封面');
+				 	}else{
+				 		plus.nativeUI.showWaiting();
+				 		releaseData();
+				 	}
+				 	
+				 	//发送数据
+				 	function releaseData(){
+						var task = plus.uploader.createUpload(serverUrl+'/api/friends/space', 
+							{ method:"POST"},
+							function(back,status){
+								if(status == 200){
+									console.log(back.responseText);
+									var dataobj = JSON.parse(back.responseText);
+									if(dataobj.errno == 0){
+										//mui.fire(plus.webview.getWebviewById('circle.html'),'refresh');
+										var time2 = setTimeout(function(){
+											mui.toast('发布成功');
+											plus.nativeUI.closeWaiting();
+											if(plus.webview.getWebviewById('chargeCircle')){
+												plus.webview.getWebviewById('chargeCircle').close();
+											}
+											mui.fire(plus.webview.getWebviewById('circleAll'),'refreshac');
+											plus.webview.currentWebview().close();
+										},800)
+		    						}else{
+		    							plus.nativeUI.closeWaiting();//关闭等待框
+		    							mui.toast('发布失败，请重试！');
+		    							plus.nativeUI.closeWaiting();
+		    						}
+								}else{
+									plus.nativeUI.closeWaiting();//关闭等待框
+									mui.toast('当前网络不好，请重试！');	
+								}
+								
+							}
+						);
+						task.setRequestHeader('token',oldToken);
+						task.setRequestHeader('city',cityNum);
+						task.addData("userId",myuserid); 
+						task.addData("description",Cmiaoshu.value);
+						task.addData("name",Cname.value);
+						task.addData("price",hidou);
+						if(Apic){
+							task.addFile(Apic, {key:'0'});
+							task.start();
+						}else{
+							mui.toast('没有图片,请重试');
+						}
+						
+				 	}
+				 	//发送数据结束
+				})
+			})
+		</script>
+		<script type="text/javascript">
+		 
+	 
+		$('.diybut').click(function(){
+			$(this).toggleClass('diybuted')
+		})
+		
+
+		
+
+
+        
+        //上传图片结束
+		</script>
+	</body>
+
+</html>

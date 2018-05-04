@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>引导图</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			#close {
+				position: absolute;
+				width: 160px;
+				left: 50%;
+				margin-left: -80px;
+				bottom: 15%;
+				padding: 10px;
+				color: #fff;
+			}
+
+			#jump {
+				width: 70px;
+				text-align: center;
+				padding: 5px 0;
+				border-radius: 15px;
+				position: absolute;
+				right: 5%;
+				top: 50px;
+				font-size: 14px;
+				background-color: rgba(0,0,0,0.5);
+				color: white;
+			}
+			#jump small{
+				font-size: 14px!important;
+			}
+			.item-logo {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			    background-image: url(../img/loading2.svg);
+			    background-size: 12%;
+			    background-repeat: no-repeat;
+			    background-position: 50% 50%;
+			}
+			/*.item-logo img{display: none;}*/
+			.item-logo a {
+				width: 200px;
+				height: 200px;
+				display: block;
+				border: 1px solid #FFFFFF;
+				border-color: rgba(255, 255, 255, 0.5);
+				text-align: center;
+				line-height: 200px;
+				border-radius: 50%;
+				font-size: 40px;
+				color: #fff;
+				position: absolute;
+				top: 15%;
+				left: 50%;
+				margin-left: -100px;
+			}
+
+			.animate {
+				position: absolute;
+				left: 0;
+				bottom: 15%;
+				width: 100%;
+				color: #fff;
+				display: -moz-box;
+			}
+
+			.animate h2 {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+
+			.animate li {
+				width: 50%;
+				height: 30px;
+				line-height: 30px;
+				list-style: none;
+				font-size: 16px;
+				text-align: right;
+			}
+
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				height: 100%;
+			}
+
+			.animate li:nth-child(3) {
+				text-align: left;
+				float: right;
+			}
+
+			.animated {
+				-webkit-animation-duration: 1s;
+				-webkit-animation-play-state: paused;
+				-webkit-animation-fill-mode: both;
+			}
+
+			.guide-show .bounceInDown {
+				-webkit-animation-name: bounceInDown;
+				-webkit-animation-play-state: running;
+				-webkit-animation-delay: 1s;
+				display: block;
+			}
+
+			.guide-show .bounceInLeft {
+				-webkit-animation-name: bounceInLeft;
+				display: block;
+				-webkit-animation-play-state: running;
+			}
+
+			.guide-show .bounceInRight {
+				-webkit-animation-name: bounceInRight;
+				display: block;
+				-webkit-animation-play-state: running;
+				-webkit-animation-delay: 0.5s;
+			}
+
+			@-webkit-keyframes bounceInDown {
+				0%,
+				60%,
+				75%,
+				90%,
+				100% {
+					-webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+					animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+				}
+				0% {
+					opacity: 0;
+					-webkit-transform: translate3d(0, -3000px, 0);
+					transform: translate3d(0, -3000px, 0);
+				}
+				60% {
+					opacity: 1;
+					-webkit-transform: translate3d(0, 25px, 0);
+					transform: translate3d(0, 25px, 0);
+				}
+				75% {
+					-webkit-transform: translate3d(0, -5px, 0);
+					transform: translate3d(0, -5px, 0);
+				}
+				90% {
+					-webkit-transform: translate3d(0, 3px, 0);
+					transform: translate3d(0, 3px, 0);
+				}
+				100% {
+					-webkit-transform: none;
+					transform: none;
+				}
+			}
+
+			@-webkit-keyframes bounceInLeft {
+				0%,
+				60%,
+				75%,
+				90%,
+				100% {
+					-webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+					animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+				}
+				0% {
+					opacity: 0;
+					-webkit-transform: translate3d(-3000px, 0, 0);
+					transform: translate3d(-3000px, 0, 0);
+				}
+				60% {
+					opacity: 1;
+					-webkit-transform: translate3d(25px, 0, 0);
+					transform: translate3d(25px, 0, 0);
+				}
+				75% {
+					-webkit-transform: translate3d(-10px, 0, 0);
+					transform: translate3d(-10px, 0, 0);
+				}
+				90% {
+					-webkit-transform: translate3d(5px, 0, 0);
+					transform: translate3d(5px, 0, 0);
+				}
+				100% {
+					-webkit-transform: none;
+					transform: none;
+				}
+			}
+
+			@-webkit-keyframes bounceInRight {
+				0%,
+				60%,
+				75%,
+				90%,
+				100% {
+					-webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+					animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+				}
+				0% {
+					opacity: 0;
+					-webkit-transform: translate3d(3000px, 0, 0);
+					transform: translate3d(3000px, 0, 0);
+				}
+				60% {
+					opacity: 1;
+					-webkit-transform: translate3d(-25px, 0, 0);
+					transform: translate3d(-25px, 0, 0);
+				}
+				75% {
+					-webkit-transform: translate3d(10px, 0, 0);
+					transform: translate3d(10px, 0, 0);
+				}
+				90% {
+					-webkit-transform: translate3d(-5px, 0, 0);
+					transform: translate3d(-5px, 0, 0);
+				}
+				100% {
+					-webkit-transform: none;
+					transform: none;
+				}
+			}
+
+			.mui-btn-danger,
+			.mui-btn-negative,
+			.mui-btn-red {
+				border: 1px solid rgba(234, 195, 193, 0.61);
+				background-color: rgba(215, 45, 34, 0.61);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="slider" class="mui-slider mui-fullscreen">
+			<div class="mui-slider-group" id="bannerdiv">
+				<div class="mui-slider-item mui-active"><div class="item-logo" style="background-color: white"></div></div>
+			</div>
+			<div class="mui-slider-indicator" id="sliderlength">
+
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/md5.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/imgload.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../js/update_all.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../js/app.js"></script>
+		<script>
+			mui.plusReady(function() {
+				//安卓返回键
+				mui.init({
+					beforeback: function() {
+						return false;
+					}
+				});
+				//缓存处理
+				//plus.storage.removeItem('$picCache');
+				var picCache = JSON.parse(plus.storage.getItem('$picCache')) || [];
+				console.log('缓存',picCache);
+				if(!picCache.length){//没有缓存
+					mui('#bannerdiv')[0].innerHTML = '<div class="mui-slider-item">' +
+						'<div class="item-logo" style="background-color: white">' +
+						'<img id="guide1" src="../img/advertising.png"/>' +
+						'<span id="jump">跳过<small></small></span></div>' +
+						'</div>';
+				}else{//有缓存
+					//排序
+					function sortNumber(a,b){
+						return a.sort - b.sort;
+					}
+					picCache.sort(sortNumber);
+					var allstr = '',
+					slidercircle = '';
+					mui.each(picCache, function(index, element) {
+						if(index == 0) {
+							slidercircle += '<div class="mui-indicator mui-active"></div>'
+						} else {
+							slidercircle += '<div class="mui-indicator"></div>'
+						}
+						if(index == picCache.length - 1) {
+							allstr += '<div class="mui-slider-item">' +
+								'<div class="item-logo" style="background-color: white">' +
+								'<img id="guide1" onclick="countClick('+element.id+')" src="' + element.dataUrl + '"/>' +
+								'<span id="jump">跳过<small></small></span></div>' +
+								'</div>';
+							return false;
+						} else {
+							allstr += '<div class="mui-slider-item">' +
+								'<div class="item-logo" style="background-color: white">' +
+								'<img id="guide1" onclick="countClick('+element.id+')" src="' + element.dataUrl + '"/>' +
+								'</div>' +
+								'</div>';
+						}
+
+					})
+					mui('#bannerdiv')[0].innerHTML = allstr;
+					mui('#sliderlength')[0].innerHTML = slidercircle;
+				}
+
+
+				//关闭事件,
+				var closeguide = setTimeout(function(){
+					plus.webview.currentWebview().close();
+				},60000)
+				//循环加载数据数据,避免白屏
+				var Timetoken = null;
+				var oldToken = null;
+				var cityNum = null;
+				if(plus.storage.getItem('oldToken')) {
+					oldToken = plus.storage.getItem('oldToken');
+					cityNum  = plus.storage.getItem('cityNum'),
+
+					console.log('循环加载数据11');
+					againfun();
+				} else {
+					var indexLoad = 0;
+					clearInterval(Timetoken);
+					Timetoken = setInterval(function() { //等待oldToken加载方法
+						indexLoad++;
+						if(indexLoad>20){
+							clearInterval(Timetoken);
+							console.log('超时了');
+							plus.webview.currentWebview().hide();
+//							mui.fire(plus.webview.getWebviewById('main.html'),'openXianjing');
+						}
+						console.log('引导图循环加载');
+						if(plus.storage.getItem('oldToken')) {
+							clearInterval(Timetoken);
+							oldToken = plus.storage.getItem('oldToken');
+							cityNum  = plus.storage.getItem('cityNum'),
+							againfun();
+						}
+					}, 200)
+				}
+
+				//处理缓存
+				function againfun() {
+
+					mui.ajax(serverUrl + '/api/index/banner', {
+						data: {
+							banner_type: 12
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {"token": oldToken,"city":0},
+						success: function(data) {
+							console.log('引导banner ',data)
+							var dataobj = JSON.parse(data.data.banner);
+
+							//缓存处理
+							console.log("dataobj ",dataobj);
+							function picCacheFun(){
+
+								mui.each(dataobj,function (index,element) {
+									console.log('element222 ',element)
+									var  oCanvas = document.createElement('canvas'),
+						            oCtx = oCanvas.getContext("2d"),
+						            oImg = new Image();
+						            if(element.pic.indexOf('http')>-1){
+						            	oImg.src = element.pic;
+						            }else{
+						            	oImg.src = serverimgUrl + element.pic;
+						            }
+						            var picNnameA = element.pic.split('/'),
+										picNname = picNnameA[picNnameA.length-1];
+						            oImg.onload = function() {
+						                oCanvas.width  = oImg.width;
+						                oCanvas.height = oImg.height;
+						                oCtx.drawImage(oImg, 0, 0);
+						                if(oImg.width>2000 || oImg.height>2000){
+						                    console.log('缓存引导 图片尺寸 load>2000');
+						                    picCache.push({id:element.id,sort:element.sort,name:picNname,dataUrl:oCanvas.toDataURL("image/jpeg")});
+                   							plus.storage.setItem("$picCache",JSON.stringify(picCache));
+						                }else if(oImg.width>300 || oImg.height>300){
+						                    console.log('缓存引导 图片尺寸 load>300');
+						                    picCache.push({id:element.id,sort:element.sort,name:picNname,dataUrl:oCanvas.toDataURL("image/jpeg")});
+                   							plus.storage.setItem("$picCache",JSON.stringify(picCache));
+						                }else{
+						                    console.log('缓存引导 图片尺寸 load>else');
+						                    picCache.push({id:element.id,sort:element.sort,name:picNname,dataUrl:oCanvas.toDataURL("image/jpeg")});
+                   							plus.storage.setItem("$picCache",JSON.stringify(picCache));
+						                }
+						            };
+								})
+							}
+							if(!picCache.length){
+								picCacheFun();
+							}else{
+								picCache = [];
+								plus.storage.removeItem('$picCache');
+								picCacheFun();
+							}
+							//缓存处理结束
+							var countClickStorage = [];
+							window.countClick = function(id){
+								if(id){
+									var oldToken = plus.storage.getItem('oldToken');
+									var cityNum = plus.storage.getItem('cityNum');
+									var	myuserid = plus.storage.getItem('userid');
+									mui.ajax(serverUrl+'/api/mall/clicks',{
+										data:{'adID':id,'clickstype':'广告','fromType':'APP','userid':myuserid},
+										dataType:'json',
+										type:'post',
+										timeout:8000,
+										headers:{"token":oldToken,"city":cityNum},
+										success:function(data,type,xhr){
+											console.log('广告点击'+JSON.stringify(data));
+											if(data.errno==0){
+												console.log('广告点击次数'+data.data)
+											}else{
+												mui.toast('当前网络不好，请重试');
+											}
+										},
+										error:function(xhr,type,errorThrown){
+											mui.toast('当前网络不好，请重试');
+											console.error('响应失败');
+										}
+									});
+								}
+
+							}
+							console.log("缓存",plus.storage.getItem('$picCache'))
+							//数组去重
+							Array.prototype.unique1 = function() {
+								var res = [this[0]];
+								for(var i = 1; i < this.length; i++) {
+									var repeat = false;
+									for(var j = 0; j < res.length; j++) {
+										if(this[i] == res[j]) {
+											repeat = true;
+											break;
+										}
+									}
+									if(!repeat) {
+										res.push(this[i]);
+									}
+								}
+								return res;
+							}
+							//倒计时
+							var jumptime = data.data.Start_time;
+								if(!jumptime){
+									jumptime = 6;
+								}
+							var openXianjing = 0;
+							document.getElementsByTagName("small")[0].innerHTML = jumptime+"s";
+							var time = jumptime;
+						    var timereduce = setInterval(function(){
+						    	time--;
+						    	document.getElementsByTagName("small")[0].innerHTML = time+"s";
+						    	if(time == -1){
+						    		time = 0;
+									plus.webview.currentWebview().hide();
+									if(openXianjing == 0){
+										mui.fire(plus.webview.getWebviewById('main.html'),'openXianjing');//打开19号分现金，活动
+										openXianjing ++;
+									}
+
+						    	};
+						    },1000)
+
+							//轮播图,获得slider插件对象
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 50000 //自动轮播周期，若为0则不自动播放，默认为0；
+							});
+							//立即体验按钮点击事件
+							document.getElementById("jump").addEventListener('tap', function(event) {
+								plus.navigator.setFullscreen(false);
+								plus.webview.currentWebview().hide();
+
+								mui.fire(plus.webview.getWebviewById('main.html'),'openXianjing');
+							}, false);
+							plus.nativeUI.closeWaiting();
+						},
+						error: function(xhr, type, errorThrown) {
+							plus.nativeUI.closeWaiting();
+							document.getElementById("jump").addEventListener('tap', function(event) {
+								plus.navigator.setFullscreen(false);
+								plus.webview.currentWebview().hide();
+//								mui.fire(plus.webview.getWebviewById('main.html'),'openXianjing');
+							}, false);
+							var time = 6;
+							document.getElementsByTagName("small")[0].innerHTML = time+"s";
+						    var timereduce = setInterval(function(){
+						    	console.log(time);
+						    	time--;
+						    	document.getElementsByTagName("small")[0].innerHTML = time+"s";
+						    	if(time == -1){
+									plus.webview.currentWebview().hide();
+//									mui.fire(plus.webview.getWebviewById('main.html'),'openXianjing');
+						    	};
+						    },1000)
+						}
+					});
+
+				} //重载
+				if(mui.os.ios) {
+					plus.navigator.setFullscreen(true);
+				}
+				plus.navigator.closeSplashscreen();
+			});
+
+		</script>
+	</body>
+
+</html>

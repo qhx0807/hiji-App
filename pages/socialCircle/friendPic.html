@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>交友照片</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"> 
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/config.css"/>
+		<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/image-new.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			body{background-color: #fff !important;}
+			#container{
+				color: #555 !important; 
+				height: calc(100vh - 140px);
+				height: -moz-calc(100vh - 140px);
+				height: -webkit-calc(100vh - 140px);
+				overflow-y: scroll;
+			}
+			.mui-bar-nav{
+				box-shadow: none;
+			}
+			#container{
+				margin-top: 60px;
+			}
+			body{background-color: #f3f3f3;}
+			.photoItem{padding: 5px;}
+			.photoItem p{margin: 5px;}
+			.photoItem .frph{overflow: hidden;position: relative;width: calc((100vw - 40px) / 3);width: -webkit-calc((100vw - 40px) / 3);width: -moz-calc((100vw - 40px) / 3);height: calc((100vw - 40px) / 3);height: -webkit-calc((100vw - 40px) / 3);height: -moz-calc((100vw - 40px) / 3);margin: 5px 5px;float: left;background-color: #F3F3F3;}
+			.frph img.disimg{width: 100%;display: block;}
+			.frph img.isDelet{display: block;width: 25px;position: absolute;top: 5px;right: 5px;display: none;}
+			.upbtn{position: fixed;bottom: 10px;width: 80%;left: 10%;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		    <h1 class="mui-title">交友照片</h1> 
+		    <span id='edit' class="mui-pull-right" style="font-size: 14px; margin-top: 18px;display: none;">编辑</span>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="container">
+			<div class="photoItem"> 
+				<div id="mfPic"></div>
+				<script type="text/html" id="mfPicTpl">
+				<%for(var i = 0;i<list.length;i++){%>
+					<%for(var j = 0;j<list[i].picImg.length;j++){%>
+						<div class="frph" style="background-size: cover;background-position: center;" >
+							<%if(list[i].picImg[j].picImg){%>
+								<img class="disimg loadPics picOp" onload="imgHeight(this)" src="<%=list[i].picImg[j].picImg%>" data-preview-src="" data-preview-group="1"/>
+								<img src="../../img/makeFriend/uncheck.svg" class="isDelet" data-id="<%=list[i].id%>" alt="" />
+							<%}else{%>
+								<img src="../../img/market/none.png"/>
+							<%}%> 
+						</div> 
+							
+					<%}%>
+				<%}%> 
+				</script>
+				<div style="clear: both;"></div>
+			</div>
+			<div class="upload text-center text-xs gray" id="upload"></div>
+			
+		</div>
+		<button type="button" class="mui-btn mui-btn-danger btn-block ft16 upbtn" id="delet" disabled="" style="display: none;">删除</button>					 
+		<button type="button" class="mui-btn mui-btn-danger btn-block ft16 upbtn" id="nowpic" style="display: none;">添加</button>					 
+			
+	</body>
+	<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.zoom.js"></script>
+	<script src="../../js/mui.previewimage.js"></script>
+	<script type="text/javascript">
+	var old_back = mui.back;
+		mui.back = function(){
+		var parentPage =plus.webview.getWebviewById('mycircleIndex');
+		mui.fire(parentPage,'refresh');
+		old_back();
+	};
+	
+	//选择图片
+	var Apic = [];//图片存放数组  
+	var time1 = null;
+	var qid;
+ 	var Spagenum = 2; //实到页数
+	var Ypagenum = 1; //应到页数 
+	mui.plusReady(function() {
+		var oldToken = plus.storage.getItem('oldToken');
+		var cityNum = plus.storage.getItem('cityNum');
+		var	myuserid = plus.webview.currentWebview().useridNum;
+		var myuserid0 = plus.storage.getItem('userid');
+		if(myuserid == myuserid0){
+			mui('#nowpic')[0].style.display = '';
+			mui('#edit')[0].style.display = '';
+		}
+		var currentPage = 1,numsPerPage = 12;
+		//获取交友照片
+		showData();
+		function showData(){
+			mui.ajax(serverUrl+'/api/friends/photography/userId/'+myuserid+'/currentPage/'+currentPage+'/numsPerPage/'+numsPerPage,{
+			type:'get',
+			timeout:8000,
+			headers:{"token":oldToken,"city":cityNum},	              				
+			success:function(data,type,xhr){
+				console.log('交友照片',data);
+				if(data.errno == 0){ 
+					if(data.data.data && data.data.data.length){
+						 var picObj = data.data.data;  
+						 [].forEach.call(picObj,function(ele){
+						 	ele.picImg = JSON.parse(ele.picImg);
+						 }) 
+						 $('#mfPic').html(template('mfPicTpl',{list:picObj}));
+						 
+						mui("#upload")[0].innerHTML = "";
+						 $('.frph').each(function(){
+							if($(this).height() > $(this).find('.disimg').height()){
+								$(this).find('.disimg').css('height','100%');
+								$(this).find('.disimg').css('width','auto');
+							}else{
+								$(this).find('.disimg').css('height','auto');
+								$(this).find('.disimg').css('width','100%!important');
+							}
+						})
+						lazyLoad(true,50);//懒加载
+						//勾选要删除的照片
+						var i = 0;
+						$('.frph .isDelet').click(function(){
+							event.stopPropagation();
+							if($(this).attr('src') == '../../img/makeFriend/uncheck.svg'){
+								$(this).attr('src','../../img/makeFriend/check.svg');
+								i++;
+							}else if($(this).attr('src') == '../../img/makeFriend/check.svg'){
+								$(this).attr('src','../../img/makeFriend/uncheck.svg') 
+								i--;
+							} 
+							if(i>0){
+								$('#delet').removeAttr('disabled')
+							}else{
+								$('#delet').attr('disabled','true')
+							}
+						})
+						//上滑加载
+						$(window).scroll(function() {　　
+							var scrollTop = $(this).scrollTop();　　
+							var scrollHeight = $(document).height();　　
+							var windowHeight = $(this).height();　　
+							if(scrollTop + windowHeight == scrollHeight) {
+								if(Spagenum <= data.data.totalPages && Spagenum == Ypagenum + 1) { //当前页小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "<img src='../../img/balls.svg' />";
+									Ypagenum++; //满足加载情况,应到页数+1
+									console.log('发起请求,实到' + Spagenum + '页');
+									console.log('发起请求,应到' + Ypagenum + '页');
+									mui.ajax(serverUrl + '/api/friends/photography', {
+										data: {
+											"userId":myuserid,
+											currentPage: Spagenum,
+											numsPerPage: numsPerPage,
+										},
+										dataType: 'json', //服务器返回json格式数据
+										type: 'post', //HTTP请求类型 
+										timeout: 8000, //超时时间设置为10秒；	
+										headers: {
+											"token":oldToken,"city":cityNum
+										},
+										success: function(data) {
+											if(data.errno == 0) {
+												
+												if(data.data.data && data.data.data.length){
+													 var picObj = data.data.data;  
+													 [].forEach.call(picObj,function(ele){
+													 	ele.picImg = JSON.parse(ele.picImg);
+													 }) 
+													 $('#mfPic').append(template('mfPicTpl',{list:picObj}));
+												}
+												 $('.frph').each(function(){
+													if($(this).height() > $(this).find('.disimg').height()){
+														$(this).find('.disimg').css('height','100%');
+														$(this).find('.disimg').css('width','auto');
+													}else{
+														$(this).find('.disimg').css('height','auto');
+														$(this).find('.disimg').css('width','100%');
+													}
+												})
+												 
+												lazyLoad(true,50);//懒加载
+												//勾选要删除的照片
+												$('.frph .isDelet').click(function(){
+													event.stopPropagation(); 
+													if($(this).attr('src') == '../../img/makeFriend/uncheck.svg'){
+														$(this).attr('src','../../img/makeFriend/check.svg');
+														i++;
+													}else if($(this).attr('src') == '../../img/makeFriend/check.svg'){
+														$(this).attr('src','../../img/makeFriend/uncheck.svg') 
+														i--;
+													}
+													if(i>0){
+														$('#delet').removeAttr('disabled')
+													}else{
+														$('#delet').attr('disabled','true')
+													}
+												})
+											}
+											mui("#upload")[0].innerHTML = " ";
+											Spagenum++; //加载成功,当前页+1
+											console.log('成功+1,实到' + Spagenum);
+											console.log('成功+1,应到' + Spagenum);
+										},
+										error: function(xhr, type, errorThrown) {
+											Ypagenum--; //失败是应到-1
+											mui.toast("当前网络不好请重试");
+											mui("#upload")[0].innerHTML = "";
+										}
+									});
+									 
+								} else if(Spagenum == data.data.totalPages + 1) { //当前页不小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "到底了";
+								}
+							} 
+						});
+						
+						
+						
+						//执行删除
+						$('#delet').click(function(){
+							
+							mui.confirm('确认删除吗','提示',['取消','确定'],function(e) {
+								if(e.index == 1) { 
+									plus.nativeUI.showWaiting();
+								 	 $('.frph .isDelet').each(function(){
+								 	 	
+								 	 	if($(this).attr('src') == '../../img/makeFriend/check.svg'){
+								 	 		var imgId = $(this).attr('data-id');
+								 	 		var delImg = $(this).parent();
+								 	 		mui.ajax(serverUrl + '/api/friends/photography', {
+												data: {
+													"userId":myuserid, 
+													"photoId":imgId
+												},
+												dataType: 'json', //服务器返回json格式数据
+												type: 'DELETE', //HTTP请求类型 
+												timeout: 8000, //超时时间设置为10秒；	
+												headers: {
+													"token":oldToken,"city":cityNum
+												},
+												success: function(data) {
+													console.log('删图',data)
+													if(data.errno == 0) { 
+														delImg.remove();
+														plus.nativeUI.closeWaiting();
+														mui.toast('删除成功');
+														$('#delet').attr('disabled','true')
+														showData();
+														$('#edit').html('编辑');
+														$('#delet,.frph img.isDelet').css('display','none');
+														$('#nowpic').css('display','block');
+													}
+													 
+												},
+												error: function(xhr, type, errorThrown) { 
+													mui.toast("当前网络不好请重试"); 
+												}
+											});
+								 	 	}
+								 	 })
+								} 
+							},'')
+						})
+					}else{
+						mui("#upload")[0].innerHTML = "";
+					}
+					
+					
+				}else{
+					console.log(data.errmsg); 
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				mui("#upload")[0].innerHTML = "";
+				console.log('获取数据,响应失败');
+			}
+		});
+		}
+		
+		qid=plus.webview.currentWebview().qqid;
+		mui('#nowpic')[0].addEventListener('tap',function(){
+			plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: [{
+						title: "相册选择"
+					}, {
+						title: '拍照'
+					}]
+				},
+				function(e) {
+					if (e.index == 1) { //点击从相册选择
+						galleryImgsSelected();
+					} else if (e.index == 2) {
+						getImage();
+					}
+				}
+			);
+		})
+	 
+		function getImage(){//拍照并保存
+
+			var cmr = plus.camera.getCamera();
+			cmr.captureImage( function ( path ) {
+				plus.io.resolveLocalFileSystemURL(path,function(entry){ 
+					//把拍摄图片的路径转化成 本地文件url
+					path = plus.io.convertLocalFileSystemURL(path);
+					//初始化
+			    	Apic = [];
+			    	//初始化结束 
+			    	clearInterval(time1);
+			    	var indexNum = 0;
+			    	var indexMax = 0;
+					time1 = setInterval(function(){
+		    			if(0!=path.indexOf("file://")){
+							path="file://"+path;
+						} 
+						if(indexNum == indexMax){//全部压缩完毕
+			    			clearInterval(time1);
+							time1 = null;
+			    		}
+			    		var nowpic = Math.random().toString(36).substr(2) + '.jpg';
+			    		var endpic = path.split('.')[0]+"/"+nowpic;
+			    		console.error(path);
+			    		console.error(endpic);
+							plus.zip.compressImage({
+							src:path,
+							dst:endpic,
+							overwrite:true, 
+							quality:30
+						},
+						function() {
+							Apic.push(endpic);
+							showImg(endpic);
+						},function(error) {
+							mui.toast('图片获取错误，请重试');  
+						});
+			    		indexNum ++;
+		    		},1000)  
+				});
+			}, function ( e ) { 
+			}, {filename:"_doc/gallery/",index:1} );
+		}
+		
+		function galleryImgsSelected(){//从相册中选择图片
+			 plus.gallery.pick( function(e){
+		    	//初始化
+		    	Apic = [];
+		    	//初始化结束 
+		    	clearInterval(time1);
+		    	var indexNum = 0;
+		    	var indexMax = e.files.length - 1;
+		    	time1 = setInterval(function(){
+		    		console.log(time1);
+		    		if(0!=e.files[indexNum].indexOf("file://")){
+						e.files[indexNum]="file://"+e.files[indexNum];//图片地址
+					}
+		    		if(indexNum == indexMax){//全部压缩完毕
+		    			clearInterval(time1);
+						time1 = null;
+		    		}
+		    		var nowpic = Math.random().toString(36).substr(2) + '.jpg';//随机字符串
+		    		var endpic = e.files[indexNum].split('.')[0]+"/" +nowpic;
+		    		//压缩方法
+	    			plus.zip.compressImage({
+						src:e.files[indexNum],
+						dst:endpic,
+						overwrite:true, 
+						quality:30
+					},
+					function() {
+						Apic.push(endpic);
+						showImg(endpic);
+					},function(error) {
+						mui.toast('图片获取错误，请重试');  
+					});
+		    		indexNum ++;
+		    		
+		    	},1000)
+		    }, function ( e ) {  
+		    },{filter:"image",multiple:true,maximum:1,selected:'',system:false,onmaxed:function(){//保存选择记录
+				plus.nativeUI.alert('每次最多上传1张图片');
+		    }});
+
+		}
+		
+		function showImg(url){//显示图片
+			if(0!=url.indexOf("file://")){        
+				url="file://"+url;  
+			} 				
+			mui('#mfPic')[0].innerHTML += '<div class="frph" style="background: url('+url+') no-repeat;background-size: cover;background-position: center;"><img src="../../img/makeFriend/uncheck.svg" style="display:none" alt="" /></div>';    
+			upImg();
+		}
+		
+		function upImg(){
+			var oldToken = plus.storage.getItem('oldToken'); 
+			plus.nativeUI.showWaiting();
+			//发送数据
+			var task = plus.uploader.createUpload(serverUrl+'/api/friends/photography/', 
+				{ method:"post"},
+				function(back,status){
+					if(status == 200){ 
+						console.log('添加照片',back); 
+						var dataobj = JSON.parse(back.responseText);
+						if(dataobj.errno == 0){
+						 	plus.nativeUI.closeWaiting();
+							var time2 = setTimeout(function(){//关闭当前
+								mui.toast('添加成功');
+								showData();
+							},1000);
+						}else{ 
+							mui.toast('发布失败，请重试！');	
+						}
+					}else{
+						plus.nativeUI.closeWaiting();//关闭等待框
+						mui.toast('当前网络不好，请重试！');	
+					}
+					
+				}
+			); 
+			task.setRequestHeader("token",oldToken); 
+		    task.setRequestHeader("city",cityNum);
+			task.addData("userId",myuserid);  
+			task.addFile(Apic[0], {key:"0"} );
+			task.start(); 
+		}
+		
+	}); 
+	//选择图片结束
+	 
+	$('#edit').click(function(){
+		$('.disimg').removeAttr('data-preview-src');
+		if($(this).html() == '编辑'){
+			$(this).html('取消');
+			$('#delet,.frph img.isDelet').css('display','block');
+			$('#nowpic').css('display','none');
+		}else{
+			$(this).html('编辑');
+			$('#delet,.frph img.isDelet').css('display','none');
+			$('#nowpic').css('display','block');
+		}
+		
+	})
+				mui.previewImage(); 
+	
+	</script>
+</html>

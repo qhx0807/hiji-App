@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>招商</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" href="../../css/reset.css">
+		<link rel="stylesheet" href="../../css/one.css">
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		
+		<style type="text/css">
+			body{background-color:#fff;}
+			.formCon{margin-top: 60px;padding: 20px 10px;}
+			.formItem, .formItem2{
+				display: -webkit-flex;
+	      		-webkit-flex-direction: row;
+		      	display: flex;
+	     		flex-direction: row;
+			}
+			.formItem span, .formItem2 span.span0{
+				display: inline-flex;
+				height:45px;
+				line-height: 45px;
+				width: 80px;
+				font-size: 15px;
+				color: #666;
+			}
+			.formItem input, .FItem2R input{
+				 flex:1;
+				 font-size: 15px;
+				 border: none;
+				 /*background: url(../../img/answer/ask/hiunchecked.png) 0 0 no-repeat ;*/
+				 /*background-size: 100% 100%;*/
+		     	border: 1px rgba(204, 204, 204, 0.59) solid;
+				border-radius: 0;
+				height:45px;
+				line-height: 45px;
+				padding: 10px 15px;
+				color: #555;
+			}
+			.FItem2R{
+				flex:1;
+				position: relative;
+			}
+			.FItem2R div.img{
+		        position: absolute;
+			    right: 0px;
+			    top: 0px;
+			    height: 45px;
+			    width: 50px;
+		        line-height: 45px;
+			    text-align: right;
+			    padding-right: 10px;
+			}
+			.FItem2R div.img img{
+				width: 20px;
+    			vertical-align: middle;
+			}
+			.dropdown{
+				width: 200px;
+				position: absolute;
+				z-index: 100;
+				background-color: #fff;
+				top: 46px;
+				right: 1px;
+				box-shadow: 0px 0 2px rgba(175, 166, 166, 0.85);
+			}
+			.dropdown li{
+				font-size: 15px;
+				color: #666;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+			.mui-btn-block{
+				color: #fff;
+			    background-color: #fc3833;
+			    border: none;
+			    font-size: 16px;
+			    width: 90%;
+			    margin: 0 auto;
+			    padding: 12px 0;
+			    margin-top: 45px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			<h1 class="mui-title">招商</h1>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->  
+		<div class="formCon">
+			<div class="formItem">
+				<span>姓名: </span>
+				<input class="air" type="text" placeholder="请输入您的姓名"/>
+			</div>
+			<div class="formItem">
+				<span>手机: </span>
+				<input class="air" type="number" placeholder="请输入手机号"/>
+			</div>
+			<div class="formItem2">
+				<span class="span0">项目类型: </span>
+				<div class="FItem2R">
+					<input value="" type="text" class="aClick air" disabled placeholder="请选择项目类型" />
+					<div class="img" onclick="dropdownDiv(this)">
+						<img src="../../img/market/xialajiantou.png"/>
+					</div>
+					<ul  class="dropdown" style="display: none;">
+						<li onclick="dropdownLi(this)" class="fineB aClick">餐饮</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">儿童</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">服饰</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">生活超市</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">KTV</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">电影院</li>
+						<li onclick="dropdownLi(this)" class="aClick">其他</li>
+					</ul>
+				</div>
+			</div>
+			<div class="formItem2">
+				<span class="span0">经营模式: </span>
+				<div class="FItem2R">
+					<input value="" type="text" class="aClick air" disabled placeholder="请选择经营模式" />
+					<div class="img" onclick="dropdownDiv(this)">
+						<img src="../../img/market/xialajiantou.png"/>
+					</div>
+					<ul  class="dropdown" style="display: none;">
+						<li onclick="dropdownLi(this)" class="fineB aClick">HI集电商</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">宏帆广场</li>
+					</ul>
+				</div>
+			</div>
+			<!--<div class="formItem2">
+				<span class="span0">经营方式: </span>
+				<div class="FItem2R">
+					<input value="" type="text" class="aClick air" disabled placeholder="请选择经营方式" />
+					<div class="img" onclick="dropdownDiv(this)">
+						<img src="../../img/market/xialajiantou.png"/>
+					</div>
+					<ul  class="dropdown" style="display: none;">
+						<li onclick="dropdownLi(this)" class="fineB aClick">服装</li>
+						<li onclick="dropdownLi(this)" class="fineB aClick">食品</li>
+						<li onclick="dropdownLi(this)" class="aClick">其他</li>
+					</ul>
+				</div>
+			</div>-->
+			<div class="formItem">
+				<span>所在地: </span>
+				<input class="air" type="text" placeholder="请输入您的所在地"/>
+			</div>
+			<button id='submitBtn' class="mui-btn-block">提交信息</button>
+		</div>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/artTemplate-native.js"></script>
+		<script type="text/javascript">
+			function dropdownDiv(obj){
+				var dropUl = obj.nextSibling.nextSibling;
+				if(dropUl.style.display == 'none'){
+					dropUl.style.display = 'block';
+				}else{
+					dropUl.style.display = 'none';
+				}
+			}
+			function dropdownLi(obj){
+				var dropInput = obj.parentNode.previousSibling.previousSibling.previousSibling.previousSibling;
+				dropInput.value = obj.innerText;
+				obj.parentNode.style.display = 'none';
+			}
+		</script>
+		<script type="text/javascript">
+			/*数据提交*/
+			var reg_phone = /^1((3|4|5|8|7){1}\d{1}|70)\d{8}$/;//手机号正则
+			mui('#submitBtn')[0].onclick = function(){
+				/*表单验证*/
+				var flag = true;
+				for (var i = 0; i < mui('.air').length; i++) {
+					if(!mui('.air')[i].value){
+						mui.toast(mui('.air')[i].placeholder);
+						mui('.air')[i].focus();
+						flag = false;
+						break;
+					}
+					if(i == 1){
+						if(!reg_phone.test(mui('.air')[i].value)){
+							mui.toast('请输入正确的手机号');
+							mui('.air')[i].focus();
+							flag = false;
+						}
+					}
+				}
+				/*发送数据*/
+				if(flag){
+					mui.plusReady(function(){
+						var oldToken = plus.storage.getItem('oldToken'),
+				 			cityNum = plus.storage.getItem('cityNum'),
+							myuserid = plus.storage.getItem('userid');
+						mui.ajax(serverUrl+'/api/index/attractinvestment',{
+							data:{
+								name:mui('.air')[0].value,
+								phone:mui('.air')[1].value,
+								projectType:mui('.air')[2].value,
+								mannagmentModel:mui('.air')[3].value,
+								mannagmentMode:mui('.air')[3].value,
+								location:mui('.air')[4].value,
+								userid:myuserid
+							},
+							type:'post',
+							timeout:8000,
+							headers:{"token":oldToken,"city":cityNum},
+							success: function(data) {
+								console.error('招商', data);
+								if(data.errno == 0) {
+									mui.alert('提交成功,请等待工作人员的回复.');
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.toast("当前网络不好请重试");
+							}
+						});
+					})
+					
+				}
+				
+			}
+		</script>
+		<script type="text/javascript">
+			//天天特价  discountGoods, 领嗨豆  getHIdou, 团购  groupBuying, 本地生活 localLife, 跨境优品   loveToGogoods, 电影 movie,
+			//充值缴费   payment,  为民服务  serveForPeople,  购物中心 shopCenter, 注册  signUp, 特色馆 specialBar
+			mui.plusReady(function () {
+				var startTime, endTime, stayTime, flagback = 0;
+				startTime = new Date().getTime();
+				var old_back = mui.back;
+				//改写返回键返回的函数，返回时传页面停留时间 
+				mui.back = function(){
+					endTime = new Date().getTime();//返回时间
+					stayTime = Math.ceil((endTime - startTime) / 1000);   
+					console.log('购物中心'+stayTime); 
+					plus.statistic.eventDuration( "shopCenterMerchants", stayTime);
+					//计算事件，计算出返回时在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+					old_back(); 
+				}
+				plus.webview.currentWebview().addEventListener( "popGesture", function(){
+					flagback++;
+					if(flagback == 1){
+						endTime = new Date().getTime();
+						stayTime = Math.ceil((endTime - startTime) / 1000);  
+						plus.statistic.eventDuration( "shopCenterMerchants", stayTime);
+						//计算事件，计算出苹果右滑返回后在该页面停留的时间差值，除以六万获得停留分钟数，发送给友盟后台
+					}
+				}, false );
+			});
+		</script> 
+			
+	</body>
+</html>

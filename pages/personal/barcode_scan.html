@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>扫描二维码</title>
+		<link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+		<link rel="stylesheet" href="../../css/mui.min.css" type="text/css" charset="utf-8"/>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/commonjian.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>  
+
+		<script type="text/javascript">
+			var ws=null,wo=null;
+			var scan=null,domready=false;
+			function plusReady(){
+				if(ws||!window.plus||!domready){
+					return;
+				}
+				// 获取窗口对象
+				ws=plus.webview.currentWebview();
+				wo=ws.opener();
+				// 开始扫描
+				ws.addEventListener('show',function(){
+					scan=new plus.barcode.Barcode('bcid');
+				    scan.onmarked=onmarked;
+				    scan.start({conserve:true,filename:"_doc/barcode/"});
+				    //scan.innerHTML = "<div class="goBack" onclick="back();"><a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize fl fanhui"></a></div>"
+				});
+				ws.show('pop-in');
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+			// 监听DOMContentLoaded事件
+			document.addEventListener("DOMContentLoaded",function(){
+				domready=true;
+				plusReady();
+			},false);
+			// 二维码扫描成功
+			function onmarked(type,result,file){
+			    switch(type){
+			    	case plus.barcode.QR:
+			    	type = "QR";
+			    	break;
+			    	case plus.barcode.EAN13:
+			    	type = "EAN13";
+			    	break;
+			    	case plus.barcode.EAN8:
+			    	type = "EAN8";
+			    	break;
+			    	default:
+			    	type = "其它"+type;
+			    	break;
+			    }
+			    //result = result.replace(/\n/g, '');
+			   	console.log(result);
+//			   	alert(result);
+			    //console.log(JSON.parse(result));
+			    var statestr1 = plus.webview.currentWebview().statestr;
+			    console.error(statestr1);
+			    if(!statestr1){//商户扫码
+			    	if(result.indexOf('begin_date')>-1){ //判断数据是否可用 
+				    	var dataobj = JSON.parse(result);
+				    	if(dataobj.begin_date && dataobj.end_date){
+				    		var d = new Date();
+						var str = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+//						var nowdate = formatDate(str, "yyyy.MM.dd");
+//					    	var beginDate = formatDate(dataobj.begin_date, "yyyy.MM.dd");
+//						var endDate = formatDate(dataobj.end_date, "yyyy.MM.dd");
+					    	console.log('核销数据',dataobj);
+//					    	if(dataobj.user_coupon_state == 0){//判断是否已经使用
+//					    		alert('该核销卷已经使用');
+//					    		mui.back();
+//					    	}else if(nowdate < beginDate){//判断时间开始
+//					    		alert('使用时间没到！');
+//					    		mui.back();
+//					    	}else if(nowdate > endDate){//判断时间结束
+//					    		alert('该卷已经过期!');
+//					    		mui.back(); 
+//					    	}else{
+//					    		updatafun(dataobj.user_coupon_id,result,dataobj.userid,dataobj.storeid);   
+//					    	}
+					    	if(dataobj.user_coupon_state == 0){//判断是否已经使用
+					    		alert('该核销卷已经使用');
+					    		mui.back();
+					    	}else{
+					    		updatafun(dataobj.user_coupon_id,result,dataobj.userid,dataobj.storeid);   
+					    	}
+				    	}else{
+				    		console.error('没有typeid，核销失败！');
+				    		alert('核销失败！');
+				    	}
+				    }else{
+				    	console.error('没有typeid，核销失败！');
+				    	alert('核销失败！'); 
+				    }
+			    }else if(statestr1 == 'HIdou'){/*用户领HI豆*/
+			    	updatafun('',result,'','');
+			    }else if(statestr1 == 'open'){/*用户扫码打开商品*/
+			    	var dataobj = JSON.parse(result);
+			    	goInfo(dataobj.goods_id,dataobj.storeid);
+			    	var time1 = null;
+			    	clearInterval(time1);
+			    	time1 = setInterval(function(){
+			    		if(plus.webview.getWebviewById('mall-detail') || plus.webview.getWebviewById('yphDetail')){
+			    			plus.webview.currentWebview().hide();
+			    			var time2 = setTimeout(function(){
+//			    				plus.webview.currentWebview().close();
+			    			},5000)
+			    		}
+			    	},100)
+    				function goInfo(goodsId, storeId) {
+						if(storeId == 0) {
+							openview({
+								view: "../market/yphDetail.html",
+								id:'yphDetail',
+								extrasobj: {
+									goodsId: goodsId
+								}
+							})
+						} else {
+							openview({
+								view: "../market/mall-detail.html",
+								id:'mall-detail',
+								extrasobj: {
+									goodsId: goodsId
+								}
+							})
+						}
+					}
+			    }
+			    
+			    
+			    function updatafun(codeid,result,uesrid,storeId){
+				    mui.plusReady(function(){
+				    	var myuserid = plus.storage.getItem('userid');
+						var oldtoken = plus.storage.getItem('oldToken');
+						var currentStoreId = plus.storage.getItem('currentStoreId');
+						var cityNum = plus.storage.getItem('cityNum');
+						
+						plus.nativeUI.showWaiting('核销中 ...',{width:'100px',height:'80px'});
+						if(!statestr1){ //商户扫码上传数据
+							mui.ajax(serverUrl + '/api/mall/couponverify',{
+								data:{"couponid":codeid,'qrcode':result,'qruserid':uesrid,'currentStoreId':currentStoreId,'businessID':myuserid},//qruserid:qr拥有者  
+								type:'post',
+								timeout:60000,
+								headers:{"token":oldtoken,'city':cityNum},
+								success:function(data,type,xhr){
+									plus.nativeUI.closeWaiting();
+//									alert('上传核销返回'+JSON.stringify(data));
+									console.log('上传核销返回',data);
+									if(data.errno == 0){
+										mui.alert('核销成功');
+									}else{
+										mui.alert(data.errmsg);
+									}
+									mui.back();							
+								},
+								error:function(xhr,type,errorThrown){
+									plus.nativeUI.closeWaiting();
+									mui.alert('网络不好,请求超时,请重试'); 
+									mui.back();	
+								}
+							});
+						}else if(statestr1 == 'HIdou'){//用户扫码上传数据 
+							mui.ajax(serverUrl + '/api/index/verificationthemachinesmallbillticket',{
+								data:{"qrcode":result,userid:myuserid},//qruserid:qr拥有者  
+								type:'post',
+								timeout:60000,
+								headers:{"token":oldtoken,'city':cityNum},
+								success:function(data,type,xhr){
+									plus.nativeUI.closeWaiting();
+									console.log('上传核销返回',data);
+									if(data.errno == 0){
+										mui.alert('获取积分成功');
+										mui.fire(plus.webview.getWebviewById('receiveHI'),'refresh');
+									}else{
+										mui.alert(data.errmsg);
+									}
+									//mui.back();							
+								},
+								error:function(xhr,type,errorThrown){
+									plus.nativeUI.closeWaiting();
+									mui.alert('网络不好,请重试');
+									mui.back();	
+								}
+							});
+						}
+					    
+					})  
+			    }
+
+			}
+		</script>
+		
+		<style type="text/css">
+			#bcid {
+				width: 100%;
+				position: absolute;
+				top: 18%;
+				bottom: 44px;
+				text-align: center;
+			}
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+			footer {
+				width: 100%;
+				height: 44px;
+				position: absolute;
+				bottom: 0px;
+				line-height: 44px;
+				text-align: center;
+				color: #FFF;
+			}
+			.fbt {
+				width: 50%;
+				height: 100%;
+				background-color: #FFCC33;
+				float: left;
+			}
+			.fbt:active {
+			  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+				box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+			}
+			
+			.mui-icon {
+			    line-height: 40px;
+			    color: #FFF;
+			    display: inline-block;
+			    width: 40px;
+			    text-align: center;
+			    font-size: 26px;
+			}
+			.goBack {
+			    position: absolute;
+			    left: 15px;
+			    top: 7%;
+			    background-color: rgba(255, 255, 255, 0.25);
+			    width: 40px;
+			    height: 40px;
+			    z-index: 9;
+			    border-radius: 50%;
+			}
+		</style>
+	</head>
+	<body style="background-color: #000000;">
+		<div class="goBack" onclick="backFun();"> 
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize fl fanhui"></a>
+		</div>
+		<div id="bcid">
+			<div style="height:40%"></div>
+			<p class="tip">...载入中...</p>
+		</div> 
+		<!--<footer onclick="backFun();">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize fl fanhui"></a>
+		</footer>-->
+	</body>
+	<script type="text/javascript">
+		function backFun(){
+			mui.plusReady(function(){
+				mui.back();
+			})
+		}
+	</script>
+</html>

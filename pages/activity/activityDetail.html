@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>活动详情</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/reset.css">
+			<style type="text/css">
+			.farm .top p span{
+			    border-right: none !important;
+				padding-right: 0px !important;
+			}
+			.mui-bar{height: 50px;
+			}
+			.mui-title,.mui-icon{line-height: 50px;
+			}
+			.mui-bar .mui-icon{padding: 0;
+			}
+			.mui-bar-nav.mui-bar .mui-icon,.mui-title,.mui-icon{color: #fff;
+			}
+			.mui-bar-nav{box-shadow: none;
+			}
+			.mui-icon{line-height: 50px;
+			}	
+			.mui-icon .iconfont{font-size: 18px;
+			}
+			.dealcard, .cinemacard{margin-top: 50px;
+			}
+			.dealcard .dealcard-img img{height: 60px;
+				overflow: hidden;
+			}
+		 	.shoucang .iconfont{font-size: 18px;
+			}
+			
+			#main{margin-top: 50px;
+			}
+			.dealcard, .cinemacard{margin-top: 45px;
+			}
+			.dealcard, .cinemacard{margin-top: 45px;
+			}
+			/*banner图片固定高度比例*/
+			.goodsImg{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+				overflow: hidden;
+			}
+			.list,.bottom{
+				border-bottom: 1px solid #EFEFF4 !important;
+				border-top: 1px solid #EFEFF4 !important;
+			}
+			.top,.farm{
+				border-bottom: none !important;
+			}
+			.farmtc .bt{
+				border-top: 1px solid #EFEFF4 !important;
+			} 
+			.merchant .biz-call .phone{margin-top: -7px;}
+			.rentingtopbot {padding-bottom: 40px !important;}
+			
+			.red1{
+				color: #f53c42 !important;
+				margin-bottom: 10px;
+				font-size: 18px !important;
+				display: inline-block;
+			}
+			.time img{
+				width: 15px;
+				margin-right: 5px;
+			}
+			.mui-btn-block {
+				font-size: 16px;
+				display: block;
+				width: 90%;
+				margin: 10px 5%;
+				padding: 10px 0;
+			}
+			.farm{
+				position: relative;
+			}
+			.biz-call img{
+				width: 60%;
+			}
+			.biz-call p{
+				line-height: 30px;
+				float: right;
+				font-size: 11px !important;
+				width: 100%;
+				text-align: center;
+				color: #999 !important;
+			}
+			.merchant .biz-call{
+				width: 20%;
+				height: auto !important;
+				line-height: inherit;
+			}
+			.biz-detail{
+				margin-top: 10px;
+			}
+			.greencss{
+				color: #32B16C !important;
+			}
+			.picWrap{
+				padding: 10px 10px 0 10px;
+				position: relative;
+			}
+			.cc{
+				width: 100%;
+			}
+			.ccW{
+				position: absolute;
+				top: -10px;
+				left: -15px;
+				width: 0%;
+			}
+			.cLeft{
+				position: absolute;
+				top: 25px;
+				left: 25px;
+				/*z-index: 99;*/
+			}
+			.cLeft p{
+				line-height: 22px;
+			}
+			.cRight{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				height: 100%;
+				width: 21%;
+				/*padding: 28px 22px;*/
+			}
+			.cRight p{
+				line-height: 20px;
+				font-size: 16px;
+				color: #fff;
+			}
+			.got{
+				position: absolute;
+				right: 0px;
+				top: 3px;
+				width: 95px;
+			}
+			.got1{ 
+			    position: absolute;
+			    top: 14px;
+			    right: 2px;
+			    width: 70px;
+			}
+			.yellowT{
+				/*margin-bottom: 10px;*/
+				font-size: 18px !important;
+				color: #f2af2d!important;
+			}
+			.waitGet{
+				display: block;
+				margin: 0 auto;
+				left: 50%;
+				position: absolute;
+				margin-left: -16px;
+				top: 50%;
+				margin-top: -20px;
+			}
+			#activityContent img{max-width: 100%;}
+			
+		</style>
+		<style type="text/css">
+			 
+		  
+			/*banner图片固定高度比例*/
+			.goodsImg{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+				overflow: hidden;
+			}
+			.list,.bottom{
+				border-bottom: 1px solid #EFEFF4 !important;
+				border-top: 1px solid #EFEFF4 !important;
+			}
+			.top,.farm{
+				border-bottom: none !important;
+			}
+			.farmtc .bt{
+				border-top: 1px solid #EFEFF4 !important;
+			} 
+			.merchant .biz-call .phone{margin-top: -7px;}
+			.rentingtopbot {padding-bottom: 40px !important;}
+			
+			.red1{
+				color: #f53c42 !important;
+				margin-bottom: 10px;
+				font-size: 18px !important;
+			}
+			.time img{
+				width: 15px;
+				margin-right: 5px;
+				margin-top: -2px;
+			}
+			.mui-btn-block {
+				font-size: 14px;
+				display: block;
+				width: 90%;
+				margin: 10px 5%;
+				padding: 8px 0;
+			}
+			.farm{
+				position: relative;
+			}
+			.biz-call img{
+				width: 60%;
+			}
+			.biz-call p{
+				line-height: 30px;
+				float: right;
+				font-size: 11px !important;
+				width: 100%;
+				text-align: center;
+				color: #999 !important;
+			}
+			.merchant .biz-call{
+				width: 20%;
+				height: auto !important;
+				line-height: inherit;
+			}
+			.biz-detail{
+				margin-top: 10px;
+			}
+			.greencss{
+				color: #32B16C !important;
+			}
+			#content img{
+				max-width: 100%;
+			}
+			.cardMoney{position: relative;}
+			.cardMoney img{width: 100%;padding: 0 10px;}
+			.carl{position: absolute;top: 50%;-webkit-transform: translateY(-50%);left: 10px;width: 38%;text-align: center;line-height: 1;}
+			.carr{color: white;}
+			.carr .ctop{position: absolute;top: 20%;right: 10px;width: 55%;position: absolute;text-align: center;font-size: 16px;line-height: 1.2;}
+			.carr .cbot{position: absolute;right: 19%;bottom: 23%;color: #fd6363;font-size: 12px!important;}
+			.cartop{position: absolute;top: 12%;left: 10px;right: 10px;color: white;font-size: 16px;line-height: 1.4;text-align: center;}
+			.carbot{position: absolute;bottom: 8%;left: 10px;right: 10px;color: white;font-size: 16px;line-height: 1.4;text-align: center;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="header"> 
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		    <h1 class="mui-title">活动详情</h1>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<!--详情内容-->
+		<div id="main"></div>
+		<script type="text/html" id="details">
+			<img src="<%=myUrl %><%= list.picImg%>" class="goodsImg">
+			<div class="farm clearfloat">
+				<div class="top rentingtop clearfloat box-s">
+					<p class="red1" style="color: black!important;"><%= list.title%></p>
+					<div class="merchant">
+						<div class="biz-detail">
+							<p class="time">
+								<img src="../../img/market/time.png"/><%= list.begin_time%>~<%= list.end_time%>
+							</p>
+							<p class="time ">
+								<img src="../../img/market/add.png"/><%= list.address_str%>
+							</p>
+							<p class="time ">
+								<img src="../../img/market/liulan.png"/>浏览次数：<%= list.read%>次
+							</p>
+						</div>
+						<div style="display: none;" class="biz-call" onclick="openMerchant(<%= list.storeid%>)">
+							<img src="../../img/store.png"/>
+							<p>查看商户</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!--优惠卷-->
+			<% if(shop_coupon && shop_coupon.length){%>
+				<% for(var i = 0;i< shop_coupon.length;i++ ){ %>
+					<div class="picWrap">
+						<img src="../../img/cc.png" class="cc"/>
+						<div class="cLeft">
+							<b class="red1"><%= shop_coupon[i].name %></b>
+							<p>使用时间：
+								<%= shop_coupon[i].begin_date %> ~ <%= shop_coupon[i].end_date %> 
+							</p>
+							<p>使用条件：
+								<% if(shop_coupon[i].typeid == 2){ %><!--满减折扣券-->
+									满<%= shop_coupon[i].discountnum %>元，打<%= shop_coupon[i].discountstr %>折 
+								<% }else{ %>
+									无限制
+								<% } %>
+							</p>
+							<img src="../../img/ccW.png"/ class="ccW">
+						</div>
+						<div class="cRight" onclick="getCoupon(this,<%= shop_coupon[i].id %>)">
+							<div class="waitGet">
+								<p>立即</p>
+								<p>领取</p>
+							</div> 
+							<img src="../../img/got.png" class="got" style="display: none;"/>
+							<img src="../../img/limitOver.png" class="got1" style="display: none;"/>
+						</div>
+					</div>
+				<% } %>
+			<% }%>	
+			
+			<!--代金券-->
+			<!--<div class="cardMoney">
+				<img src="../../img/market/cardMoney.png"/>
+				<div class="carl">
+					<div class="red1">￥ <span style="font-size: 20px;">100</span></div>
+					<div>领取金额</div>
+				</div>
+				<div class="carr">
+					<div class="ctop">520情人节共享券<br/>2017-08-30</div>
+					<div class="cbot red1">立即领取</div>
+				</div>
+			</div>-->
+			
+			
+			<!--活动券-->
+			<!--<div class="cardMoney">
+				<img src="../../img/market/onlyCard.png"/>
+				<div class="cartop">
+					520情人节共享券<br />
+					截止日期:2017-08-21
+				</div>
+				<div class="carbot">
+					<button type="button" class="mui-btn mui-btn-danger goask" style="padding:5px 5px!important;background-color: #fd6363;border: none;">立即领取</button>
+				</div>
+			</div>-->
+			
+			
+			<div class="farmtc clearfloat mt10">
+				<p class="bt box-s">活动详情</p>
+			</div>
+			<div class="farm clearfloat">
+				<div id="content" class="top rentingtop rentingtopbot clearfloat box-s">
+				</div>	
+			</div>
+		</script>
+		
+		
+	</body>
+	<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	mui.plusReady(function(){
+		//添加刷新监听
+		document.addEventListener('refresh', function() {
+			Refresh();
+			console.log('刷新数据');
+		}) 
+		Refresh(); 
+		//console.log(JSON.stringify(plus.webview.currentWebview())); 
+		function Refresh(){
+		plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});
+		//获取数据
+		var oldToken = plus.storage.getItem('oldToken'),
+	 		cityNum = plus.storage.getItem('cityNum'),
+	 		myuserid = plus.storage.getItem('userid');
+		var activityId = plus.webview.currentWebview().activityId;
+		var mycannotid = []; 
+		mui.ajax(serverUrl+'/api/useraccount/mycoupon',{  
+			data:{userid : myuserid},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			headers:{"token":oldToken,"city":cityNum},	
+			success:function(data){
+				console.log('领取过的',data);
+				if(data.errno == 0){
+					//遍历出不能领的卷
+					if(data.data.user_coupon && data.data.user_coupon.length){ 
+						console.log(data.data); 
+						mui.each(data.data.user_coupon,function (index,element) {
+							if(element.receive_limit == 1){//只能领一次的卷
+								mycannotid.push(element.id); 
+							}else{//领多次的卷，未核销   
+								if(element.user_coupon_state == 1){
+									mycannotid.push(element.id);  
+								} 
+							}
+						})
+					}
+			console.log('不能领的卷',mycannotid);	
+			//@@@@@@		
+			mui.ajax(serverUrl+'/api/index/couponoractivityinfo',{
+				data:{"id":activityId},  
+				type:'post',
+				timeout:10000,
+				headers:{"token":oldToken,"city":cityNum},	               				
+				success:function(data){
+					console.log('活动详情返回',data); 
+					if(data.errno == 0){
+						var dt = new Date(data.data.system_activity.begin_time);
+			       		var dt2 = new Date(data.data.system_activity.end_time);
+						var date = [
+						  [dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join('-')].join(' ').replace(/(?=\b\d\b)/g, '0'); // 正则补零
+						var date2 = [
+						  [dt2.getFullYear(), dt2.getMonth() + 1, dt2.getDate()].join('-')].join(' ').replace(/(?=\b\d\b)/g, '0'); // 正则补零
+						
+						data.data.system_activity.begin_time = date;
+						data.data.system_activity.end_time = date2;
+						//var gotCouponId =JSON.parse(plus.storage.getItem("$gotCoupon") || '[]');//获取已经领取的缓存
+						gotCouponId = mycannotid; 
+						var objdata = {};
+						objdata.list = data.data.system_activity; 
+						
+						
+						//优惠卷部分
+						if(data.data.shop_coupon && data.data.shop_coupon.length){
+							objdata.shop_coupon = data.data.shop_coupon;
+							mui.each(data.data.shop_coupon,function (index,element) {//遍历出 满减折扣券 使用规则
+								element.coupon_amount && (element.discountstr = element.coupon_amount.split(',')[1]*10);//折
+								element.coupon_amount && (element.discountnum = element.coupon_amount.split(',')[0]);//满
+							})
+						}
+						objdata.myUrl = serverimgUrl; 
+						var html=template("details",objdata);
+						document.getElementById("main").innerHTML=html;
+						
+						//详情
+						if(objdata.list.content) {
+							var detailsdom = parseDom(objdata.list.content);
+							
+							var detailsimg = detailsdom.getElementsByTagName('img');
+							mui.each(detailsimg, function(index, element) {  
+								if(element.src.indexOf('pages/activity')>-1){
+									element.src = serverimgUrl + element.src.split('pages/activity')[1];
+									element.onerror = function() {
+										element.src = '../../img/market/nodata.svg';
+									}
+								
+								}
+							}) 
+							document.getElementById("content").appendChild(detailsdom);
+						}else{
+							document.getElementById("content").innerHTML = '<div style="font-size:0.12rem;color:gray;padding:5%;text-align: center;">暂无详情</div>'
+						}
+							
+							
+					}else{
+						mui.toast('获取用户信息失败');
+					}
+					plus.nativeUI.closeWaiting();
+					plus.nativeUI.closeWaiting();
+					var oldToken = plus.storage.getItem('oldToken');
+						
+						if(data.data.shop_coupon && data.data.shop_coupon.length){//当 是不能 领取的卷 时，制空 点击事件
+							for(var k = 0;k<gotCouponId.length;k++){ 
+								for(var n = 0;n < data.data.shop_coupon.length;n++){
+									if(gotCouponId[k]==data.data.shop_coupon[n].id){//自己不能领取的
+										mui('.waitGet')[n].style.display = 'none';
+										mui('.got')[n].style.display = 'block';
+										mui('.cRight')[n].onclick = function(){} 
+									}
+								}
+							}
+							mui.each(data.data.shop_coupon,function (index,element) {
+								if(element.stock <= 0){//库存为零
+									mui('.waitGet')[index].style.display = 'none';
+									mui('.got1')[index].style.display = 'block'; 
+									mui('.cRight')[index].onclick = function(){} 
+								}
+							})
+						}
+					 
+					
+				},
+				error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();
+					console.log('响应失败  !');
+				}
+			});
+		}else{
+			plus.nativeUI.closeWaiting();
+			mui.toast('网络错误，请重试');
+			}
+				
+			},
+			error:function(xhr,type,errorThrown){
+				plus.nativeUI.closeWaiting();
+				mui.toast('网络错误，请重试');
+			}
+		});	
+		function parseDom(arg) { //节点转换方法
+			var objE = document.createElement("div");　　
+			objE.innerHTML = arg;　　
+			return objE;
+		};
+		};//刷新
+	});
+	//打开商户详情
+	function openMerchant(id){
+		openview({
+			view:'../market/shophome.html',
+			extrasobj:{storeId:id}
+		})
+	}
+	</script>
+</html>

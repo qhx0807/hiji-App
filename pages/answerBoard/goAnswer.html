@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>回答</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	</head>
+	<style type="text/css">
+	 	.baocun img{width:20px}
+		.disbg{border:none}
+		.uppics{padding:15px}
+		.uppics div.onepic img{width:4.5rem;height:4.5rem;display:inline-block;margin:0 5px;border-radius:3px}
+		.uppics div.onepic input{width:0;height:0;position:absolute;outline:0}
+		.picimg1{width:25px;position:absolute;right:0;top:2px}
+		.fchidl{display:flex;align-items:center;justify-content:space-between}
+		.userAvator{width:2rem;height:2rem;border-radius:50%;margin-right:15px}
+		.fchidl>div{vertical-align:middle;display:flex;font-size:15px;text-align:left;align-items:center}
+		.text{color:#999}
+		.followA{background-color:#fff;padding:15px 15px;background-color:#f3f3f3}
+		.followA p{margin:10px 0}
+		.answerImf{width:calc((100vw - 50px) / 4);width:-webkit-calc((100vw - 50px) / 4);width:-moz-calc((100vw - 50px) / 4);height:calc((100vw - 50px) / 4);height:-webkit-calc((100vw - 50px) / 4);height:-moz-calc((100vw - 50px) / 4);border-radius:3px;display: inline-block;overflow: hidden;}
+		.anImg{width: 100%;opacity: 0;}
+	</style>
+
+	<body style="background-color: white;">
+
+		<header class="mui-bar mui-bar-nav" id="header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize back"></a>
+			<h1 class="mui-title findUser">回答</h1>
+			<a href="javascript:;" style="line-height: 50px;" class="mui-pull-right baocun"><img src="../../img/answer/goanswer/up.png"/></a>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+
+		<script type="text/html" id="listDataS">
+				<div class="followA"><!--问题-->
+					<div class="fchidl">
+						<div>
+							<img src="<%=dataList.avatar%>" class="userAvator mr25" />
+							<div class="disablecl"><%=dataList.nickname%></div>
+						</div>
+					</div>
+					<p class="ft16 maincl" style="-webkit-user-select: text;"><%=dataList.content%></p>
+					<%if(dataList.pic && dataList.pic.length){%>
+						<%for(var j = 0 ;j<dataList.pic.length;j++){%>
+							<div class="answerImf" style="padding: 0;">
+								<img class="anImg picOp loadPics" onload="imgHeight(this)" src="<%=dataList.pic[j].picImg%>" data-preview-src="" data-preview-group="1" alt="" />
+					 		</div>
+					 	<%}%>
+					<%}%>
+				</div>
+
+		</script>
+		<div id="main">
+			<div id="listInfoS"> </div>
+
+			<div class="publishf">
+				<textarea id="textCon" class="disbg ft14" rows="4" placeholder="请文明用语，恶意乱发图文将被删帖并扣除奖励"></textarea>
+			</div>
+
+			<div id="mainpic" class="biaoqian">
+
+			</div>
+
+			<div class="uppics clearfix" id="uppics2">
+		        <div class="onepic">
+		            <img id="nowpic" onclick="galleryImgsSelected()" src="../../img/answer/goanswer/addpic.png">
+		            <p>添加照片</p>
+		        </div>
+		    </div>
+			<style type="text/css">
+		    		.disclaimer p{color: red;padding-left: 15px;}
+		    		.disclaimer p span{color: #555;}
+		    </style>
+		   <div class="disclaimer">
+				<p class="fl" onclick="disclaimer()"><span class="gray">发布即同意</span>免责申明</p>
+			</div>
+			<script type="text/javascript">
+				//点击免责申明
+				function disclaimer(){
+					openview({
+						view:'../localLife/disclaimer.html'
+					})
+				}
+			</script>
+
+		</div>
+
+
+	</body>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/app.js"></script>
+<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/image-new.js" type="text/javascript" charset="utf-8"></script>
+<!--引入模板引擎-->
+<script src="../../js/artTemplate-native.js"></script>
+<script type="text/javascript">
+// 	function imgHeight(obj){
+//		if(obj.offsetHeight<obj.parentNode.offsetHeight){
+//			obj.style.height = '100%';
+//			obj.style.width = 'auto';
+//		}
+//	}
+	mui.plusReady(function() {
+		var cityNum  = plus.storage.getItem('cityNum'),
+		    oldToken = plus.storage.getItem('oldToken'),
+			myuserid = plus.storage.getItem('userid'),
+			infiId = plus.webview.currentWebview().questionId;
+			isAct = plus.webview.currentWebview().isAct;
+		mui.ajax(serverUrl + '/api/friends/newsinfo/newsId/'+infiId, {
+			dataType: 'json',
+			type: 'get',
+			timeout: 8000,
+			headers: {"token": oldToken,'city': cityNum},
+			success: function(data, type, xhr) {
+				console.error('问答详情', data);
+				if(data.errno == 0) {
+					var dataObj = {}, nowArray = data.data;
+
+					if(nowArray.avatar && nowArray.avatar!='null'){
+						if(JSON.parse(nowArray.avatar)[0].picImg.indexOf('http') == -1){
+							nowArray.avatar = serverimgUrl + JSON.parse(nowArray.avatar)[0].picImg;
+						}else{
+							nowArray.avatar = JSON.parse(nowArray.avatar)[0].picImg
+						}
+					}else{
+						nowArray.avatar = '../../img/10.png'
+					}
+
+					if(!nowArray.nickname){
+						nowArray.nickname = '匿名'
+					}
+					if(!nowArray.answerNums){
+						nowArray.answerNums = 0
+					}else if((nowArray.answerNums / 1000)>1){
+						nowArray.answerNums = parseInt(nowArray.answerNums / 1000) +'K+'
+					}
+					if(!nowArray.likes){
+						nowArray.likes = 0
+					}
+					if(nowArray.pic && nowArray.pic!='null'){
+						nowArray.pic = JSON.parse(nowArray.pic);
+						for(var k = 0; k<nowArray.pic.length;k++){
+							if(nowArray.pic[k].picImg.indexOf('http') == -1){
+	                            nowArray.pic[k].picImg = serverimgUrl + nowArray.pic[k].picImg;
+	                        }
+						}
+					}
+					dataObj.dataList = data.data;
+					document.getElementById("listInfoS").innerHTML = template("listDataS", dataObj);
+					lazyLoad(true);//懒加载
+				}else{
+					mui.toast('当前网络不好,请重试');
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				console.error('交友列表,响应失败');
+				mui.toast('当前网络不好,请重试');
+			}
+		});
+	});
+
+	var Apic = [];//图片存放数组
+	var lfs=null;// 保留上次选择图片列表
+	var time1 = null;
+	function galleryImgsSelected(){//从相册中选择图片
+		mui.plusReady(function(){
+		    plus.gallery.pick( function(e){
+		    	//初始化
+		    	mui('.onepic')[0].innerHTML = '<img id="nowpic" onclick="galleryImgsSelected()" src="../../img/answer/goanswer/addpic.png">';
+		    	Apic = [];
+		    	//初始化结束
+		    	lfs=e.files;
+		    	clearInterval(time1);
+		    	var indexNum = 0;
+		    	var indexMax = e.files.length - 1;
+		    	/*显示占位图片*/
+		    	e.files.forEach(function(){
+		    		$('.onepic').prepend('<img onclick="galleryImgsSelected()" style="width：4.5rem;height:4.5rem;display:inline" src="../../img/Spinner.svg"/>')
+		    	})
+		    	time1 = setInterval(function(){
+		    		console.log(time1);
+		    		if(0!=e.files[indexNum].indexOf("file://")){
+						e.files[indexNum]="file://"+e.files[indexNum];//图片地址
+					}
+		    		if(indexNum == indexMax){//全部压缩完毕
+		    			clearInterval(time1);
+						time1 = null;
+		    		}
+		    		var nowpic = Math.random().toString(36).substr(2) + '.jpg';//随机字符串
+		    		var endpic = e.files[indexNum].split('.')[0]+"/" +nowpic;
+		    		//压缩方法
+	    			plus.zip.compressImage({
+						src:e.files[indexNum],
+						dst:endpic,
+						overwrite:true,
+						quality:30
+					},
+					function() {
+						Apic.push(endpic);
+						showImg(endpic,indexNum);
+					},function(error) {
+						mui.toast('图片获取错误，请重试');
+					});
+		    		indexNum ++;
+
+		    	},1000)
+		    }, function ( e ) {
+		    },{filter:"image",multiple:true,maximum:9,selected:lfs,system:false,onmaxed:function(){//保存选择记录
+    		//},{filter:"image",multiple:true,maximum:10,system:false,onmaxed:function(){
+				plus.nativeUI.alert('最多上传9张图片');
+		    }});
+			function showImg(url,indexNum){//显示图片
+				if(0!=url.indexOf("file://")){
+					url="file://"+url;
+				}
+				document.getElementsByClassName('onepic')[0].getElementsByTagName('img')[indexNum-1].src = url;
+				$('.onepic p').css('display','none');
+			}
+		})
+	}//从相册中选择图片结束
+
+	//发送 发布
+	mui('.baocun')[0].addEventListener('tap',function(){
+		var cityNum  = plus.storage.getItem('cityNum'),
+	        expertId= plus.webview.currentWebview().expertid,
+			oldToken = plus.storage.getItem('oldToken'),
+		 	myuserid = plus.storage.getItem('userid');
+			infiId = plus.webview.currentWebview().questionId;
+			isAct = plus.webview.currentWebview().isAct;
+		 	questionUserId = plus.webview.currentWebview().questionUserId;
+	 	var textCon = mui('#textCon')[0];
+	 	if(Apic.length){//要传图片
+		 	if(time1 == null){//必须要图片全部处理完毕  才行    (开始发布)
+		 		plus.nativeUI.showWaiting();
+		 		var content = mui('#textCon')[0].value;
+		 		releaseData();
+		 	}else{
+		 		mui.toast('图片还在处理中');
+		 		return false;
+		 	}
+	 	}else{//不传图片
+		 	if(!textCon.value){
+		 		mui.toast('请填写内容或选择至少一张图片');
+		 		return false;
+		 	}else{//(开始发布)
+		 		if(isAct == 'yes09' && mui('#textCon')[0].value.length<15){//发帖送礼字数限制
+		 			mui.toast('本次活动要就填写字数不少于15字');
+		 		}else{
+		 			plus.nativeUI.showWaiting();
+		 			var content = mui('#textCon')[0].value;
+		 			releaseData();
+		 		}
+		 	}
+	 	}
+
+	 	//发送数据
+	 	function releaseData(){
+			var task = plus.uploader.createUpload(serverUrl+'/api/friends/newscomment',
+				{ method:"POST"},
+				function(back,status){
+					if(status == 200){
+						console.log(back);
+						var dataobj = JSON.parse(back.responseText);
+						console.log('回答',dataobj);
+
+						if(dataobj.errno == 0){
+							plus.nativeUI.closeWaiting();
+							if(dataobj.errmsg){
+								mui.toast(dataobj.errmsg);
+							}else{
+								mui.toast('回答成功');
+							}
+
+							mui.fire(plus.webview.getWebviewById('answerInfo'),'refresh');
+							//09问答活动
+							if(isAct){
+								plus.storage.setItem("aboutNewsId",dataobj.data.toString());
+								openview({
+									view:'../limitTimeAct/09wenda/answerWen1.html',
+									id:"answerWen2",
+									create:true,
+									extrasobj:{goType:'ask',aboutNewsId:dataobj.data}
+								});
+								setTimeout(function(){
+									plus.webview.currentWebview().close();
+								},1000)
+							}else{
+								//正常流程
+								plus.webview.currentWebview().close();
+							}
+						}else{
+							plus.nativeUI.closeWaiting();//关闭等待框
+							if(dataobj.errmsg){
+								mui.toast(dataobj.errmsg);
+							}else{
+								mui.toast('发布失败，请重试！');
+							}
+
+							plus.nativeUI.closeWaiting();
+						}
+					}else{
+						plus.nativeUI.closeWaiting();//关闭等待框
+						mui.toast('当前网络不好，请重试！');
+					}
+
+				}
+			);
+			console.log(myuserid,infiId,questionUserId,content)
+			task.setRequestHeader('token',oldToken);
+			task.setRequestHeader('city',cityNum);
+			task.addData("userid",myuserid);
+			task.addData("newsId",infiId.toString());
+			task.addData("touserid",questionUserId.toString());
+			task.addData("commont",content);
+			if(Apic.length){
+				console.log(Apic);
+				[].forEach.call(Apic,function(ele,index){
+					task.addFile(ele, {key:index.toString()});
+					if(index == Apic.length-1){
+						task.start();
+					}
+				})
+
+			}else{
+				task.start();
+			}
+
+	 	}
+	 	//发送数据结束
+	})
+
+
+</script>
+
+</html>

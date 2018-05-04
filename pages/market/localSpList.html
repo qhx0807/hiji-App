@@ -1,0 +1,385 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>商品列表</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" href="../../css/reset.css">
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.flexslider-min.js"></script>
+		<script src=" ../../js/hmt.js" type="text/javascript"></script>
+		<script src="../../js/other.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/app.js" type="text/javascript" ></script>
+		
+		<!--引入模板引擎-->
+		<script src="../../js/artTemplate-native.js" type="text/javascript" ></script>
+		<style type="text/css">
+		.mui-bar-nav.mui-bar .mui-icon{margin: 0 !important;}
+			.mui-bar{
+				height: 50px;
+				box-shadow: none;
+			}
+			.mui-title,.mui-icon{
+				line-height: 50px;
+			}
+			.mui-bar .mui-icon{
+				padding: 0;
+			}
+			#main{
+				margin-top: 50px;
+			}
+			
+			/*这一页*/
+				height: 120px;
+			}
+			div.screening>ul>li{
+				border-left: 1px solid #eee !important;
+			}
+			div.screening>ul{
+				border-bottom:1px solid #eee; 
+			}
+			/*div.screening>ul:after{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				display: block;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(0.5);
+			}*/
+			dl.list dt, dl.list dd,dl.list{
+				border-bottom: 0;
+				margin: 0 5px;
+				position: relative;
+			}
+			dl.list dt:not(:last-child):after, dl.list dd:not(:last-child):after,dl.list:not(:last-child):after{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				display: block;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(0.5);
+			}
+			.dealcard .dealcard-block-right:after{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				display: none;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(0.5);
+			}
+			.dealcard .title, .cinemacard .title{
+				color: #999;
+				font-size: 12px !important;
+			}
+			.dealcard .strong, .dealcard .strong{
+				color: #999;
+				font-size: 20px !important;
+				line-height: 30px;
+			}
+			.dealcard .title, .dealcard .price{
+				height: 30px;
+				margin: 5px 0;
+			}
+			.right{
+				text-align: right;
+			}
+			.middle{
+				text-align: center;
+			}
+			.strong-color{
+				color: #f53c42 !important;
+			}
+			.Lgray{
+				font-size: 12px !important;
+				color: #999 !important;
+				margin-top: 14px;
+			}
+			.mui-badge-blue, .mui-badge-primary{
+				background-color: #fff;
+				border: 1px solid #999;
+				color: #999 !important;
+			}
+			.dealcard .title span{
+				top: 0;
+				left: 0;
+				position: relative;
+			}
+			.bage{
+				width: 100%;
+			}
+			dl.list .dd-padding, dl.list dt, dl.list dd>.react {
+				padding: 10px;
+				margin: 10px 0;
+			}
+			.dealcard .dealcard-brand, .cinemacard .cinemacard-brand{
+				font-size: 16px;
+			}
+			.dealcard .dealcard-brand{
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				display: block;
+			}
+			.dealcard .title span, .dealcard .price span {
+				font-size: .12rem;
+			}
+			.dealcard .dealcard-img{
+				width: 30%;
+				height: 106px !important;
+				/*max-height: 106px !important;*/
+				margin-top: -10px;
+				border-radius: 0 !important;
+			}
+			.dealcard .dealcard-block-right {
+				padding-left: 10px;
+				float: right;
+				width: 70%;
+				/*max-height: 106px;*/
+				overflow: hidden;
+			}
+			.imgbox{
+				background-image: none;
+			}
+			.dealcard-img img {
+				max-width: 100%;
+				/*max-height: 106px;*/
+			}
+			.moreone{
+				line-height: 50px;
+			}
+			dl.list .db>.react{
+				padding: 0;
+				margin: 0;
+			}
+			dl.list .db{
+				height: 50px;
+			}
+			.grade-eject>ul>li, .Category-eject>ul>li, .Sort-eject>ul>li{
+				line-height: 40px;
+			}
+			.Regional{
+				background-image: none !important; 
+			}
+			#upload{ 
+				text-align: center;font-size: 15px;line-height: 30px;min-height: 40px;
+			}
+			#upload img{width: 60px;margin-top: -18px;
+			}
+			.guess-like{padding-top: 2px;margin-bottom: 0 !important;}
+		</style>
+	</head>
+	<body> 
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			<h1 class="mui-title">土特产列表</h1>
+		</header>
+		
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div id="container">		
+			<div id="main">
+				
+				<div id="goodsList"></div>
+				<div class="upload text-center text-xs gray" id="upload"></div>
+				<div id="nulldiv" style="text-align:center;margin-top: 40%;font-size: 14px;color: #999;display: none;">
+					<img style="width: 30%;margin-bottom: 5%; " src="../../img/unllfabu.svg"/>
+					<br />
+					没有相关信息
+				</div>
+			</div>
+		</div> 
+		
+		<!--模板渲染数据-->
+		<script id="goodsList-detail" type="text/html">
+			<div class="guess-like">
+					<dl class="list">
+					  	<div class="screening" id="screeningdiv" style="top: 50px;display: none;">
+						    <ul>
+						        <li class="Brand">综合</li>
+						        <li class="Regional" onclick="order('sales','asc')">销量</li>
+						        <li class="Sort">价格</li>
+						    </ul>
+						</div>
+						
+						<div class="Category-eject" style="display: none;">
+						    <ul class="Category-w" id="Categorytw">
+						        <li onclick="order('create_time','asc')">新品</li>
+						        <li onclick="order('comments','asc')">评价</li>
+						    </ul>
+						</div>
+						<!--<div class="grade-eject">
+						    <ul class="grade-w" id="gradew">
+						        <li onclick="order('sales','asc')">从高到低</li>
+						    </ul>
+						</div>-->
+						<div class="Sort-eject Sort-height" style="display: none;">
+						    <ul class="Sort-Sort" id="Sort-Sort">
+						        <li onclick="order('price','desc')">从高到低</li>
+						        <li onclick="order('price','asc')">从低到高</li>
+						    </ul>
+						</div>
+					
+					<%if(list.length==0){%>
+						<div style="font-size:14px;color:gray;padding: 10px;text-align: center;">暂无数据,看看别的吧</div>
+					<%}else{%>
+						<% for(var i=0;i<list.length;i++){ %>
+						<dd class="goodsItem">
+							<a class="react" onclick="goInfo(<%= list[i].goods_id %>)">
+								<div class="dealcard">
+									<div class="dealcard-img imgbox">
+										<img src="<%=myUrl %><%= list[i].thumb %>" onerror="javascript:this.src='../../img/zhaoxiangji.svg';"/>
+									</div>
+									<div class="dealcard-block-right">
+										<div class="dealcard-brand single-line"><%= list[i].title %></div>
+										<div class="title text-block bage">
+										</div>
+										<div class="price mui-row">
+											<div class="mui-col-sm-4 mui-col-xs-4">
+												<span class="strong-color">￥</span><span class="strong"><%= list[i].price %></span>
+											</div>
+											<span class="mui-col-sm-4 mui-col-xs-4 middle Lgray">评价<%= list[i].comments %>条</span>
+											<span class="mui-col-sm-4 mui-col-xs-4 right Lgray">已售<%= list[i].sales %></span>
+										</div>
+									</div>
+								</div>
+							</a>
+						</dd>
+					<% } %>
+					<%}%>
+					
+					</dl>
+				</div>
+			
+		</script>
+	</body>
+
+	<script type="text/javascript">
+		var Spagenum = 2;//实到页数
+		var Ypagenum = 1;//应到页数
+		mui.plusReady(function(){
+			plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});//显示等待框 
+			//获取缓存
+			var oldToken = plus.storage.getItem('oldToken');
+			
+				var can1 = 'sales',can2 = 'desc';
+			//获取页面传值 商品分类id
+			var goodcatId = plus.webview.currentWebview().goodscatId; 
+			//按照选择排序
+			window.order = function(orderType,sequence){
+				var pagenum = 8,CcurrentPage = 1;
+					can1 = orderType,can2 = sequence;
+				plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});//显示等待框
+				mui.ajax(serverUrl+'/api/mall/mallgooodslist',{
+
+					data:{currentPage:CcurrentPage,numsPerPage:pagenum,categoryid:35,isRecommend:'',differentiate:'',storeid:'',brand:'',keyword:'',order_type:can1,desc:can2},
+					type:'post',
+					timeout:10000,
+					headers:{"token":oldToken},	 
+					success:function(data,type,xhr){  
+					if(data.errno == 0){ 
+						if(data.data.return.data.length!=0){ 
+							var objdata = {};
+							objdata.myUrl = serverimgUrl;
+							objdata.list = data.data.return.data;
+							var html=template("goodsList-detail",objdata);
+							document.getElementById("goodsList").innerHTML=html;
+							mui("#upload")[0].innerHTML = "";
+								//滚动到底部加载
+						$(window).scroll(function(){
+						　　var scrollTop = $(this).scrollTop();
+						　　var scrollHeight = $(document).height();
+						　　var windowHeight = $(this).height();
+						　　if(scrollTop + windowHeight == scrollHeight){
+								if(Spagenum<=data.data.return.totalPages && Spagenum==Ypagenum+1){//当前页小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "<img src='../../img/balls.svg' />";
+									Ypagenum++;//满足加载情况,应到页数+1
+									console.log('发起请求,实到'+Spagenum+'页');									
+									console.log('发起请求,应到'+Ypagenum+'页');
+									mui.ajax(serverUrl+'/api/mall/mallgooodslist',{  
+										data:{currentPage:Spagenum,numsPerPage:pagenum,categoryid:35,isRecommend:'',differentiate:'',storeId:'',brand:'',keyword:'',order_type:can1,desc:can2}, 
+ 
+										type:'post',
+										timeout:10000, 
+										headers:{"token":oldToken},	 
+										success:function(data,type,xhr){ 
+											console.log(JSON.stringify(data));
+											if(data.errno == 0){
+												var objdata = {};
+												objdata.myUrl = serverimgUrl;
+												objdata.list = data.data.return.data;
+												var html=template("goodsList-detail",objdata);
+												document.getElementById("goodsList").innerHTML+=html;
+											}
+											mui("#upload")[0].innerHTML = " ";
+											Spagenum++;//加载成功,当前页+1
+											console.log('成功+1,实到'+Spagenum);
+											console.log('成功+1,应到'+Spagenum);
+										},
+										error:function(xhr,type,errorThrown){
+											Ypagenum--;//失败是应到-1
+											mui.toast("当前网络不好请重试");
+											mui("#upload")[0].innerHTML = "";
+										}
+									});
+								}else if(Spagenum == data.data.return.totalPages+1){//当前页不小于等于总页数时请求下一页
+									mui("#upload")[0].innerHTML = "到底了";
+								}
+							　}
+						});//加载下一部分结束
+						}else{	
+							mui("#upload")[0].innerHTML = ""; 
+							mui('#nulldiv')[0].style.display = 'block';
+						}
+						plus.nativeUI.closeWaiting();//关闭等待框
+						
+					
+						
+					}else{
+						mui("#upload")[0].innerHTML = ""; 
+						mui('#nulldiv')[0].style.display = 'block';
+					}
+					plus.nativeUI.closeWaiting();//关闭等待框
+				},
+				error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();//关闭等待框
+					mui("#upload")[0].innerHTML = ""; 
+					mui('#nulldiv')[0].style.display = 'block';
+				}
+				});
+				
+				$('.Category-eject').removeClass('grade-w-roll');
+				$('.Sort-eject').removeClass('grade-w-roll');
+				$('.grade-eject').removeClass('grade-w-roll');
+			}
+			order('sales','desc');//初始化
+			
+			//跳转详情
+			window.goInfo =  function(goodsId){ 
+				 openview({
+				 	view:"mall-detail.html",
+				 	extrasobj:{goodsId:goodsId}
+				 })
+			}
+			
+		})();
+		
+		
+	</script>
+
+</html>

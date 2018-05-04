@@ -1,0 +1,357 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>问答详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../../css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<link rel="stylesheet" type="text/css" href="../../css/config.css" />
+</head>
+<style type="text/css"> 
+	.baocun{text-align:right;}
+	.baocun img{margin:0 9pt;width:25%;vertical-align:middle;} 
+	.follow{position:relative;padding:18px 15px 15px;background-color:#fff;}
+	.followA{background-color:#f3f3f3;}
+	.followA:after{position:absolute;right:10px;bottom:0;left:10px;height:1px;background:#cacaca;content:'';-webkit-transform:scaleY(.3);}
+	.follow:last-child:after{height:0;}
+	.fchidl{display:flex;align-items:center;justify-content:space-between;}
+	.Avator,.userAvator{margin-right:15px;width:2rem;height:2rem;}
+	.userAvator,.userAvator2{border-radius:50%;}
+	.userAvator2{margin-right:15px;width:1.5rem;height:1.5rem;}
+	.fchidl>div{display:flex;vertical-align:middle;text-align:left;font-size:15px;align-items:center;}
+	.text{color:#999;}
+	.diyButton{padding:5px 9pt;background:url(../../img/answer/bouttonbr.png) no-repeat;background-position:left top;background-size:100% 100%;text-align:center;}
+	.QandA{margin-bottom:55px;}
+	.listCon p{padding:10px 0 0 0}
+	.bottomop{display:flex}
+	.flexr img{width:22px}
+	.flexr{position:fixed;bottom:0;left:0;padding:18px 0;width:100%;background-color:#333;justify-content:space-around}
+	.flexr>div{display:flex;width:50%;justify-content:center;align-items:center}
+	.lookall{margin:10px 0;background:url(../../img/answer/lookall.png) no-repeat;background-position:center;background-size:50%;text-align:center}
+	.mui-bar-nav.mui-bar .mui-icon{margin-left: 0;}
+ 	.answerImf{width:calc((100vw - 50px) / 4);width:-webkit-calc((100vw - 50px) / 4);width:-moz-calc((100vw - 50px) / 4);height:calc((100vw - 50px) / 4);height:-webkit-calc((100vw - 50px) / 4);height:-moz-calc((100vw - 50px) / 4);border-radius:3px;display: inline-block;overflow: hidden;}
+	.anImg{width: 100%;opacity: 0;}
+</style>
+
+<body style="background-color: white;padding-bottom: 0;">
+	<header class="mui-bar mui-bar-nav" id="header">
+		<a class="goBack mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+		<h1 class="mui-title">问答详情</h1>
+		<a href="javascript:;" style="line-height: 50px;color:white;" class="mui-pull-right baocun">
+			<img id="share" src="../../img/answer/share.png" alt="" />
+		</a>
+	</header>
+	<script src="../../js/statusBar.js"></script>
+	<!--状态栏-->
+	<div id="main">
+		<div class="QandA" id="listInfoS"> </div>
+		<script type="text/html" id="listDataS">
+			<div class="listCon">
+				<div class="follow"><!--问题-->
+					<div class="fchidl">
+						<div>
+							<img src="<%=dataList.avatar%>" class="userAvator mr25" />
+							<div><%=dataList.nickname%></div>
+						</div>
+						<div class="activecl f10">悬赏<%=dataList.price%>HI豆</div>
+					</div>
+					<p class="ft14 maincl biaotiF" style="-webkit-user-select: text;"><%=dataList.content%></p>
+					<%if(dataList.pic && dataList.pic.length){%>
+						<%for(var j = 0 ;j<dataList.pic.length;j++){%>
+							<div class="answerImf" style="padding: 0;">
+								<img class="anImg picOp loadPics" onload="imgHeight(this)" src="<%=dataList.pic[j].picImg%>" data-preview-src="" data-preview-group="1" alt="" />
+					 		</div>
+					 	<%}%> 
+					<%}%> 
+				</div>
+				<div class="commentsShow"></div>
+			</div>
+			<div class="bottomop flexr">
+				<div class="bottomop mr25" style="color: white;">  
+						<img class="mr20 unlike" id="doLike" src="../../img/answer/unlike.png"/>
+						赞:<span class="ft14 whitecl"><%=dataList.likes%></span>
+				</div> 
+				<div class="ft14 whitecl isQter" style="border-left:1px solid #f3f3f3" onclick="goAnswers('<%=dataList.onlyExpert%>','<%=dataList.assignedExpert%>',<%=dataList.userid%>)">
+				 
+					<img src="../../img/answer/goanswer/answer.png" class="mr20" alt="" /> 回答:<%=dataList.answerNums%>
+				</div>
+		 	</div> 
+		</script>	
+		
+	</div>
+	
+		<!--回答模板-->
+		<script type="text/html" id="cmtTpl">
+		
+			<%for(var i=0;i<list.length;i++){%> 
+				<div class="follow followA"> <!--回答-->
+					<div class="fchidl">
+						<div>
+							<img src="<%=list[i].avatar%>" class="userAvator mr25"/>
+							<div class="disablecl"> <%=list[i].nickname%> </div>
+						</div> 
+						<%if(list[i].adopt == 1){%>
+							<div class="activecl ft14">
+								最佳答案
+							</div> 
+						<%}%>
+						
+					</div>  
+					<p class="ft14 disablecl answFa" style="-webkit-user-select: text;"><%=list[i].commont%></p> 
+					<%if(list[i].pics && list[i].pics.length){%>
+						<%for(var j = 0 ;j<list[i].pics.length;j++){%>
+							<div class="answerImf">
+								<img class="anImg loadPics picOp" onload="imgHeight(this)" src="<%=list[i].pics[j].picImg%>" data-preview-src="" data-preview-group="<%=i%>" alt="" />
+					 		</div>
+					 	<%}%> 
+					<%}%>  
+				</div>
+				
+			<%}%>  
+		
+		</script>
+	
+	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/mui.zoom.js"></script>
+	<script src="../../js/mui.previewimage.js"></script>
+	<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+//		function imgHeight(obj){
+//			if(obj.offsetHeight<obj.parentNode.offsetHeight){
+//				obj.style.height = '100%';
+//				obj.style.width = 'auto';
+//			}
+//		}
+		
+		mui.plusReady(function(){
+			var cityNum  = plus.storage.getItem('cityNum'),
+			    oldToken = plus.storage.getItem('oldToken'),
+				myuserid = plus.storage.getItem('userid'),
+				infiId = plus.webview.currentWebview().answerId,
+				touserid = plus.webview.currentWebview().toUserId;
+			
+			window.goAnswers = function(isExpert,expertId,qusid){
+				if(plus.storage.getItem('myToken')){
+					if(isExpert == 1){
+						if(expertId == myuserid){ 
+							openview({
+								view:'goAnswer.html',
+								id:'goAnswer',
+								extrasobj:{expertid:expertId,questionId:infiId,questionUserId:qusid}
+							})
+						 
+						}else{ 
+							mui.toast('仅特邀专家可以回答')
+						}
+					}else{
+						openview({
+							view:'goAnswer.html',
+							id:'goAnswer',
+							extrasobj:{expertid:expertId,questionId:infiId,questionUserId:qusid}
+						})
+					}
+				}else{
+					mui.toast('请登录');
+					openview({
+						view:'../login.html',
+						id:'login'
+					});
+				} 
+			}
+			document.addEventListener('refresh', function() {
+				showData();
+			})
+			showData();
+			function showData(){
+				mui.ajax(serverUrl + '/api/friends/newsinfo/newsId/'+infiId+'/userid/'+myuserid, {
+					dataType: 'json',
+					type: 'get',
+					timeout: 8000,
+					headers: {"token": oldToken,'city': cityNum},
+					success: function(data, type, xhr) {
+						console.error('问答详情', data);
+						if(data.errno == 0) {
+							var dataObj = {}, nowArray = data.data;
+							if(!touserid){
+								touserid = nowArray.user_id;
+							}
+							if(nowArray.avatar && nowArray.avatar!='null'){
+								if(JSON.parse(nowArray.avatar)[0].picImg.indexOf('http') == -1){
+									nowArray.avatar = serverimgUrl + JSON.parse(nowArray.avatar)[0].picImg;
+								}else{
+									nowArray.avatar = JSON.parse(nowArray.avatar)[0].picImg
+								}
+							}else{
+								nowArray.avatar = '../../img/10.png'
+							}
+							
+							if(!nowArray.nickname){
+								nowArray.nickname = '匿名'
+							}else{
+								if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(nowArray.nickname)){
+									nowArray.nickname = nowArray.nickname.substring(0,3)+"****"+nowArray.nickname.substring(7,11)
+								}
+							} 
+							if(!nowArray.answerNums){
+								nowArray.answerNums = 0
+							}else if((nowArray.answerNums / 1000)>1){
+								nowArray.answerNums = parseInt(nowArray.answerNums / 1000) +'K+'
+							}
+							if(!nowArray.likes || nowArray.likes<0){
+								nowArray.likes = 0
+							} 
+							if(nowArray.pic && nowArray.pic!='null'){
+								nowArray.pic = JSON.parse(nowArray.pic);
+								for(var k = 0; k<nowArray.pic.length;k++){
+									if(nowArray.pic[k].picImg.indexOf('http') == -1){
+	                                    nowArray.pic[k].picImg = serverimgUrl + nowArray.pic[k].picImg;
+	                                }
+								}
+							}
+							dataObj.dataList = data.data;
+							document.getElementById("listInfoS").innerHTML = template("listDataS", dataObj); 
+							document.getElementsByClassName("biaotiF")[0].addEventListener("tap",function(event){
+								var name = event.target.innerText;
+								var urlRegExp = new RegExp("((https|http|ftp|rtsp|mms|www)?:\/*\/*)[^\u4E00-\u9FA5]+");
+								if(urlRegExp.exec(name) != null){
+									var pipeiurl = urlRegExp.exec(name);
+									openview({
+										view:'../socialCircle/linkurl.html',
+										id: "linkurl",
+										extrasobj: {
+											bannerUrl: pipeiurl[0]
+										}
+									}) 
+								}
+							})
+							//判断是否点赞
+							if(data.errmsg && data.errmsg.isLike==1){
+								$('#doLike').attr('src','../../img/answer/liked.png');
+							}else{
+								$('#doLike').attr('src','../../img/answer/unlike.png');
+							}
+							//点赞
+							$('#doLike').unbind('click').click(function(){
+								if(plus.storage.getItem('myToken')){
+									var curThis = $(this);
+									if(curThis.attr('src') == '../../img/answer/unlike.png'){ 
+										likeThis(curThis,infiId,touserid,cityNum,myuserid,oldToken,'POST','../../img/answer/liked.png')  
+									}else{
+										likeThis(curThis,infiId,touserid,cityNum,myuserid,oldToken,'DELETE','../../img/answer/unlike.png') 
+									}
+								}else{
+									mui.toast('请登录');
+									openview({
+										view:'../login.html'
+									});
+								}
+								
+							});
+							/*分享*/
+							mui('.mui-pull-right')[0].onclick = function(){
+								//http://127.0.0.1:5500/pages/answerBoard/answerInfo.html?answerId=237&toUserId=530
+								var thumbs = '';
+								if(data.data.pic && data.data.pic.length){
+									thumbs = data.data.pic[0].picImg
+								}
+								var msg = {
+									title:mui('.biaotiF')[0].innerHTML,
+									content:mui('.biaotiF')[0].innerHTML,
+									href:fxUrl+'answerBoard/answerInfo.html?answerId='+infiId+'&toUserId='+touserid,
+									thumbs:[thumbs],
+									pictures:[thumbs]
+									
+								};
+								console.error(JSON.stringify(msg))
+								showSfun1(msg,function(){},function(){});
+							};
+							if(touserid == myuserid){ 
+								$('.isQter').css('display','none');
+							}
+							//回答
+							mui.ajax(serverUrl + '/api/friends/newscomment/newsId/'+infiId, {
+								dataType: 'json',
+								type: 'get',
+								timeout: 8000,
+								headers: {"token": oldToken,'city': cityNum},
+								success: function(data, type, xhr) { 
+									console.log('回答',data)
+									if(data.errno == 0) {
+										var cmtArray = data.data; 
+										if(cmtArray && cmtArray.length>0){
+											for(var i = 0;i<cmtArray.length;i++){
+												if(!cmtArray[i].nickname){ 
+													cmtArray[i].nickname =  '匿名'
+												}else{
+													if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(cmtArray[i].nickname)){
+														cmtArray[i].nickname = cmtArray[i].nickname.substring(0,3)+"****"+cmtArray[i].nickname.substring(7,11)
+													}
+												}
+												
+												if(cmtArray[i].pics && cmtArray[i].pics!='null'){
+													cmtArray[i].pics = JSON.parse(cmtArray[i].pics);
+													for(var j = 0; j<cmtArray[i].pics.length;j++){
+														if(cmtArray[i].pics[j].picImg.indexOf('http') == -1){
+	                                                        cmtArray[i].pics[j].picImg = serverimgUrl + cmtArray[i].pics[j].picImg;
+	                                                    }
+													}
+												}
+	                                            if(cmtArray[i].avatar && cmtArray[i].avatar!='null'){
+	                                                if(JSON.parse(cmtArray[i].avatar)[0].picImg.indexOf('http') == -1){
+	                                                    cmtArray[i].avatar = serverimgUrl + JSON.parse(cmtArray[i].avatar)[0].picImg;
+	                                                }else{
+	                                                    cmtArray[i].avatar = JSON.parse(cmtArray[i].avatar)[0].picImg
+	                                                }
+	                                            }else{
+	                                                cmtArray[i].avatar = '../../img/10.png'
+	                                            }
+	                                                 
+											}  
+											
+											$('.commentsShow').html(template('cmtTpl',{list:cmtArray}));
+											lazyLoad();
+										} 
+										
+									 
+									}else{
+										mui.toast('当前网络不好,请重试');
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									console.error('评论列表,响应失败');
+									mui.toast('当前网络不好,请重试');
+								}
+							});
+					    	
+							lazyLoad(true);//懒加载
+						}else{
+							mui.toast('当前网络不好,请重试');
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.error('交友列表,响应失败');
+						mui.toast('当前网络不好,请重试');
+					}
+				});
+			}
+			
+		})
+//		mui('.biaotiF')[0]
+		
+	</script>
+	<script type="text/javascript">
+		mui.previewImage(); 
+		 
+		//分享
+		$('#share').click(function() {
+
+		})
+
+	</script>
+</body>
+
+</html>

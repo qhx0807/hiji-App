@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>我的优惠券</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" href="../../css/reset.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js" type="text/javascript"></script>
+		<script src="../../js/app.js" type="text/javascript"></script>
+		<script src="../../js/artTemplate-native.js" type="text/javascript"></script>
+		<style type="text/css">
+			.coupons .list .right { padding: 4% 0 5% 3%; }
+			.fl{ position: relative; }
+			.qrcode{ position: absolute; right: 0; top: 0; width: 40px; height: 40px; overflow: hidden; }
+			.qrcode img{ width: 100%; }
+			.activeImg img{ width: 40%; }
+			.notice .tab-bd .tab-pal{ border: none; }
+			.nothing img{ display: block; margin: 20px auto; width: 80px; }
+			.nothing p{ text-align: center; }
+			.notice .tab-bd{ padding-top: 0; }
+			.notice .tab-hd li{width: 25%;}
+			.coupons .list{border-radius: 2px;}
+			/*新的优惠卷*/
+			body{ background-color: #f3f3f3; }
+			#offerId{ margin-top: 50px; padding: 3%; }
+			.offerWrap2 .offerTop{ background: url(../../img/market/youhuimianfei.png) 0 0 no-repeat; background-size: 100% 100%; }
+			.offerWrap3 .offerTop{ background: url(../../img/market/youhuishixiao.png) 0 0 no-repeat; background-size: 100% 100%; }
+			.offerTop{ background: url(../../img/market/youhuihong.png) 0 0 no-repeat; background-size: 100% 100%; }
+			.offerTop h4{ padding: 1.5% 0 1.5% 10%; }
+			.b1{ color: #fff; font-size: 15px; font-weight: 500; }
+			.b2{ font-weight: 500; color: #fff; font-size: 30px; margin-right: 0.5%; }
+			.span1{ color: #fedddd; font-size: 13px; }
+			.offerWrap2 .span1, .offerWrap2 .span2, .offerWrap2 .offerTop p{ color: #dddffe; }
+			.offerWrap3 .span1, .offerWrap3 .span2, .offerWrap3 .offerTop p{ color: #fff; }
+			.offerWrap2 .span3{ color: #5195f8; }
+			.offerWrap3 .span3{ color: #999; }
+			.span2{  color: #fedddd;  font-size: 12px; float: right; margin-top: 16px; margin-right: 2%; }
+			.offerTop p{ color: #fedddd; padding: 2.5%; padding-top: 2%; padding-bottom: 4%; font-size: 12px; width: 100%; }
+			.span3{ background-color: #fff; color: #fd6363;  border-radius: 3px; float: right; padding: 1.4%;  margin-top: -2.5%; font-size: 14px;display: inline-block;
+	      		white-space: nowrap; padding-right: calc(100vw * 0.025);padding-right: -webkit-calc(100vw * 0.025);padding-right: -moz-calc(100vw * 0.025); }
+			.offerFoot{ overflow: hidden; }
+			.offerFoot img{  width: 22.5%; margin-right: 2%; float: left; padding: 2.5% 0; }
+			.offerFoot img:first-child{ margin-left: 2%; }
+			.offerWrap{ background-color: #fff; border-radius: 4px; margin-top: 18PX; }
+			#offerId .offerWrap:first-child{ margin-top: 0; }
+			.mui-bar-nav{box-shadow: none !important;}
+			.notice .tab-hd {
+			    height: 0.4rem;
+			    background-color: #fff;
+			     border-bottom: none; 
+			}
+			.notice .tab-hd li {
+			    height: 0.4rem;
+			    line-height: 0.4rem;
+			}
+			.coupons{padding-top: 0;}
+			.answerImf{margin: 1px;width:calc((100vw - 50px) / 4);height:calc((100vw - 50px) / 4);border-radius:3px;display: inline-block;overflow: hidden;}
+			.anImg{width: 100%!important;opacity: 0;}
+			#maskInfo{z-index:99999;position:fixed;top:0;left:0;width:100%;bottom:0;background-color:rgba(0,0,0,.5)}
+			.ruleCt{position:absolute;padding-right:15px;background-color:#fff;top:15%;left:7%;width:86%;bottom:15%;padding:15px 5px;border-radius:3px}
+			.closemask{position:absolute;bottom:10px;left:50%;-webkit-transform:translateX(-50%)}
+			.ruleol{padding: 0 15px 0 15px;margin-top: 25px;}
+			.useinfo{padding: 2px 10px 10px 10px;text-align: right;font-size: 12px!important;}
+			.useinfo span{padding: 5px;background-color: #F63D42;border-radius:3px;color: white;}
+		</style>
+	</head>
+	<body>
+	 	<header class="mui-bar mui-bar-nav fineB">
+	    	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+	    	<h1 class="mui-title">优惠券</h1>  
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+		<div class="notice" style="margin:50px auto;">
+			<div class="tab-hd">
+				<ul class="tab-nav">
+				  <li>待使用</li>
+				  <li>已使用</li>
+				  <li>已过期</li>
+				  <li>已作废</li>
+				</ul>
+			</div>
+			<div class="tab-bd">
+				<div class="tab-pal">
+					<div class="coupons clearfloat box-s" id="allc"></div>
+				</div>
+				
+				<div class="tab-pal">
+					<div class="coupons clearfloat box-s" id="allc2"></div>
+				</div>	
+				<div class="tab-pal">
+					<div class="coupons clearfloat box-s" id="allc3"></div>
+				</div>
+				<div class="tab-pal">
+					<div class="coupons clearfloat box-s" id="allc4">
+						<div class="nothing">
+							<img src="../../img/theList/coupon.png"/>
+							<p>你没有已使用的优惠券哟！</p>
+						</div>
+					</div>
+				</div>
+				<!--待使用--> 
+				<script type="text/html" id="allcTpl">
+					<% for(var i=0;i<allLi.length;i++){ %> 
+						<% if(allLi[i].id && allLi[i].user_coupon_state == 1){ %>
+ 							<%if(allLi[i].typeid == 5){%>
+								<div onclick="Cdetail(<%= allLi[i].user_coupon_id %>)" class="offerWrap">
+								<%}else{%>
+									<div class="offerWrap">
+								<%}%>
+								 	<%if(allLi[i].typeid == 5){%>
+										<div style="padding:5px!important;font-size: 14px!important;">团购优惠券</div>
+									<%}else{%>
+										<div style="padding:5px!important;font-size: 14px!important;">电商优惠券</div>
+									<%}%>	
+									<div class="offerTop"> 
+										<h4><b class="b2"></b><span class="span1"><%= allLi[i].name %></span> <span class="span2"><%= allLi[i].begin_date %> ~ <%= allLi[i].end_date %></span></h4>
+										<p><%= allLi[i].title %> <span style="visibility: hidden;">wu</span>
+											<%if(allLi[i].typeid == 5){%>
+												<span class="span3">立即使用</span>
+											<%}else{%>
+											<%}%>
+										</p>
+									</div>
+								<div class="useinfo" onclick="Ccdetail('<%=allLi[i].content%>')">
+									<span>使用详情</span>
+								</div>
+							</div>
+						<% } %>
+					<% } %> 
+				</script>
+				<!--已使用状态-->
+				<script type="text/html" id="allc2Tpl">
+					<% for(var i=0;i<allLi.length;i++){ %> 
+						<%if(allLi[i].id){%>
+							<div class="offerWrap offerWrap3"> 	
+								<div class="offerTop">
+										<h4> <b class="b2"></b><span class="span1"><%= allLi[i].name %></span> <span class="span2"><%= allLi[i].begin_date %> ~ <%= allLi[i].end_date %></span></h4>
+										<p><%= allLi[i].title %> <span style="visibility: hidden;">wu</span> <span class="span3">已使用</span></p>
+								</div>
+							</div>
+							<div class="useinfo" onclick="Ccdetail('<%=allLi[i].content%>')">
+								<span>使用详情</span>
+							</div>
+						<%}%>
+						 
+					<% } %>  
+				</script>
+				<!--已过期状态-->
+				<script type="text/html" id="allc3Tpl">
+					<% for(var i=0;i<allLi.length;i++){ %> 
+						<%if(allLi[i].id){%>
+							<div class="offerWrap offerWrap3"> 	
+								<div class="offerTop">
+										<h4> <b class="b2"></b><span class="span1"><%= allLi[i].name %></span> <span class="span2"><%= allLi[i].begin_date %> ~ <%= allLi[i].end_date %></span></h4>
+										<p><%= allLi[i].title %> <span style="visibility: hidden;">wu</span> <span class="span3">已过期</span></p>
+								</div>
+							</div>
+							<div class="useinfo" onclick="Ccdetail('<%=allLi[i].content%>')">
+								<span>使用详情</span>
+							</div>
+						<%}%>
+						 
+					<% } %>  
+				</script>
+				<!--已作废状态-->
+				<script type="text/html" id="allc4Tpl">
+					<% for(var i=0;i<allLi.length;i++){ %> 
+						<%if(allLi[i].id){%>
+							<div class="offerWrap offerWrap3"> 	
+								<div class="offerTop">
+										<h4> <b class="b2"></b><span class="span1"><%= allLi[i].name %></span> <span class="span2"><%= allLi[i].begin_date %> ~ <%= allLi[i].end_date %></span></h4>
+										<p><%= allLi[i].title %> <span style="visibility: hidden;">wu</span> <span class="span3">已作废</span></p>
+								</div>
+							</div>
+							<div class="useinfo" onclick="Ccdetail('<%=allLi[i].content%>')">
+								<span>使用详情</span>
+							</div>
+						<%}%>
+						 
+					<% } %>  
+				</script>
+				
+			</div>
+		</div>
+		<!--详情弹框-->
+		<!--遮罩-->
+		<div id="maskInfo" style="display: none;">
+			<div class="ruleCt" style="padding-bottom: 50px;">
+				<div style="overflow-y: scroll;height: 100%;margin-bottom: 50px;">
+					<div class="ft18 fttc" style="text-align: center;">优惠券详情</div>
+					<ol class="ft14 disablecl ruleol">
+					</ol>
+				</div>
+				<button type="button" class="mui-btn mui-btn-danger mar10 closemask" >我知道了</button>
+
+			</div>
+		</div>
+		<script src="../../js/jquery.SuperSlide.2.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			jQuery(".notice").slide({ titCell:".tab-hd li", mainCell:".tab-bd",delayTime:0 });//tab切换
+		</script>
+		<script type="text/javascript">
+			$('.ruleCt').click(function(){
+				event.stopPropagation()
+			})
+			$('#maskInfo,.closemask').click(function(){
+				event.preventDefault()
+				$('#maskInfo').fadeOut(200);
+			})
+			$(".closePay").click(function() {
+				event.stopPropagation();
+				$("#payChoose").removeClass("mui-active");
+			});
+			mui.plusReady(function(){
+				var oldToken = plus.storage.getItem('oldToken');
+				var userId = plus.storage.getItem("userid");
+				var cityNum = plus.storage.getItem('cityNum');
+				plus.nativeUI.showWaiting('加载中 ...',{width:'100px',height:'80px'});//显示等待框
+				//点击进入券的详情
+				window.Ccdetail = function(cnt){
+					event.stopPropagation();
+					if(cnt){
+						$('#maskInfo').fadeIn(200);
+						$('.ruleol').html(cnt)
+					}
+
+				}
+				mui.ajax(serverUrl+'/api/useraccount/mycoupon',{  
+					data:{userid: userId}, 
+					dataType:'json',
+					type:'post',
+					timeout:10000,
+					headers:{"token": oldToken,'city': cityNum},	 
+					success:function(data,type,xhr){
+						console.log('data',data);
+						if(data.errno == 0) { 
+							if(!data.data.user_coupon || data.data.user_coupon.length == 0){   
+								mui('.notice')[0].innerHTML='<div class="nothing" style="margin-top:40%"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>';
+//								mui('#allC')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有未使用的优惠券哟！</p></div>';
+//								mui('#ableC')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有未使用的优惠券哟！</p></div>';
+//								mui('#disableC-detail')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有已使用的优惠券哟！</p></div>';
+							}else{
+								
+									var allc = {},allc2={},allc3={},allc4={};
+									var allcoupon = data.data.user_coupon;
+									allc.allLi = [],allc2.allLi = [],allc3.allLi = [],allc4.allLi = [];
+//									if(allC.allLi.length > 0){
+										//可用的优惠券
+										for(var i=0;i<allcoupon.length;i++){
+				    							var d = new Date();
+											var str = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+											var nowdate = formatDate(str, "yyyy.MM.dd");
+				    						    var endDate = formatDate(allcoupon[i].end_date, "yyyy.MM.dd"); 
+											if(allcoupon[i].user_coupon_state == 1 && allcoupon[i].end_date && endDate<nowdate){//判断时间过期
+												allcoupon[i].user_coupon_state = 3;
+											} 
+											if(allcoupon[i].user_coupon_state == 1){
+												allc.allLi.push(allcoupon[i])
+											} 
+											if(allcoupon[i].user_coupon_state == 0){
+												allc2.allLi.push(allcoupon[i])
+												
+											}
+											if(allcoupon[i].user_coupon_state == 3){
+												allc3.allLi.push(allcoupon[i])
+												
+											}
+											if(allcoupon[i].user_coupon_state != 1 && allcoupon[i].user_coupon_state != 0 && allcoupon[i].user_coupon_state != 3){
+												allc4.allLi.push(allcoupon[i])
+												
+											}
+											
+										}
+										if(allc.allLi.length == 0){
+											mui('#allc')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有可使用的优惠券哟！</p></div>';
+										}else{
+											console.log('可用',allc);
+											var html2 = template('allcTpl',allc);
+											document.getElementById('allc').innerHTML = html2;//铺可用
+										}
+										if(allc2.allLi.length == 0){
+											mui('#allc2')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有已使用的优惠券哟！</p></div>';
+										}else{
+											console.log('已使用',allc2);
+											var html2 = template('allc2Tpl',allc2);
+											document.getElementById('allc2').innerHTML = html2;//铺可用
+										}
+										if(allc3.allLi.length == 0){
+											mui('#allc3')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有过期的优惠券哟！</p></div>';
+										}else{
+											console.log('过期',allc3);
+											var html2 = template('allc3Tpl',allc3);
+											document.getElementById('allc3').innerHTML = html2;//铺可用
+										}
+										if(allc4.allLi.length == 0){
+											mui('#allc4')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有作废的优惠券哟！</p></div>';
+										}else{
+											console.log('作废',allc4);
+											var html2 = template('allc4Tpl',allc4);
+											document.getElementById('allc4').innerHTML = html2;//铺可用
+										}
+//									}else{
+//										
+//									}
+									if(!$('.offerWrap')){
+										mui('#ableC')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>';
+									}
+									
+								}
+							
+							//点击进入券的详情
+							window.Cdetail = function(Cid){
+								openview({ 
+									view:'coupon-detail.html',
+									extrasobj:{couponId:Cid}
+								});
+							}
+						} else{
+							mui('#ableC-detail')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有未使用的优惠券哟！</p></div>';
+						}
+					plus.nativeUI.closeWaiting();//关闭等待框
+					},
+					error:function(xhr,type,errorThrown){
+						mui('.notice')[0].innerHTML='<div class="nothing" style="margin-top:40%"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>';
+						mui.toast('响应失败  !');
+					}
+				});
+				
+			})();
+			if($('#allC').children().length == 0){ 
+				$('#allC').css('display','block')
+				$('#allC').html('<div class="nothing" style="display:block"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>')
+				}
+		</script>
+	</body>
+</html>

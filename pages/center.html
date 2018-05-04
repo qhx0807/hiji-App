@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>个人中心</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+			<style type="text/css">
+				body::-webkit-scrollbar {/*滚动条*/
+				  width: 0!important;
+				  height: 0!important;
+				  opacity: 1!important;
+				}
+			</style>
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css"/>
+		<link rel="stylesheet" href="../css/reset.css">
+		<link rel="stylesheet" href="../css/one.css">
+
+
+		<style type="text/css">
+			.muibackdrop{display: none;}
+			.white{color:#FFFFFF !important;}
+			.editImg{position: relative;}
+			.editImg .onshow{
+				position: absolute;
+				top:0;
+				bottom:0;
+				left:0;
+				right: 0;
+				font-style:normal;
+				color:#333;
+			}
+			.myInfo{width: 80px;height:80px;margin: 0 6%;border-radius: 50%;border: 2px solid #fff;
+			}
+			.denlu{font-size: 17px;
+			}
+			.brief{margin-left: 38%;margin-top: -10%;
+			}
+
+			/*修改*/
+			body{
+			}
+			.h-top{
+				background-size: cover;
+				margin: 0;
+			}
+			.centerBack{
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+			}
+			.white{
+				width: 100%;
+			}
+			.denlu{
+				padding-left: 20px;
+				color: #fff;
+				line-height: 25px;
+			}
+			.writing{
+				padding: 25px 0;padding-bottom: 5px;
+			}
+			.h-bottom{
+				position: absolute;
+				bottom: 0;
+			}
+			.cash{
+				background-color: #F53C42;
+				margin-bottom: 15px;
+			}
+			#userBox{
+				background-color: #eca4a6;
+			    padding: 35px 0 12px;
+				position: relative;
+			}
+			.myInfo{
+				width: 85px;
+				height: 85px;
+			}
+			.cash .shang ul li span{
+				color: #fff;
+			}
+			.cash .shang ul li img{
+				width: 28%;
+			}
+			.cash .shang{
+				border-bottom: none;
+			}
+			.cashlist ul li p img{
+				width: 20%;
+				margin-right: 10px;
+			}
+			.brief{
+				display: block;
+				text-align: center;
+				width: 100%;
+			}
+			.box-s2{
+				position: relative;
+			}
+			.box-s2 span{
+				right: 40px;
+				position: absolute;
+				top: 16px;
+			}
+			.cashlist ul li{padding: 0 3%;
+			}
+			.cashlist ul li{width: auto;}
+			#userList li:last-child{border: none;}
+			.shang ul{position: relative;background-color: #fff;}
+			.cash .shang ul li {
+				margin: 4% 0;
+				padding: 2% 0;
+			}
+			.cash .shang ul li span{
+				margin-top: 5px;
+				font-size: 12px;
+				color: #333;
+			}
+			.dao{
+				color: white!important;
+				border-color:white ;
+			    padding: 1px 7px;
+				top: 10px;
+				right: 10px;
+				position: absolute;
+				font-size: 12px;
+			    border-radius: 2px;
+			}
+			.cashlist ul li{border-bottom: none;}
+
+			#userList ul li a:after{
+				content: '';
+				display: block;
+				height: 1px;
+				background-color: #eee;
+				-webkit-transform: scaleY(.5);
+			}
+			#userList ul li a.xiaoxi:after{
+				height: 0;
+
+			}
+			.cashlist{
+				margin-bottom: 15px;
+			}
+			.centop span{display:inline-block;padding: 4px 0;}
+
+			#beijing{position: absolute;z-index:10;width: 100%;height: 100%;top: 0;overflow: hidden; -webkit-filter: blur(5px);}
+			#beijing img{width: 100%;position: relative;top: -40%;}
+			#beijing2{position: absolute;z-index:20;width: 100%;height: 100%;top: 0;background-color: rgba(241, 63, 63, 0.76);}
+			#userBox .content{position: relative; z-index: 30;}
+			#numjifen{z-index: 99;font-weight: 500;padding: 0;line-height: 20px;font-size: 14px;}
+			body{background-color: #f8f8f8 !important;width: 100%;overflow-x: hidden;}
+			#wodedin{background-color: #fff;margin-top: 10px;}
+    		#wodedintop{padding: 16px 5px 14px;padding-left: 12px;font-size: 15px;color: #444;border-bottom: 1px solid #f8f8f8;}
+    		#wodedintop .span1,#wodedintop .span2{float: right;color: #888;font-size: 14px;}
+    		#wodedintop .span2{font-size: 20px;margin-top: -2px;}
+    		#wodedintop .span2:before{color: #888;}
+    		/*#wodedintop:after{content: '';display: block;height: 1px;background-color: #f8f8f8;-webkit-transform: scaleY(.5);}*/
+    		.dindan{width: 18px; margin-top: -4px;margin-left: 2px;}
+    		#wodedin table{width: 100%;text-align: center;color: #555;table-layout:fixed;}
+    		#wodedin table img{display: block;margin: 0 auto;width: 32px;margin-bottom: 5px;}
+    		#wodedin table td{padding: 10px 0;}
+    		#wodedin span,#column span{position: relative;}
+    		#wodedin span.mui-badge, #column  span.mui-badge{ position: absolute; top: -36px;
+				     left: 25px;
+				    background: #f34f47;
+				    border: 1px solid #111!important;
+				    color: #fff;
+				    font-size: 10px;
+				    padding: 2px 4px;
+    		}
+    		#column table{width: 100%;text-align: center;background-color: #fff;margin-top: 10px;table-layout:fixed;}
+    		#column table img{width: 34px;display: block;margin: 0 auto;margin-bottom: 5px;}
+    		#column table td{padding: 13px 0;}
+    		#column table tr{}
+    		.cpage{color: white;margin-right: 20px;float: right;margin-top: -5px;}
+    		.cpage img{width: 0.15rem;}
+    		#fixdtop{position: fixed;top: 0; height: 25px;width:100%;z-index: 100;}
+
+		</style>
+
+	</head>
+	<body>
+    	<div class="clearfloat box-s box-ss" id="userBox">
+    		<!--src="../img/morentouxiang.jpg"/-->
+    		<div id="beijing"><img id="mypic1" ></div>
+    		<div id="beijing2"></div>
+    		<div id="fixdtop"></div>
+    		<div class="content clearfloat fl mui-row white">
+			    <div class="mui-col-sm-4 mui-col-xs-4" style="padding-top: 18px;position: relative;left: 3px;"><img src="../img/morentouxiang.jpg" class="myInfo" id="mypic"/></div>
+			    <div class="mui-col-sm-8 mui-col-xs-8 writing">
+			    	<p class="centop" style="-user-select: text;">
+			    		<span class="denlu denluzhuce" style="z-index: 99;">登录/注册</span> <br />
+			    		<b class="denlu denluzhuce" style="display: inline-block;min-height: 20px;" id="numjifen"> </b>
+			    	</p>
+
+			    </div>
+    			<img class="dao shezhi" style="top: 8px;width: 35px;" src="../img/center/shizhi.png"/>
+    		</div>
+    	</div>
+    	<script type="text/javascript">
+    		window.onscroll = function(){
+    			if (document.body.scrollTop > 25) {
+    				document.getElementById('fixdtop').style.backgroundColor = '#af4444';
+    			} else{
+    				document.getElementById('fixdtop').style.background = 'none';
+    			}
+    		}
+    	</script>
+    	<!--我的订单-->
+    	<div id="wodedin">
+    		<div id="wodedintop" class="aClick group_Order" data-status="all">
+    			<!--<img class="dindan" src="../img/dingdan.svg"/>-->
+    			我的订单
+    			<span class="mui-icon mui-icon-arrowright span2"></span>
+    			<span id="-1" class="span1">全部订单</span>
+    		</div>
+    		<table border="" cellspacing="" cellpadding="">
+    			<tr>
+    				<td class="aClick" onclick="typeOrder(0)"><span><img  src="../img/center/daifukuan.png"/>待付款<span class="mui-badge mui-badge-warning ordera" style="display: none;"></span></span></td>
+    				<td class="aClick" onclick="typeOrder(2)"><span><img  src="../img/center/daishouhuo.png"/>待收货<span class="mui-badge mui-badge-warning orderb" style="display: none;"></span></span></td>
+    				<td class="aClick" onclick="typeOrder(3)"><span><img  src="../img/center/daipingjia.png"/>待评价<span class="mui-badge mui-badge-warning orderc" style="display: none;"></span></span></td>
+    			</tr>
+    		</table>
+    	</div>
+
+    	<!--栏目-->
+    	<style type="text/css">
+    		#column{background-color: #fff;overflow: hidden;margin-top: 10px;}
+    		#column .aClick{width: 25%;float: left;text-align: center;padding: 15px 0;}
+    		#column .aClick img{display: block;width: 38%;margin: 0 auto;}
+    	</style>
+    	<div id="column">
+ 		<div class="aClick wmai-order"><img  src="../img/center/wodekuaidi.png"/>我的快递</div>
+		<div class="aClick wodedizhi"><img  src="../img/center/wodedizhi.png"/>我的地址</div>
+		<div class="aClick xiaoxi"><span><img src="../img/center/wodexiaoxi.png"/>我的消息<span id="mmsg" class="mui-badge mui-badge-warning" style="display: none;"></span></span></div>
+		<div class="aClick wodefabu"><img src="../img/center/wodefabu.png"/>我的发布</div>
+		<div class="aClick mycollect"><img src="../img/center/wodeshoucang.png"/>我的收藏</div>
+		<div class="aClick wodeyouhuijuan"><img src="../img/center/youhuijuan.png"/>优惠券</div>
+		<div class="aClick hidou"><img src="../img/center/linhidou.png"/>领HI豆</div>
+		<div class="aClick myQa"><img src="../img/center/wodewenda.png"/>我的问答</div>
+		<div class="aClick myAward"><img src="../img/center/awds.png"/ style="width: 26px;padding-bottom: 8px;position: relative;top: 6px;">我的奖品</div>
+		<div class="aClick yaoqingmaBtn"><img src="../img/center/yaoqingma.svg"/ style="width: 26px;padding-bottom: 8px;position: relative;top: 6px;">邀请码</div>
+		<div class="aClick yaoqinghaoyou"><img src="../img/center/yaoqinghaoyou.svg"/ style="width: 26px;padding-bottom: 8px;position: relative;top: 6px;">邀请好友</div>
+		<div class="aClick myCricle" ><img src="../img/center/wodequanzi.png"/>我的圈子</div>
+		<div class="aClick friendShip" ><img src="../img/center/jiaoyou.png"/>交友</div> 
+		<div class="aClick SignDay" style="display: none;"><img style="width: 30%;margin-bottom: 8%;position: relative;top: 5px;" src="../img/center/qiandaoBtns.svg"/>签到领券</div>
+		<div class="aClick" id="writeOff1" style="display: none;"><img style="width: 28px;padding-bottom: 5px;" src="../img/hexiao1.svg"/>核销</div>
+		<div class="aClick" id="writeOff2" style="display: none;"><img style="width: 28px;padding-bottom: 5px;" src="../img/center/heixaojilu.svg"/>核销记录</div>
+    	</div>
+
+		<!--遮罩1-->
+		<div id="maskInfo1" class="maskInfo" style="display: none;z-index:9999;"></div>
+		<script type="text/html" id="maskTpl">
+
+			<img src="../img/mainHtml/mclose.svg" class="closeMs"/>
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;">
+
+			<%if(popdata.modelContent){%>
+				<img src="<%=popdata.modelContent%>" style="border-radius: 3px;width: 100%;height: 100%;" onclick="popGo('<%=popdata.id%>','<%=popdata.modelUrl%>','<%=popdata.name%>','one')"/>
+			<%}else{%>
+				<img src="../img/mainHtml/mask2.png" />
+			<%}%>
+			</div>
+		</script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			mui('.SignDay')[0].style.display = 'block';
+			mui('.SignDay')[0].onclick = function(){
+				openview({
+					view:'limitTimeAct/Sign327/Sign327.html'
+				})
+			}
+
+			//分类订单
+			function typeOrder(type){
+				if(plus.storage.getItem('myToken')){
+					openview({
+						view:'personal/sc-order.html',
+						id:'sc-order',
+						extrasobj:{status:type}
+					});
+				}else{//没登陆直接打开登录页面
+					mui.toast('请登录');
+					openview({
+						view:'login.html'
+					});
+				}
+			}
+			document.addEventListener('openf', function() {
+				mui('.myCricle')[0].style.display = '';
+				mui('.friendShip')[0].style.display = '';
+			})
+
+			mui.plusReady(function(){
+				var cityNum = plus.storage.getItem('cityNum');
+				var oldToken = plus.storage.getItem('oldToken');
+				//添加刷新监听
+				document.addEventListener('refresh', function() {
+					Refresh();
+				})
+				document.addEventListener('refresh2', function() {
+					Refresh();
+				})
+
+				var version = plus.storage.getItem('version');
+				var platform  = plus.storage.getItem('platform');
+				/*弹框*/
+				mui.ajax(serverUrl + '/api/index/showmodal', {
+					data:{version:version,platform:platform},
+	                type: 'post',
+	                timeout: 10000,
+	                headers: { "token": oldToken ,'city':cityNum},
+	                success: function(data, type, xhr) {
+	                   	plus.nativeUI.closeWaiting();
+	                		console.log('弹窗',data)
+	                		if(data.errno == 0){
+	                			if(data.data && data.data.length){
+	                				mui.each(data.data,function(index,item){
+		                				if(item.typeName == 'personCenter'){
+		                					if(item.modelState == 1){
+	                            			 	$('#maskInfo1').show();
+	                            			 	$('#maskInfo1').html(template('maskTpl',{popdata:item}))
+	                            			 	$('#maskInfo1').click(function(){
+													event.preventDefault()
+													$('#maskInfo1').fadeOut(200);
+												})
+												$('.closeMs').click(function(){
+													event.stopPropagation();
+													$(this).parent().fadeOut(200);
+												})
+	                            			}else{
+	                            			 	$('#maskInfo1').hide()
+	                            			}
+		                				}
+	                        		})
+	                			}
+	                		}
+	                },
+	                error: function(xhr, type, errorThrown) {
+	                	console.log('个人中心弹窗',type)
+	                    console.log('响应失败');
+	                   	plus.nativeUI.closeWaiting();
+	                }
+	            });
+
+
+				var Timetoken = null;
+
+				if(plus.storage.getItem('oldToken')){
+					var oldToken = plus.storage.getItem('oldToken');
+					console.log('个人中心_存在oldToken');
+					Refresh();
+				}else{
+					Timetoken = setInterval(function() { //等待oldToken加载方法
+						console.log('个人中心_循环等待token');
+						if(plus.storage.getItem('oldToken')) {
+							var oldToken = plus.storage.getItem('oldToken');
+							Refresh();
+							clearInterval(Timetoken);
+						}
+					}, 200)
+				}
+
+				function Refresh(oldToken){//刷新
+
+					mui('.ordera')[0].style.display = 'none';
+					mui('.orderb')[0].style.display = 'none';
+					mui('.orderc')[0].style.display = 'none';
+					mui('#mmsg')[0].style.display = 'none';
+
+					//获取缓存
+					var myuserid = plus.storage.getItem('userid');
+					var cityNum = plus.storage.getItem('cityNum');
+					var oldToken = plus.storage.getItem('oldToken');
+					if(plus.storage.getItem('canCheckUp') == 'yes'){
+						mui('#writeOff1')[0].style.display = 'table-cell';
+					}else{
+						mui('#writeOff1')[0].style.display = 'none';
+					}
+					if(plus.storage.getItem('canReviewCheckUp') == 'yes'){
+						mui('#writeOff2')[0].style.display = 'table-cell';
+					}else{
+						mui('#writeOff2')[0].style.display = 'none';
+					}
+					//取用户数据
+					if(plus.storage.getItem('myToken')){
+						document.addEventListener('refreshGift', function() {
+							loadmyinfo();
+						})
+						document.addEventListener('refreshCT', function() {
+							mui('#mmsg')[0].style.display = 'none';
+							showMessage();
+						})
+						showMessage();
+						function showMessage(){
+
+							//显示消息条数
+							mui.ajax(serverUrl+'/api/index/message',{
+								data:{userid:myuserid,msgType:1},
+								dataType:'json',
+								type:'post',
+								timeout:10000,
+								headers:{"token":oldToken},
+								success:function(data,type,xhr){
+									plus.nativeUI.closeWaiting();
+									console.log('消息',data);
+							       	if(data.errno == 0){
+								       	if(data.data && data.data.length){
+								       		var noread = 0 ;
+								       		for(var i =0;i<data.data.length;i++){
+								       			if(!data.data[i].isRead){
+								       				noread++;
+								       			}
+								       		}
+								       		if(noread > 0){
+								       			mui('#mmsg')[0].style.display = 'block';
+							     				mui('#mmsg')[0].innerHTML = noread;
+								       		}else{
+								       			mui('#mmsg')[0].style.display = 'none';
+								       		}
+										}
+							       	}
+							       	plus.nativeUI.closeWaiting();
+								},
+								error:function(xhr,type,errorThrown){
+									plus.nativeUI.closeWaiting();
+								}
+							});
+						}
+						loadmyinfo();
+						function loadmyinfo(){
+							mui.ajax(serverUrl+'/api/useraccount/userinfo',{
+								data:{"userid":myuserid},
+								type:'post',
+								timeout:10000,
+								headers:{"token":oldToken,'city':cityNum},
+								success:function(data,type,xhr){
+									console.log('获取用户数据返回',data);
+									if(data.errno == 0 ){
+										//显示头像
+										if(data.data[0].avatar){
+											if(JSON.parse(data.data[0].avatar)[0].picImg.indexOf('http')>-1){
+												mui('#mypic')[0].src = JSON.parse(data.data[0].avatar)[0].picImg;
+											}else{
+												mui('#mypic')[0].src = serverimgUrl + JSON.parse(data.data[0].avatar)[0].picImg;
+											}
+											plus.storage.setItem("loginPic",mui('#mypic')[0].src)
+										}
+										//显示昵称
+										if(data.data[0].nickname){
+											plus.storage.setItem("loginName",data.data[0].nickname)
+											if(data.data[0].nickname.indexOf('null') == -1){
+												mui('.denluzhuce')[0].innerHTML = data.data[0].nickname;
+											}else{
+												mui('.denluzhuce')[0].innerHTML = data.data[0].phone;
+											}
+										}else{
+											mui('.denluzhuce')[0].innerHTML = data.data[0].phone;
+										}
+										//显示积分
+										if(!data.data[0].intergral || data.data[0].intergral==undefined){
+											mui('#numjifen')[0].innerHTML = 'HI豆: '+0;
+										}else{
+											mui('#numjifen')[0].innerHTML = 'HI豆: '+data.data[0].intergral;
+										}
+										//显示关注
+
+										//显示核销
+										if(data.data[0].gid == 2 || myuserid == 4){
+											mui('#writeOff1')[0].addEventListener('tap',function(){
+												openview({
+													view:'personal/barcode_scan.html'
+												});
+											});
+											mui('#writeOff2')[0].addEventListener('tap',function(){
+												openview({
+													view:'personal/WRecord.html'
+												});
+											});
+										}
+										/*邀请码*/
+										mui('.yaoqingmaBtn')[0].onclick = function(){
+											if(plus.storage.getItem('myToken')){
+												var oldToken = plus.storage.getItem('oldToken');
+												var ownPhone = JSON.parse(plus.storage.getItem('Acc_pass'))[0];
+												var cityNum = plus.storage.getItem('cityNum');
+												mui.prompt('null','请输入邀请码','邀请码',['确认','取消'],function(e) {
+													if(e.index == 0) {
+														if(e.value && e.value!=' '){
+															var commont = e.value;
+															var imei = plus.device.uuid;
+															var reg_phone = /^1((3|4|5|8|7){1}\d{1}|70)\d{8}$/;//手机号正则
+															if(reg_phone.test(commont)){
+																//邀请好友 分享码输入功能（判断标准：为手机号码）
+																mui.ajax(serverUrl+'/api/index/sharegetcoupon',{
+																	data:{
+																		"userId":myuserid,
+																		'invitationCode':commont,//(别人的手机号)
+																		'fromType':1,
+																		'phone':ownPhone,//(自己的手机号)
+																		'isAddUser':1
+																	},
+																	dataType:'json',
+																	type:'post',
+																	timeout:10000,
+																	headers: {"token": oldToken,'city': cityNum},
+																	success:function(data,type,xhr){
+																		console.log('分享获劵',data);
+																		if(data.errno == 0){
+																			mui.alert(data.errmsg || '操作成功');
+																		}else{
+																			mui.alert(data.errmsg);
+																		}
+																	},
+																	error:function(xhr,type,errorThrown){
+																		console.error('分享获劵  ---- 失败');
+																	}
+																});
+															}else{
+																//老的邀请码
+												    				mui.ajax(serverUrl + '/api/index/sharecoupon', {
+												    					data:{'userid':myuserid,'invitationCode':commont,macId:imei},
+																	dataType: 'json',
+																	type: 'post',
+																	timeout: 10000,
+																	headers: {"token": oldToken,'city': cityNum},
+																	success: function(data, type, xhr) {
+																		console.log('邀请码'+JSON.stringify(data));
+																		if(data.errno == 0){
+																			mui.alert('操作成功');
+																		}else{
+																			mui.alert(data.errmsg);
+																		}
+																	},
+																	error: function(xhr, type, errorThrown) {
+																		console.log('邀请码,响应失败');
+																	}
+																});
+															}
+
+
+
+
+
+														}else{
+															mui.toast('留言失败')
+														}
+													}
+												},'')
+											}else{//没登陆直接打开登录页面
+												mui.toast('请登录');
+												openview({
+													view:'login.html'
+												});
+											}
+
+										}
+									}else{
+
+										//mui.toast('获取用户信息失败');
+										console.log(data.errmsg);
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									console.log('获取用户数据,响应失败');
+								}
+							});
+						}
+						//获取各类订单的条数
+						mui.ajax(serverUrl+'/api/mall/orderlist',{
+							data:{'userid':myuserid},
+							dataType:'json',
+							type:'post',
+							timeout:5000,
+							headers:{"token":oldToken},
+							success:function(data,type,xhr){
+								console.log("订单",data)
+								plus.nativeUI.closeWaiting();
+								if(data.errno==0){
+									var appIndex = plus.webview.getLaunchWebview();
+										mui.fire(appIndex,'refreshPop',{allorder:data.data.length});
+									if(data.data.length!=0){
+										var a=0,b=0,c=0;
+
+										for(var i=0;i<data.data.length;i++){
+											if(data.data[i].goods_data){
+												data.data[i].goods_data=eval("("+data.data[i].goods_data+")");
+											}
+											 if(data.data[i].order_status == 1){
+											 	a++;
+											 	if(a){
+											 		mui('.ordera')[0].style.display = 'block';
+											 		mui('.ordera')[0].innerHTML = a;
+											 	}
+											 }
+											if(data.data[i].order_status == 3){
+											 	b++;
+											 	if(b){
+											 		mui('.orderb')[0].style.display = 'block';
+											 		mui('.orderb')[0].innerHTML = b;
+											 	}
+											 }
+											if(data.data[i].order_status == 4 && data.data[i].goods_data.store_id != 0){
+											 	c++;
+											 	if(c){
+											 		mui('.orderc')[0].style.display = 'block';
+											 		mui('.orderc')[0].innerHTML = c;
+											 	}
+											 }
+
+										}
+										}
+									}
+							},
+							error:function(xhr,type,errorThrown){
+								plus.nativeUI.closeWaiting()
+								console.log('响应失败  !');
+							}
+						});
+
+					}else{//退出登录还原
+						mui('.denluzhuce')[0].innerHTML = '登录\注册';
+						mui('#numjifen')[0].innerHTML = '';
+						mui('#mypic')[0].src =  '../img/morentouxiang.jpg';
+						//mui('#mypic1')[0].src =
+					}
+					//头像
+					mui('.myInfo')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/setup.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+
+					//领hi豆
+					mui('.hidou')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{
+							openview({
+								view:'hiVip.html',
+								id:"hiVip",
+								extrasobj:{"userid":myuserid}
+							});
+						}
+					})
+					mui('.myAward')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{
+							openview({
+								view:'personal/myAwards.html',
+								id:"myAwards",
+							});
+						}
+					})
+					//邀请码判断登录
+					mui('.yaoqingmaBtn')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					})
+					//登录注册
+					mui('.denlu')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+					//我的订单
+					mui('#wodedintop')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/sc-order.html',
+								id:'sc-order',
+								extrasobj:{status:-1}
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+
+
+
+					//我的快递
+					mui('.wmai-order')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/my-delivery.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+					//邀请好友
+					mui('.yaoqinghaoyou')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/my-yaoqing.html',
+								id:'my-yaoqing'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+					//我的消息
+					mui('.xiaoxi')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								//view:'personal/my-info.html'//旧消息
+								view:'personal/info-list.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+
+					//我的发布
+					mui('.wodefabu')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/my-publish.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+					//我的地址
+					mui('.wodedizhi')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/address.html',
+								extrasobj:{userId:myuserid}
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+
+					//优惠券
+					mui('.wodeyouhuijuan')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/coupon.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+					//积分
+					mui('.mycollect')[0].addEventListener('tap',function(){
+						if(plus.storage.getItem('myToken')){
+							openview({
+								view:'personal/myCollect.html'
+							});
+						}else{//没登陆直接打开登录页面
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}
+					});
+
+					//我的圈子
+					mui('.myCricle')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{//没登陆直接打开登录页面
+							openview({
+								view:'socialCircle/ownCircle.html',
+								id:'ownCircle'
+							});
+
+						}
+					});
+					mui('.friendShip')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{//没登陆直接打开登录页面
+							openview({
+								view:'socialCircle/mycircleIndex.html',
+								id:'mycircleIndex'
+							});
+
+						}
+					});
+					//我的问答
+					mui('.myQa')[0].addEventListener('tap',function(){
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{//没登陆直接打开登录页面
+							openview({
+								view:'answerBoard/myQa.html'
+							});
+
+						}
+					});
+				}//刷新
+
+				//设置
+				mui('.shezhi')[0].addEventListener('tap',function(){
+//					if(!plus.storage.getItem('myToken')){
+//						if(plus.storage.getItem('SURL')){
+//							openview({
+//								view:'personal/shezhi.html'
+//							});
+//						}else{
+//							mui.toast('请登录');
+//							openview({
+//								view:'login.html'
+//							});
+//						}
+//					}else{//没登陆直接打开登录页面
+//						openview({
+//							view:'personal/shezhi.html'
+//						});
+//
+//					}
+					openview({
+						view:'personal/shezhi.html'
+					});
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

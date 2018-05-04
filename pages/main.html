@@ -1,0 +1,1572 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>封面main</title>
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<!--<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">-->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/reset.css">
+		<link rel="stylesheet" href="../css/one.css">
+		<link rel="stylesheet" href="../css/mainHtml.css">
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/artTemplate-native.js"></script>
+		<style type="text/css">
+			.loadPics{visibility: hidden;}
+			.rcdPadding{background: url(../img/bannerback.svg) 50% 50% no-repeat;background-size: 30%;}
+			.cityBtn{position: absolute;}
+			.citys{    position: absolute;
+			    left: 10px;
+			    top: 47px;
+			    background-color: #fff;
+			    box-shadow: rgba(175, 166, 166, 0.85) 0px 0px 2px;
+			    color: #666;
+			    width: 100px;
+			    z-index: 1000;
+			    border-radius: 1px;
+
+		    }
+		    /*.nowCity{position: relative;z-index: 2000;}*/
+		    .citys:after{
+		    	content: url(../img/mainHtml/jiantou.png);
+			    position: absolute;
+			    top: -28px;
+			    transform: scale(0.6);
+			    left: 13px;
+		    }
+		    .citys div{
+		    	line-height: 40px;
+		    }
+		    .hiFdW{
+		    	width: calc((100vw - 40px) / 3);
+		    	width: -webkit-calc((100vw - 40px) / 3);
+		    	width: -moz-calc((100vw - 40px) / 3);
+		    	height: -moz-calc((100vw - 40px) / 3);
+		    	height: -webkit-calc((100vw - 40px) / 3);
+		    	height: calc((100vw - 40px) / 3);
+		    	background: #f3f3f3;
+		    	border-radius: 3px;
+		    	overflow: hidden;
+		    }
+		    .hiFdW img{
+		    	width: 100%;
+		    }
+		    .moreCon b{
+			    	font-weight: initial;
+			    	color: #757575;
+		    }
+		    .listSon{overflow: hidden;}
+		    .listSon .fineB:nth-last-child(2):after{
+	    		display: none;
+		    }
+		    .partTitlea, .partTitle{position: relative;}
+		    .partTitlea:after,.partTitle:after{
+		    	position:absolute;
+		    	content: '更多';
+		    	font-size:12px;
+		    	color: #999999;
+		    	right: 10px;
+		    	top: 10px;
+		    }
+		    .partTitle000:after,.partTitleA:after{
+		    	display:none;
+		    }
+
+		    /*.partTitlea:not(:first-child):after{
+		    	display: none;
+		    }*/
+		   /*.cityBtn{bottom: 0px !important;}*/
+
+
+		/*.maskInfo{position:fixed;top:0;left:0;width:100%;bottom:0;background-color:rgba(0,0,0,.5)}*/
+		/*.ruleCt{position:absolute;padding-right:15px;background-color:#fff;top:15%;left:7%;width:86%;bottom:15%;padding:15px 5px;border-radius:3px}*/
+		.ruleCt2{position:absolute;padding-right:15px;background-color:#fff;top:24%;left:17%;width:66%;bottom:24%;padding:15px 5px;border-radius:3px}
+		/*.closeMs{position: absolute;top:16%;width: 20px;height: 20px;right: 9%;z-index: 99999;}*/
+		.closeMs2{position: absolute;top:25%;width: 20px;height: 20px;right: 19%;z-index: 99999;}
+		/*.closemask{position:absolute;bottom:10px;left:50%;-webkit-transform:translateX(-50%)}*/
+		/*.ruleol{padding: 0 15px 0 15px;}*/
+		#header{height: 75px !important;box-sizing: content-box;}
+
+		#fenxianjing19,#yuanxiaoJB{position: fixed;width: 25%;right: 0;bottom: 10%;z-index: 200;}
+		#yuanxiaoJB{width: 18%;bottom: 8%;}
+		#fenxianjing19 img,#yuanxiaoJB img{width: 100%;}
+		.q-content div{
+			padding:  10px;
+		}
+		.avatar{
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+		}
+		.qc{
+			display: none;
+		}
+		.qc.active{
+			display: block;
+		}
+		</style>
+	</head>
+
+	<body>
+		<header class="hasManyCity mui-row mui-bar mui-bar-transparent" id="header" style="z-index: 200;">
+			<div id="" class="cityBtn">
+				<span class="nowCity">邻水</span>
+				<div class="citys" style="display: none;">
+					<div class="fineB aClick citysBtn" onclick="citysBtn('宣汉')">宣汉</div>
+					<div class="fineB aClick citysBtn" onclick="citysBtn('南江')">南江</div>
+					<div class="fineB aClick citysBtn" onclick="citysBtn('邻水')">邻水</div>
+					<div class="fineB aClick citysBtn" onclick="citysBtn('重庆')">重庆</div>
+				</div>
+			</div>
+			<div id="" class="searchBox">
+				<a class="openSearch">
+					<i class="icon-search"></i>
+					<span>请输入您想找的内容</span>
+				</a>
+			</div>
+			<a style="">
+				<div id="xiaoxi" class="qrcodeBtn"></div>
+			</a>
+		</header>
+		<!--状态栏开始-->
+		<style type="text/css" id="headStyle"></style>
+		<div id="sBar" style="background-color: #f7f7f7;position: fixed;width:100%;top: 0;z-index: 9999"></div>
+		<script type="text/javascript">
+			var immersed = 0;
+			var ms=(/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent);
+			if(ms&&ms.length>=3){ // 当前环境为沉浸式状态栏模式
+			    immersed=parseFloat(ms[2]);// 获取状态栏的高度
+//			    if(immersed>30){immersed=30}
+			}
+			var headdiv = document.getElementById('header');//这是现有的header
+			var headH = parseInt(immersed) + parseInt(headdiv.offsetHeight);
+//			document.getElementById('headStyle').innerHTML = '.headI{height: '+ headH +'px !important;box-sizing: content-box;} .hasManyCity .searchBox{top:'+immersed+'px} .qrcodeBtn{top:'+immersed+'px}';
+			document.getElementById('headStyle').innerHTML = ' .hasManyCity .searchBox , .cityBtn{top:'+immersed+'px} .qrcodeBtn{top:'+immersed+'px}';
+			headdiv.className  += " headI";
+//			headdiv.style.paddingTop = immersed + "px";
+//			mui('.cityBtn')[0].style.top = immersed + "px";
+//			alert(mui('.cityBtn')[0].style.top)
+
+			//head渐变效果
+			$(window).scroll(function() {
+				var scrollTop = $(this).scrollTop();
+				var scrollHeight = $(document).height();
+				var windowHeight = $(this).height();
+				if(scrollTop >= 100) {//不透明背景
+					mui('#header')[0].style.boxShadow="0 0 2px rgba(175, 166, 166, 0.85)";
+					mui('.cityBtn')[0].className = 'cityBtn cityBtnNOtoumin';
+					mui('#xiaoxi')[0].className = 'qrcodeBtn qrcodeBtnNOtoumin';
+					mui('.searchBox')[0].style.background = 'rgba(204, 204, 204, 0.54)';
+				}else{//透明背景
+					mui('#header')[0].style.boxShadow="0 0 0 rgba(175, 166, 166, 0.85)";
+					mui('.cityBtn')[0].className = 'cityBtn';
+					mui('#xiaoxi')[0].className = 'qrcodeBtn';
+					mui('.searchBox')[0].style.background = 'rgba(255, 255, 255, 0.57)';
+				}
+			});
+		</script>
+		<!--状态栏结束-->
+		<!--<div id="container">-->
+			<div id="scroller">
+				<!--轮播图-->
+				<div class="mui-slider" id="banner"></div>
+				<!--banner数据渲染-->
+				<script type="text/html" id="banner-detail">
+					<div class="mui-slider-group mui-slider-loop">
+						<!--支持循环，需要重复图片节点-->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<% if(bannerList[bannerList.length-1].url==null || bannerList[bannerList.length-1].url=='') { %>
+								<a onclick="bannerGo('<%=bannerList[bannerList.length-1].id%>','<%=bannerList[bannerList.length-1].url%>','<%=bannerList[bannerList.length-1].name%>','one')">
+									<img src="<%= url %><%= bannerList[bannerList.length-1].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+								</a>
+							<% }else{ %>
+								<a onclick="bannerGo('<%=bannerList[bannerList.length-1].id%>','<%=bannerList[bannerList.length-1].url%>','<%=bannerList[bannerList.length-1].name%>','one')">
+									<img src="<%= url %><%= bannerList[bannerList.length-1].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+								</a>
+							<% } %>
+						</div>
+						<% for(var i=0;i<bannerList.length;i++){ %>
+						<div class="mui-slider-item">
+							<% if(bannerList[i].url==null || bannerList[i].url=='') { %>
+								<a onclick="bannerGo('<%=bannerList[i].id%>','<%=bannerList[i].url%>','<%=bannerList[i].name%>','one')">
+									<img src="<%= url %><%= bannerList[i].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+								</a>
+							<% }else{ %>
+								<a onclick="bannerGo('<%=bannerList[i].id%>','<%=bannerList[i].url%>','<%=bannerList[i].name%>','one')">
+									<img src="<%= url %><%= bannerList[i].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+								</a>
+							<% } %>
+						</div>
+						<% } %>
+						<!--支持循环，需要重复图片节点-->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<% if(bannerList[0].url==null || bannerList[0].url=='') { %>
+								<img src="<%= url %><%= bannerList[i].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+							<% }else{ %>
+								<a onclick="bannerGo('<%=bannerList[0].id%>','<%=bannerList[0].url%>','<%=bannerList[0].name%>','one')">
+									<img src="<%= url %><%= bannerList[0].bannerPic %>" onerror="javascript:this.src='../img/market/nodata.svg';" />
+								</a>
+							<% } %>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<% for(var i=0;i<bannerList.length-1;i++){ %>
+							<div class="mui-indicator"></div>
+						<%}%>
+					</div>
+				</script>
+			</div>
+
+		<div id="main">
+		<div class="onetable">
+			<table>
+				<tbody>
+					<tr>
+						<!--<td class="market"><img src="../img/mainHtml/hongfan.png" /><br/>-->
+						<td class="market"><img src="../img/answer/editset.png" /><br/>
+							<p id="hfsq">宏帆广场</p>
+						</td>
+						<td class="locallife"><img src="../img/answer/editset.png" /><br/>
+<!--						<td class="locallife"><img src="../img/mainHtml/bendi.png" /><br />-->
+							<p id="locallifePP">邻水生活</p>
+						</td>
+						<td class="ticket"><img src="../img/answer/editset.png" /><br/>
+<!--						<td class="ticket"><img src="../img/mainHtml/chongzhi.png" /><br />-->
+							<p>充值缴费</p>
+						</td>
+						<!--<td class="darenbang"><img src="../img/mainHtml/daren.png" /><br />-->
+						<td class="darenbang"><img src="../img/answer/editset.png" /><br/>
+							<p>答人榜</p>
+						</td>
+						<!--<td class="jiaoyou"><img src="../img/mainHtml/rchi.png" /><br/>-->
+						<td class="jiaoyou"><img src="../img/answer/editset.png" /><br/>
+							<p>领HI豆</p>
+						</td>
+					</tr>
+					<tr>
+						<!--<td class="loveBuy"><img src="../img/mainHtml/kuajin.png" /><br />-->
+						<td class="loveBuy"><img src="../img/answer/editset.png" /><br/>
+							<p>跨境优品</p>
+						</td>
+						<!--<td class="teseguan"><img src="../img/mainHtml/tese.png" /><br/>-->
+						<td class="teseguan"><img src="../img/answer/editset.png" /><br/>
+							<p>地方特产</p>
+						</td>
+						<!--<td class="chaoshiyou"><img src="../img/mainHtml/chaoshi.png" /><br/>-->
+						<td class="chaoshiyou"><img src="../img/answer/editset.png" /><br/>
+							<p>超市优选</p>
+						</td>
+						<!--<td class="onsale"><img src="../img/mainHtml/tiantian.png" /><br/>-->
+						<td class="onsale"><img src="../img/answer/editset.png" /><br/>
+							<p>天天特价</p>
+						</td>
+						<!--<td class="fil"><img src="../img/mainHtml/kandianying.png" /><br/>-->
+						<td class="fil"><img src="../img/answer/editset.png" /><br/>
+							<p>看电影</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="sy_recmd" style="background-color: #fff;">
+
+ 		<!--邻水印象-->
+ 		<div id="xianzhiWrap" style="margin-bottom: 2px;">
+ 			<img id="xianzhi" src=""/>
+ 		</div>
+ 		<!--HI问答-->
+		<div class="QandA">
+			<h3 class="partTitle partTitleA guafen" style="margin-bottom: 5px;"> <img src="../img/mainHtml/hiblue.png"/> <span></span> 答人榜</h3>
+			<div class="QAhead">
+				<span class="active aClick tabs" >精选</span>
+				<span class="aClick tabs" >我要答</span>
+				<span class="aClick tabs" >我要问</span>
+			</div>
+			<div class="q-content">
+				<div id="qc1" class="qc active">
+					
+				</div>
+				<div id="qc2" class="qc"></div>
+				<div id="qc3" class="qc"></div>
+			</div>
+			<div id="listOldDiv">
+				<div id="listConW1" class="middleI listSon"></div><!--我要问 盒子1-->
+				<div id="listConW2" class="leftT listSon"></div><!--我要问盒子2-->
+				<div id="listConW3" class="leftT listSon"></div><!--我要问盒子3-->
+				<script type="text/html" id="listDataS">
+					<%for(var i=0;i<dataList.length;i++){%>
+						<div class="listCon aClick fineB" onclick="openDetailA(<%=dataList[i].id%>,<%=dataList[i].user_id%>)">
+							<h4 class="listHead">
+								<img data-src="<%=dataList[i].avatar%>" src="" class="loadPics" />
+								<%=dataList[i].nickname%>
+								<%if(dataList[i].price){%>
+									<span><%=dataList[i].price%> HI豆</span><b>悬赏</b>
+								<%}%>
+							</h4>
+							<p class=""><%=dataList[i].content%> </p>
+						</div>
+					<%}%>
+					<div class="moreCon fineB aClick" onclick="darenbang()" ><span>更多 </span></div>
+				</script>
+			</div>
+		</div>
+		<!--HI友圈-->
+		<div class="mui-content hiFriend" style="display: none;">
+			<h3 class="partTitle partTitlea"> <img src="../img/mainHtml/hired.png"/> <span></span> 友圈</h3>
+		    <div class="mui-row" id="homeFriend">
+		    	<div class="mui-col-sm-4 mui-col-xs-4 paddDiv">
+		            <div class="hiFdW">
+		            </div>
+		        </div>
+		        <div class="mui-col-sm-4 mui-col-xs-4 paddDiv">
+		            <div class="hiFdW">
+		            </div>
+		        </div>
+		        <div class="mui-col-sm-4 mui-col-xs-4 paddDiv">
+		            <div class="hiFdW">
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<script type="text/html" id="hiFriendTpl">
+			<%for(var i=0;i<dataList.length;i++){%>
+				<%if(dataList[i].picS || dataList[i].avatar){%>
+				<div class="mui-col-sm-4 mui-col-xs-4 paddDiv" onclick="openDetail(<%=dataList[i].user_id%>)">
+		            <div class="hiFdW">
+		            	<%if(dataList[i].picS){%>
+		            		<img class="bigPic loadPics picOp" onload="imgHeight(this)" data-src="<%=dataList[i].picS[0]%>"/>
+		            	<%}else if(dataList[i].avatar){%>
+		            		<img class="bigPic loadPics picOp" onload="imgHeight(this)" data-src="<%=dataList[i].avatar%>"/>
+		            	<%}%>
+		            </div>
+		            <p class="footFirend">
+		            	<!--<img class="avaPic loadPics picOp" data-src="<%=dataList[i].avatar%>" src=""/>-->
+		            	<span style="display: inline-block;max-width: 80px;font-size: 12px;overflow: hidden;white-space: nowrap;"><%=dataList[i].nickname%></span>
+		            	<%if(dataList[i].isfriend){%>
+		            		<img class="lovePic" src="../img/mainHtml/yizan.png"/>
+		            	<%}else{%>
+		            		<img class="lovePic" src="../img/mainHtml/weizan.png"/>
+		            	<%}%>
+		            </p>
+		        </div>
+ 				<%}%>
+			<%}%>
+		</script>
+
+		<!--HI抢购     1     推荐列表-->
+		<div class="sy_recmd">
+ 			<h3 class="partTitle fanrenMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hicheng.png"/> <span></span> 抢购</h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="manyTJ">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--HI专享     1-2    推荐列表-->
+		<div class="sy_recmd" id="onlySpecial" style="display: none;">
+ 			<h3 class="partTitle specialMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hired.png"/> <span></span> 邀请有礼</h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="onlySpecial">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<script type="text/html" id="specialTpl">
+			<%for(var i=0;i< list.length;i++){%>
+				<li class="sy_recmd_list" onclick="goInfo(<%=list[i].goods_id%>,<%=list[i].storeid%>)">
+					<div class="box" style="margin-bottom: 5px;">
+						<div class="pub_img">
+							<a class="rcdPadding" >
+								<img onload="imgHeight(this)" data-src="<%=list[i].thumb%>" src="" width="145" height="145" class="hotImg loadPics picOp">
+							</a>
+						</div>
+						<div class="pub_wz">
+							<h3 class="overflow_clear"><a><%=list[i].title%></a></h3>
+							<div class="nr_box mui-row">
+								<div class="mui-col-sm-5 mui-col-xs-5 ">
+									<p class="fl fontcl2">￥<%=list[i].price%><small style="font-size: 0.12rem;color: gray;text-decoration: line-through;white-space: nowrap;margin-left: 5px;">原价￥ <%=list[i].originalprice%> </small>
+									</p>
+								</div>
+								<div class="mui-col-sm-7 mui-col-xs-7 saled">
+								<p></p>
+								</div>
+							</div>
+							<div class="hiLimit">
+								<span>限时抢购</span>
+								<img src="../img/mainHtml/addCart.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</li>
+			<%}%>
+		</script>
+		<!--HI货榜     2     推荐列表-->
+		<div class="sy_recmd">
+ 			<h3 class="partTitle fanrenMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hiblue.png"/> <span></span> 货榜</h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="manyTJ">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--HI源头找土货 3      推荐列表-->
+		<div class="sy_recmd ">
+ 			<h3 class="partTitle fanrenMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hicheng.png"/> <span></span> 找源头土货 <br/><b>农家直供  新鲜到家</b></h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="manyTJ">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--HI找海外洋货    4    推荐列表-->
+		<div class="sy_recmd">
+ 			<h3 class="partTitle fanrenMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hiblue.png"/> <span></span> 找海外洋货  <br/><b>保税真品直购  海外直飞代购</b></h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="manyTJ">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--HI找地方特色    5    推荐列表-->
+		<div class="sy_recmd ">
+ 			<h3 class="partTitle fanrenMore" style="margin-top: 8px;"> <img src="../img/mainHtml/hicheng.png"/> <span></span>找地方特色    <br/><b>私房独家秘制</b></h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+				<div class="manyTJ">
+
+				</div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--很对推荐的js   公用   -->
+		<script type="text/html" id="manyTJJS">
+			<% if(SE){ %>
+				<%for(var i=0;i< list.length;i++){%>
+				<li class="sy_recmd_list" onclick="goInfo(<%=list[i].goods_id%>,<%=list[i].storeid%>)">
+					<div class="box" style="margin-bottom: 5px;">
+						<div class="pub_img">
+							<a class="rcdPadding" >
+								<img onload="imgHeight(this)" data-src="<%=list[i].thumb%>" src="" width="145" height="145" class="hotImg loadPics picOp">
+							</a>
+						</div>
+						<div class="pub_wz">
+							<h3 class="overflow_clear"><a><%=list[i].title%></a></h3>
+							<div class="nr_box mui-row">
+								<div class="mui-col-sm-5 mui-col-xs-5 ">
+									<p class="fl fontcl2">￥<%=list[i].price%><small style="font-size: 0.12rem;color: gray;text-decoration: line-through;white-space: nowrap;margin-left: 5px;">原价￥ <%=list[i].originalprice%> </small>
+									</p>
+								</div>
+								<div class="mui-col-sm-7 mui-col-xs-7 saled">
+								<p></p>
+								</div>
+							</div>
+							<div class="hiLimit">
+								<%if(list[i].countDown){%>
+									<span class="countDown" style="font-size: 12px;" data-id="<%=list[i].seconds%>"><%=list[i].countDown%></span>
+								<%}else{%>
+									<span style="font-size: 12px;">抢购结束</span>
+								<%}%>
+
+								<img src="../img/mainHtml/addCart.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</li>
+				<%}%>
+			<% }else{%>
+				<%for(var i=0;i<list.length;i++){%>
+				<li class="sy_recmd_list" onclick="goInfo(<%=list[i].goods_id%>,<%=list[i].storeid%>)">
+					<div class="box" style="margin-bottom: 5px;">
+						<div class="pub_img">
+							<a class="rcdPadding">
+								<img onload="imgHeight(this)" data-src="<%=list[i].thumb%>" src="" width="145" height="145" class="hotImg loadPics picOp" >
+							</a>
+						</div>
+						<div class="pub_wz">
+							<h3 class="overflow_clear"><a><%=list[i].title%></a></h3>
+							<div class="hiLimit hiLimit2">
+								<span>￥ <%=list[i].price%></span>
+								<img src="../img/mainHtml/addCart.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</li>
+				<%}%>
+			<% }%>
+		</script>
+
+
+		<!--hi推荐  6  推荐列表-->
+		<div class="sy_recmd">
+			<!--推荐列表-->
+ 			<h3 class="partTitle partTitle000" style="margin-top: 8px;"> <img src="../img/mainHtml/hired.png"/> <span></span> 推荐</h3>
+			<div class="sy_recmd_list_box">
+				<ul>
+					<div id="moll_recommend"></div>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<!--热门推荐-->
+			<script type="text/html" id="recommendTpl">
+				<%if(recommendData.length==0){%> 暂无推荐商品
+				<%}else{%>
+				<%for(var i=0;i<recommendData.length;i++){%>
+				<li class="sy_recmd_list">
+					<div class="box" style="margin-bottom: 5px;">
+						<div class="pub_img">
+							<a class="rcdPadding" onclick="goInfo('<%=recommendData[i].goods_id%>','<%=recommendData[i].storeid%>')">
+								<%if(recommendData[i].thumb){%>
+								<img src="" onload="imgHeight(this)" data-src="<%=myUrl%><%=recommendData[i].thumb%>" width="145" height="145" class="hotImg loadPics picOp">
+								<%}else{%>
+								<img src="../img/market/none.png" width="145" height="145" class="hotImg">
+								<%}%>
+							</a>
+						</div>
+						<div class="pub_wz">
+							<h3 class="overflow_clear"><a onclick="goInfo('<%=recommendData[i].goods_id%>','<%=recommendData[i].storeid%>')"><%=recommendData[i].title%></a></h3>
+
+							<div class="hiLimit hiLimit2">
+								<span>￥<%=recommendData[i].price%></span>
+								<img src="../img/mainHtml/addCart.png" alt="" />
+							</div>
+						</div>
+					</div>
+				</li>
+				<%}%>
+				<%}%>
+			</script>
+			<div class="upload text-center text-xs gray" id="upload"></div>
+		</div>
+		</div>
+		<!--遮罩1-->
+		<div id="maskInfo1" class="maskInfo" style="display: none;z-index:9999;"></div>
+		<script type="text/html" id="maskTpl">
+
+			<img src="../img/mainHtml/mclose.svg" class="closeMs"/>
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;">
+			<%if(popdata.modelContent){%>
+				<img src="<%=popdata.modelContent%>" style="border-radius: 3px;width: 100%;height: 100%;" onclick="popGo('<%=popdata.id%>','<%=popdata.modelUrl%>','<%=popdata.name%>','one')"/>
+			<%}else{%>
+				<img src="../img/mainHtml/mask1.png" />
+			<%}%>
+
+
+			</div>
+		</script>
+		<!--双旦活动-->
+		<!--<div id="shaungdan0" class="maskInfo" style="display: none;z-index:9999;">
+			<img src="../img/mainHtml/mclose.svg" class="closeMs closeMs2"/ style="width: 35px;height: 35px;">
+			<div class="ruleCt ruleCt2" id="shaungdan1" style="padding-bottom: 50px;padding: 0;">
+				<img class="SDonePic" src="../img/shuangdan/shendanfa.png" style="border-radius: 3px;width: 100%;height: 100%;display: none;"/>
+				<img class="SDonePic" src="../img/shuangdan/yuandanfa.png" style="border-radius: 3px;width: 100%;height: 100%;display: none;"/>
+			</div>
+		</div>-->
+
+		<!--2.9-2.15 达人榜 回答，提问 抽奖 送礼-->
+		<!--<div id="maskInfo1234" class="maskInfo" style="display: none;z-index:999;">
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;background: none;top: 29%;bottom: auto;">
+				<img id="fenxiangBtn2D1" src="../img/limitTimeAct/09wenda/darenTan-min.png" style="border-radius: 3px;width: 100%;height: 100%;" />
+				<img src="../img/limitTimeAct/19OrderShare/02_03.png" class="closeMs23" style="display: block;margin: 0 auto;width: 12%;"/>
+			</div>
+		</div>-->
+		<!--年货节发帖送好礼，类似双旦节-->
+		<div id="maskInfo123" class="maskInfo beforeClose" style="display: none;z-index:999;">
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;background: none;top: 29%;bottom: auto;">
+				<img id="fenxiangBtn2" src="../img/limitTimeAct/22nianhuofatie/01-min.png" style="border-radius: 3px;width: 100%;height: 100%;" />
+				<img src="../img/limitTimeAct/19OrderShare/02_03.png" class="closeMs23" style="display: block;margin: 0 auto;width: 12%;"/>
+			</div>
+		</div>
+		<script src="../js/shuangdan.js"></script>
+		<!--双旦活动结束-->
+		<!--19号瓜分现金活动-->
+		<!--<div id="fenxianjing19" style="display: none;">
+			<img src="../img/limitTimeAct/01_03.png"/>
+		</div>-->
+
+		<!--元宵灯谜-->
+		<!--<div id="maskInfoYXDX" class="maskInfo beforeClose" style="display: none;z-index:999;">
+			<div class="ruleCt" style="padding-bottom: 50px;padding: 0;background: none;top: 19%;bottom: auto;">
+				<img id="btnYXDX" src="../img/limitTimeAct/27yuanxiao/yuanxiaoW.png" style="border-radius: 3px;width: 100%;height: 100%;" />
+				<img src="../img/limitTimeAct/19OrderShare/02_03.png" class="closeMs23" style="display: block;margin: 0 auto;width: 14%;"/>
+			</div>
+		</div>
+		<div id="yuanxiaoJB" style="display: none;">
+			<img src="../img/limitTimeAct/27yuanxiao/yuanFC-min.png"/>
+		</div>
+		<script src="limitTimeAct/yuanxiaoDX27/yuanxiao27.js"></script>-->
+
+
+
+
+		</div>
+		<script type="text/javascript"> 
+			openMask();//年货节发帖送好礼关闭方法
+			//19号活动开始
+			var isOpenXianjing = 0;
+			mui.plusReady(function(){
+				if(plus.storage.getItem('hao19')){
+					$('.jiaoyou p').html('现金券');
+				}
+				document.addEventListener('openXianjing',function(){
+					if(isOpenXianjing == 0){
+						//shijiuA18();活动时间已过
+					}
+				})
+				//兼容 手动切换城市
+				if(plus.storage.getItem("open19")){
+					//shijiuA18();活动时间已过
+				}
+
+				function shijiuA18(){
+					plus.storage.removeItem("open19");
+					var oldToken = plus.storage.getItem('oldToken');
+					var myuserid = plus.storage.getItem('userid');
+					var cityNum = plus.storage.getItem('cityNum');
+					mui.ajax(serverUrl + '/api/index/gamedata', {
+	                    data: { gameId:3},
+	                    type: 'post',
+	                    timeout: 10000,
+	                    headers: { "token": oldToken ,'city':cityNum},
+	                    success: function(data, type, xhr) {
+	                     	isOpenXianjing = 1;
+	                    		console.log("18-19号游戏数据 ",data);
+	                    		if(data.errno == 0){
+			                    	if(data.data.game){
+			                    		var ele =data.data.game;
+			                    		if(ele.startTime && ele.endTime){
+			                    			var nowdate = Date.now();
+			                    			if(nowdate >= ele.startTime && nowdate<ele.endTime){
+			                    				//展示瓜分现金活动
+			                    				$('#fenxianjing19').css('display','block');
+			                    				plus.storage.setItem('hao19','hao19');
+			                    				var xianjingTime = plus.storage.getItem('xianjingTime');
+											if(!xianjingTime || new Date().getDate() != xianjingTime){
+												openFenxianjing19();
+											}
+											//展示 每日免费抽现金券、HI豆
+				                    			$('.jiaoyou p').html('现金券');
+			                    			}else{
+			                    				plus.storage.removeItem('hao19');
+			                    				$('.jiaoyou p').html('领HI豆');
+			                    			}
+
+			                    			//跳转 每日免费抽现金券、HI豆
+		                    				mui('.jiaoyou')[0].onclick = function() {
+											if(!plus.storage.getItem('myToken')){
+												mui.toast('请登录');
+												openview({
+													view:'login.html'
+												});
+											}else{
+												if(plus.storage.getItem('hao19')){
+													openview({
+														view: 'limitTimeAct/lottery19.html',
+														id: 'lottery19',
+													});
+												}else{
+													openview({
+														view: 'hiVip.html',
+														id: "hiVip"
+													});
+												}
+
+											}
+										};
+
+			                    		}
+			                    	}
+	                    		}
+	                    },
+	                    error: function(xhr, type, errorThrown) {
+	                        console.error('18-19号分现金，响应失败');
+	                    }
+	                });
+				}
+
+				$('#fenxianjing19').click(function(){
+					var xianjingTime = plus.storage.getItem('xianjingTime');
+					if(!xianjingTime || new Date().getDate() != xianjingTime){
+						openFenxianjing19();
+					}else{
+						if(plus.webview.getWebviewById('fenxianjing19')){
+							plus.webview.getWebviewById('fenxianjing19').show()
+						}else{
+							mui.toast('今天已经抽奖。');
+							openview({
+								view:'personal/myAwards.html',
+								id:"myAwards",
+							});
+						}
+					}
+				})
+
+				function openFenxianjing19(){
+					mui.openWindow({
+					    url:'limitTimeAct/fenxianjing19.html',
+					    id:'fenxianjing19',
+					    styles:{
+					  	  	background:'transparent',
+					    },
+					    show:{
+					      aniShow:'slide-in-top',
+					      duration:300,//页面动画持续时间
+					    },
+					    waiting:{
+				      		autoShow:false,//自动显示等待框，默认为true
+					    }
+					})
+				}
+			})
+			//19号活动开始 结束
+
+
+			$('.ruleCt').click(function(){
+				event.stopPropagation()
+			})
+
+			var Spagenum = 2; //实到页数
+			var Ypagenum = 1; //应到页数
+			function citysBtn(name){//手动城市切换
+				mui.fire(plus.webview.getWebviewById('H55E3990F'),'switchCity',{name:name});//发版app
+				mui.fire( plus.webview.getWebviewById('HBuilder'),'switchCity',{name:name});//测试app
+			}
+			function openDetailA(id,userId){/*问答详情*/
+				openview({
+					view:'answerBoard/answerInfo.html',
+					id:'answerInfo',
+					extrasobj:{answerId:id,toUserId:userId}
+				})
+			}
+			function darenbang(){/*达人榜单*/
+				openview({
+					view:'answerBoard/answerIndex.html',
+					id:"answerIndex",
+				});
+			}
+
+
+
+			document.addEventListener('openf', function() {
+				mui('.hiFriend')[0].style.display = '';
+			})
+			//打开他人主页
+			window.openDetail = function(id){
+				mui.plusReady(function(){
+					var myuserid = plus.storage.getItem('userid');
+					if(plus.storage.getItem('myToken')){
+					if(id == myuserid){
+						openview({
+				    		view:'socialCircle/mycircleIndex.html',
+				    		id:'mycircleIndex'
+				    	})
+						}else{
+							openview({
+					    		view:'socialCircle/elsecircleIndex.html',
+					    		id:'elsecircleIndex',
+					    		extrasobj:{userId:id}
+					    	})
+						}
+					}else{
+						mui.toast('请登录');
+						openview({
+							view:'login.html'
+						});
+					}
+				})
+		    }
+
+
+			mui.plusReady(function() {
+				//城市切换
+				var cityNum = plus.storage.getItem('cityNum');
+				//所属城市 1重庆 2南江 3宣汉  4邻水
+				var cityA = ['宣汉','南江','邻水','重庆'],
+					citySA = ['宣汉生活','南江生活','邻水生活','重庆生活'],
+					cityX = ['../img/mainHtml/xianzhi (2).png','../img/mainHtml/xianzhi (3).png','../img/mainHtml/yingxiang.png','../img/mainHtml/yingxiang.png'],
+					cityN = ['3','2','4','1'];
+				mui('.nowCity')[0].innerHTML = cityA[cityN.indexOf(cityNum)] || '邻水';
+				mui('#locallifePP')[0].innerHTML = citySA[cityN.indexOf(cityNum)] || '邻水生活';
+				if(cityNum == 1){
+					mui('#hfsq')[0].innerHTML = '凤凰湾'
+				}else{
+					mui('#hfsq')[0].innerHTML = '宏帆广场'
+				}
+				[].forEach.call(mui('.citysBtn'),function(ele){/*隐藏当前城市*/
+					if(ele.innerHTML == mui('.nowCity')[0].innerHTML){
+						ele.style.display = 'none';
+						return false;
+					}
+				})
+				mui('.cityBtn')[0].onclick = function(){
+					var citys = mui('.citys')[0];
+					if(citys.style.display == 'none'){
+						citys.style.display = 'block';
+					}else{
+						citys.style.display = 'none';
+					}
+				}
+				//城市切换结束
+
+
+				plus.navigator.setStatusBarStyle('dark');/*设置状态栏样式*/
+				window.addEventListener('reload',function(event){
+					plus.webview.currentWebview().reload();
+				});
+
+				var Timetoken = null;
+				var oldToken = null;
+				if(plus.storage.getItem('oldToken')){
+					oldToken = plus.storage.getItem('oldToken');
+					console.log('main_存在oldToken');
+					againfun();
+				}else{
+					clearInterval(Timetoken);
+					Timetoken = setInterval(function() { //等待oldToken加载方法
+						console.log('main_循环等待token');
+						if(plus.storage.getItem('oldToken')) {
+							clearInterval(Timetoken);
+							oldToken = plus.storage.getItem('oldToken');
+							againfun();
+						}
+					}, 200)
+				}
+				//反复加载方法
+				function againfun() {
+					var oldToken = plus.storage.getItem('oldToken');
+
+					var locallife = document.getElementsByClassName('locallife')[0];
+					var darenbang = document.getElementsByClassName('darenbang')[0];
+					var ticket = document.getElementsByClassName('ticket')[0];
+					var market = document.getElementsByClassName('market')[0];
+					var teseguan = document.getElementsByClassName('teseguan')[0];
+					var chaoshiyou = document.getElementsByClassName('chaoshiyou')[0];
+					var onsale = document.getElementsByClassName('onsale')[0];
+					var fil = document.getElementsByClassName('fil')[0];
+					var loveBuy = document.getElementsByClassName('loveBuy')[0];
+					var version = plus.storage.getItem('version');
+					var platform  = plus.storage.getItem('platform');
+					/*首页弹框*/
+					mui.ajax(serverUrl + '/api/index/showmodal', {
+						data:{version:version,platform:platform},
+		                type: 'post',
+		                timeout: 10000,
+		                headers: { "token": plus.storage.getItem('oldToken') ,'city':plus.storage.getItem('cityNum')},
+		                success: function(data, type, xhr) {
+		                   	plus.nativeUI.closeWaiting();
+		                		console.log('首页弹窗',data)
+		                		if(data.errno == 0){
+		                			if(data.data && data.data.length){
+		                				mui.each(data.data,function(index,item){
+			                				if(item.typeName == 'homeIndex'){
+			                					if(item.modelState == 1){
+		                            			 	$('#maskInfo1').show();
+		                            			 	$('#maskInfo1').html(template('maskTpl',{popdata:item}))
+		                            			 	$('#maskInfo1').click(function(){
+													event.preventDefault()
+													$('#maskInfo1').fadeOut(200);
+												})
+												$('.closeMs').click(function(){
+													event.stopPropagation();
+													$(this).parent().fadeOut(200);
+												})
+		                            			}else{
+		                            			 	$('#maskInfo1').hide()
+		                            			}
+			                				}
+	                            		})
+		                			}
+		                		}
+		                },
+		                error: function(xhr, type, errorThrown) {
+		                		console.log('首页弹窗',type)
+		                    console.log('响应失败');
+		                   	plus.nativeUI.closeWaiting();
+		                }
+		            });
+					//本地生活
+					locallife.addEventListener('tap', function() {
+						openview({
+							view: 'localLife/localLifeIndex.html',
+							extrasobj: {
+								titleName:mui('#locallifePP')[0].innerHTML
+							}
+						});
+					});
+					//达人榜
+					darenbang.addEventListener('tap', function() {
+						openview({
+							view:'answerBoard/answerIndex.html',
+							id:"answerIndex",
+						});
+					});
+					//充值缴费
+					ticket.addEventListener('tap', function() {
+						openview({
+							view: 'piaowu.html',
+						});
+					});
+					//宏帆广场
+					market.addEventListener('tap', function() {
+						openview({
+							view: 'market/market.html',
+							id: "market",
+							extrasobj: {
+								titleName:mui('#hfsq')[0].innerHTML
+							}
+						});
+					});
+					//地方特产
+					teseguan.addEventListener('tap', function(){
+						openview({
+							view:'market/tsmall.html',
+							id:'tsmall'
+						});
+					});
+					//超市优选
+					chaoshiyou.addEventListener('tap', function(){
+						openview({
+							view:'market/supermarket.html',
+							id:'supermarket'
+						});
+					});
+					//天天特价
+					onsale.addEventListener('tap', function(){
+						openview({
+							view:'market/specialOffer.html',
+							id:''
+						});
+					});
+					//电影
+					fil.addEventListener('tap', function() {
+						openview({
+							view: 'market/dianying.html',
+							extrasobj: {
+								bannerUrl:"http://m.maoyan.com/?from=singlemessage"
+							}
+						});
+					});
+					//跨境优品
+					loveBuy.addEventListener('tap', function() {
+						openview({
+							view: 'market/youpinhui-Center.html',
+							id: "youpinhui-Center"
+						});
+					});
+					//领HI豆
+					mui('.jiaoyou')[0].onclick = function() {
+						if(!plus.storage.getItem('myToken')){
+							mui.toast('请登录');
+							openview({
+								view:'login.html'
+							});
+						}else{
+							if(plus.storage.getItem('hao19')){
+								openview({
+									view: 'limitTimeAct/lottery19.html',
+									id: 'lottery19',
+								});
+							}else{
+								openview({
+									view: 'hiVip.html',
+									id: "hiVip"
+								});
+							}
+
+						}
+					};
+//					mui('.jiaoyou')[0].addEventListener('tap', function() {
+//						if(!plus.storage.getItem('myToken')){
+//							mui.toast('请登录');
+//							openview({
+//								view:'login.html'
+//							});
+//						}else{
+//							openview({
+//								view: 'hiVip.html',
+//								id: "hiVip"
+//							});
+//						}
+//					});
+					//打开搜索页面
+					mui('.openSearch')[0].onclick = function() {
+//						openview({
+//							view: 'localLife/theSearch.html'
+//						});
+						openview({
+							view: 'localLife/theSearch.html',
+							extrasobj:{searchcnt:"tsmall"}
+						});
+					};
+					//打开消息
+					mui('#xiaoxi')[0].onclick = function() {
+						openview({
+							view:'personal/barcode_scan.html',
+							extrasobj:{statestr:'open'},
+							create:true
+						});
+					};
+
+					//banner数据
+					mui.ajax(serverUrl + '/api/index/banner', {
+						data: {banner_type: 1},
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						headers: { "token": oldToken, 'city': cityNum },
+						success: function(data, type, xhr) {
+							console.log('banner', data);
+							bannerObj = {};
+							if(data.data.banner) {
+								bannerObj.bannerList = eval("(" + data.data.banner + ")");
+								//bannerObj.url = serverimgUrl;
+								var html = template('banner-detail', bannerObj);
+
+								document.getElementById('banner').innerHTML = html;
+								plus.nativeUI.closeWaiting(); //关闭等待框
+							}
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 5000
+							});
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log('首页banner,响应失败');
+						}
+					});
+
+					// icon
+					mui.ajax(serverUrl + '/api/index/iconcontroll', {
+						data: {iconType: 1},
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						headers: { "token": oldToken, 'city': cityNum },
+						success: function(data, type, xhr) {
+							console.log('icon', data);
+							if(data.errno == 0 && data.data.index.length){
+								data.data.index.forEach(function(ele,index){
+									$('.onetable img').eq(index).attr('src',ele);
+								})
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log('icon,响应失败');
+						}
+					});
+					//男神 女神 列表
+					$('.hiFriend .partTitlea').click(function(){
+						openview({
+							view:'socialCircle/make_friends.html',
+							id:'make_friends',
+						})
+					})
+					/*县志数据*/
+					mui.ajax(serverUrl + '/api/index/cityannals', {
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						headers: {"token": oldToken,'city': cityNum},
+						success: function(data, type, xhr) {
+							console.log('县志数据', data);
+							if(data.errno == 0 && data.data && data.data.pic){
+								mui('#xianzhiWrap')[0].innerHTML = '<img src="'+JSON.parse(data.data.pic)[0].picImg+'"/>';
+								mui('#xianzhiWrap')[0].onclick = function(){
+									openview({
+										view:'xianzhi.html',
+										extrasobj:{
+											title:data.data.title,
+											content:data.data.content
+										}
+									});
+								}
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.log('县志数据,响应失败');
+						}
+					});
+					//首页 HI友圈
+					mui.ajax(serverUrl + '/api/friends/friendslist', {
+						data:{
+							'numsPerPage':6,
+							'currentPage':1,
+							'orderType':'ASC',
+							'orderField':'followers',
+							'isRecommendOnHome':1,
+						},
+						dataType: 'json',
+						type: 'post',
+						timeout: 8000,
+						headers: {"token": oldToken,'city': cityNum},
+						success: function(data, type, xhr) {
+							console.log('HI友圈推荐', data);
+							if(data.errno == 0) {
+								if(data.data.data && data.data.data.length){
+
+									var dataObj = {};
+									for(var i = 0 ;i<data.data.data.length;i++){//整理头像格式
+									 	if(data.data.data[i].avatar && data.data.data[i].avatar!='null'){
+											if(JSON.parse(data.data.data[i].avatar)[0].picImg.indexOf('http')== -1){
+												data.data.data[i].avatar = serverimgUrl + JSON.parse(data.data.data[i].avatar)[0].picImg;
+											}else{
+												data.data.data[i].avatar = JSON.parse(data.data.data[i].avatar)[0].picImg;
+											}
+										}else{
+											data.data.data[i].avatar = '../../img/10.png'
+										}
+										if(!data.data.data[i].likes || data.data.data[i].likes=='null'){
+											data.data.data[i].likes = 0;
+										}
+//										if(!data.data.data[i].username ||data.data.data[i].username == 'null'){
+//											data.data.data[i].username = '匿名'
+//										}
+										if(data.data.data[i].nickname && data.data.data[i].nickname !='null'){
+											if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(data.data.data[i].nickname)){
+												data.data.data[i].nickname = data.data.data[i].nickname.substring(0,3)+"****"+data.data.data[i].nickname.substring(7,11)
+											}
+										}else{
+											data.data.data[i].nickname = '匿名'
+										}
+										if(data.data.data[i].photo && data.data.data[i].photo.length){//整理内容图片格式
+									 		var nowArray2 = data.data.data[i].photo;
+									 		var picS = [];
+									 		for(var k = 0 ;k<nowArray2.length;k++){
+									 			if(nowArray2[k].picImg.indexOf('picImg')>-1){
+									 				picS.push(JSON.parse(nowArray2[k].picImg)[0].picImg);
+									 			}
+											}
+									 		data.data.data[i].picS = picS;
+									 	}
+									}
+									if(data.data.data.length>6){
+										data.data.data.length = 6;
+									}
+									dataObj.dataList = data.data.data;
+									document.getElementById('homeFriend').innerHTML = template("hiFriendTpl", dataObj);
+
+									lazyLoad(true,50);//懒加载
+								}
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							console.error('交友列表,响应失败');
+							//mui.toast('当前网络不好,请重试');
+						}
+					});
+
+					//答人榜 开始
+					//答人榜 开始
+					talent(); 
+					 
+					$('.tabs').click(function(e){
+						$(this).addClass('active').siblings().removeClass('active')
+						if(e.target.innerHTML == '精选'){
+							$("#qc1").fadeIn(300)
+							$("#qc2").fadeOut(0)
+							$("#qc3").fadeOut(0)
+						}else if(e.target.innerHTML == '我要答'){
+							$("#qc2").fadeIn(300)
+							$("#qc3").fadeOut(0)
+							$("#qc1").fadeOut(0)
+						}else if(e.target.innerHTML == '我要问'){
+							$("#qc3").fadeIn(300)
+							$("#qc1").fadeOut(0)
+							$("#qc2").fadeOut(0)
+						}
+					})
+						function talent(typeNum){
+						var dataJson = {
+							'numsPerPage':6,
+							'currentPage':1,
+							'orderType':'DESC',
+							'orderField':'create_time',
+							'typeId':2,
+						}
+						mui.ajax(serverUrl + '/api/friends/newslist', {
+							data:dataJson,
+							dataType: 'json',
+							type: 'post',
+							timeout: 8000,
+							headers: {"token": oldToken,'city': cityNum},
+							success: function(data, type, xhr) {
+								console.log(JSON.stringify(data.data.data.length)); 
+								
+								$("#qc2").empty()
+								$("#qc3").empty()
+								data.data.data.forEach(function(item, index){
+									var str = '<div style="border-bottom:1px solid #eee" onclick=openDetailA("'+item.id+'","'+ item.userid +'")>' 
+										str += '<img class="avatar" src="'+JSON.parse(item.avatar)[0].picImg+'"/>'
+										str += '<span style="margin-left:8px;font-size:14px;color:#939393">'+item.nickname+'</span>'
+										str += '<p style="padding: 13px 4px 0 4px">'+item.content+'</p>' 
+										str += '' 
+										str += '<div>'
+									if(index<3){ 
+										$("#qc2").append(str) 
+									}else{
+										$("#qc3").append(str) 
+									}
+								})
+							},
+							error: function(xhr, type, errorThrown) {
+								mui('.listSon')[typeNum].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+								console.error('交友列表,响应失败');
+							}
+						});
+					}
+					
+					$.ajax({
+						url: 'http://abcd.zlzmm.com:6789/index.php/Api_goods/home_propelling',
+						type: 'post',
+						timeout: 8000,
+						success:function(data, type, xhr){
+							console.log(JSON.stringify(data))   
+							if(data.result.length>0){
+								$("#qc1").empty() 
+								data.result.forEach(function(item, index){
+									var str = '<div style="border-bottom:1px solid #eee">' 
+//										str += '<img class="avatar" src="../img/center/jiaoyou.png"/>'
+										str += '<span  class="go-more" data-id="'+index+'" style="margin-left:0px;font-size:16px;color:#444">'+item.name+'</span>'
+//										str += '<p class="go-more" data-id="'+index+'" style="padding: 13px 4px 0 4px;line-height:20px">'+item.desc.substr(0, 43)+'...<a style="font-size:13px;color:#4C92FC">更多&gt;&gt;</a></p>' 
+										str += '<div class="go-more" data-id="'+index+'" class="html-content" style="padding: 10px 4px 0 4px;line-height:20px">'+item.content+'</div>' 
+										str += '' 
+										str += '<div>'
+									$("#qc1").append(str)
+								})
+//								$('.html-content').find("img").attr("data-preview-src","")
+//								$('.html-content').find("img").attr("data-preview-group","0")
+								
+								$(".go-more").click(function(){
+									var id = $(this).attr("data-id") 
+									openview({
+										view:'jx-detail.html',
+										extrasobj: {
+											idNum: 0,
+											obj: data.result[id]
+										}
+									})
+								})
+								
+							}else{
+								$("#qc1").html('暂无')  
+							}
+						}
+					})
+					
+
+					/*很烦的多模块推荐开始*/
+					manyTJFun(1);
+					manyTJFun(2);
+					manyTJFun(3);
+					manyTJFun(4);
+					manyTJFun(5);
+					/*打开更多*/
+					mui('.specialMore')[0].onclick = function(){
+						openview({
+							view:'market/specialMore.html',
+							id:'specialMore'
+						})
+					};
+					[].forEach.call(mui('.fanrenMore'),function(ele,index){
+						ele.onclick = function(){
+							var cur = $(ele)
+							if(cur.hasClass('specialMore')){
+								openview({
+									view:'market/specialMore.html',
+									id:'specialMore'
+								})
+							}else{
+								openview({
+									view:'market/fanrenMore.html',
+									id:'fanrenMore',
+									extrasobj:{
+										idNum:index+1,
+										idStr:'HI'+ele.innerText
+									}
+								})
+							}
+
+						}
+					})
+					function manyTJFun(index){
+						mui.ajax(serverUrl + '/api/index/indexrecomment', {
+							data:{recommentType:index},
+							dataType: 'json',
+							type: 'post',
+							timeout: 8000,
+							headers: {"token": oldToken,'city': cityNum},
+							success: function(data, type, xhr) {
+								console.log('烦人的商品推荐榜'+index, data);
+								if(data.errno == 0){
+									if(data.data.length){
+										var recommendObj = {}
+										if(index == 1){recommendObj.SE = true;}//这是hi抢购
+										recommendObj.list = data.data;
+										if(recommendObj.list.length > 4){recommendObj.list.length = 4}
+										for(var i=0;i<recommendObj.list.length;i++){
+											if(index == 1){
+												if(recommendObj.list[i].countDown){
+//													var endTime = new Date(recommendObj.list[i].countDown).getTime();
+													var endTime = new Date(recommendObj.list[i].countDown.replace(/-/g,'/')).getTime();
+										    			var startTime = new Date().getTime();
+										    			var allseconds = (endTime - startTime)/1000;
+										    			if(allseconds > 0 ){
+										    				var day = Math.floor(allseconds/(60*60*24));
+										    				var hour = Math.floor((allseconds/(60*60*24) - day)*24);
+										    				var minute = Math.floor((((allseconds/(60*60*24) - day)*24)-hour)*60)
+														var seconds = Math.floor(((((allseconds/(60*60*24) - day)*24)-hour)*60-minute)*60)
+											    			recommendObj.list[i].seconds = allseconds;
+											    			recommendObj.list[i].countDown = day+'天'+hour+'小时'+minute+'分钟'+seconds+'秒';
+										    			}else{
+											    			recommendObj.list[i].seconds = 0;
+											    			recommendObj.list[i].countDown = '抢购结束';
+										    			}
+
+												}
+											}
+
+											if(!recommendObj.list[i].thumb.indexOf('http')<0){
+												recommendObj.list[i].thumb = serverimgUrl + recommendObj.list[i].thumb;
+											}
+										}
+										mui('.manyTJ')[index-1].innerHTML = template("manyTJJS", recommendObj);
+										lazyLoad(false);//懒加载
+										if(index == 1){
+											$('.countDown').each(function(){
+												var cur = $(this);
+												var secondscur = $(this).attr('data-id');
+												if(secondscur){
+													timeCountDown(cur,secondscur);
+												}
+											})
+										}
+
+									}else{
+										mui('.manyTJ')[index-1].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+									}
+								}else{
+									mui('.manyTJ')[index-1].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui('.manyTJ')[index-1].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+								console.error('烦人的商品推荐榜,响应失败');
+							}
+						});
+					}
+
+					function timeCountDown(cur,sec){
+						var timem = null;
+						var allsec = sec;
+						timem = setInterval(function(){
+
+							if(allsec > 0) {
+								allsec--;
+								if(allsec > 0){
+									var day = Math.floor(allsec/(60*60*24));
+					    				var hour = Math.floor((allsec/(60*60*24) - day)*24);
+					    				var minute = Math.floor((((allsec/(60*60*24) - day)*24)-hour)*60)
+									var seconds = Math.floor(((((allsec/(60*60*24) - day)*24)-hour)*60-minute)*60)
+									cur.html(day+'天'+hour+'小时'+minute+'分钟'+seconds+'秒')
+								}else{
+									cur.html('抢购结束');
+								}
+							} else {
+								cur.html('抢购结束')
+								clearInterval(timem)
+								timem = null;
+							}
+						},1000)
+					}
+					/*很烦的多模块推荐结束*/
+
+					/*hi专享*/
+					mui.ajax(serverUrl + '/api/mall/recommendingcourtesy', {
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							"token": oldToken,
+							'city':cityNum
+						},
+						success: function(data) {
+							console.log('hi专享',data)
+							if(data.errno == 0){
+								if(data.data.isShow){
+									$('#onlySpecial').show();
+									if(data.data.goodsList && data.data.goodsList.length){
+										var recommendObj = {};
+										recommendObj.list = data.data.goodsList;
+										if(recommendObj.list.length > 4){recommendObj.list.length = 4}
+										for(var i=0;i<recommendObj.list.length;i++){
+
+											if(!recommendObj.list[i].thumb.indexOf('http')<0){
+												recommendObj.list[i].thumb = serverimgUrl + recommendObj.list[i].thumb;
+											}
+										}
+										mui('.onlySpecial')[0].innerHTML = template("specialTpl", recommendObj);
+										lazyLoad(false);//懒加载
+									}else{
+										mui('.onlySpecial')[0].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+									}
+								}else{
+									$('#onlySpecial').hide()
+								}
+
+							}else{
+								mui('.onlySpecial')[0].innerHTML = '<div class="moreCon fineB aClick"><b>没有信息 </b></div>';
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast("当前网络不好请重试");
+						}
+					});
+					//热门推荐 数据渲染
+					var currentPage = 1,
+						numsPerPage = 6;
+					mui.ajax(serverUrl + '/api/mall/mallgooodslist', {
+						data: {currentPage:currentPage,numsPerPage:numsPerPage,categoryid:"",recommend:1,differentiate:'',storeid:'',brand:'',keyword:'',order_type:'sort',desc:'asc'},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						headers: {
+							"token": oldToken,
+							'city':cityNum
+						},
+						success: function(data) {
+							console.log('main推荐',data);
+							if(data.errno == 0) {
+								var dataobj = data.data.return.data
+								var recommendObj = {}
+								recommendObj.myUrl = serverimgUrlE;
+								recommendObj.recommendData = dataobj;
+								document.getElementById("moll_recommend").innerHTML = template("recommendTpl", recommendObj);
+								mui("#upload")[0].innerHTML = "";
+								lazyLoad(false);//懒加载
+
+								//上滑加载
+								$(window).scroll(function() {
+									var scrollTop = $(this).scrollTop();
+									var scrollHeight = $(document).height();
+									var windowHeight = $(this).height();
+									if(scrollTop + windowHeight == scrollHeight) {
+										if(Spagenum <= data.data.return.totalPages && Spagenum == Ypagenum + 1) { //当前页小于等于总页数时请求下一页
+											mui("#upload")[0].innerHTML = "<img src='../img/balls.svg' />";
+											Ypagenum++; //满足加载情况,应到页数+1
+											console.log('发起请求,实到' + Spagenum + '页');
+											console.log('发起请求,应到' + Ypagenum + '页');
+											mui.ajax(serverUrl + '/api/mall/mallgooodslist', {
+												data: {
+													currentPage: Spagenum,
+													numsPerPage: numsPerPage,
+													recommend: 1,
+													differentiate: '',
+													storeId: '',
+													brand: '',
+													keyword: '',
+													order_type: 'sort',
+													desc: 'asc'
+												},
+												dataType: 'json', //服务器返回json格式数据
+												type: 'post', //HTTP请求类型
+												timeout: 10000, //超时时间设置为10秒；
+												headers: {
+													"token": oldToken,
+													'city':cityNum
+												},
+												success: function(data) {
+													console.log('推荐续',data)
+													if(data.errno == 0) {
+														var dataobj = data.data.return.data
+														var recommendObj = {}
+														recommendObj.myUrl = serverimgUrlE;
+														recommendObj.recommendData = dataobj
+														document.getElementById("moll_recommend").innerHTML += template("recommendTpl", recommendObj);
+														lazyLoad();//懒加载
+
+													}
+													mui("#upload")[0].innerHTML = " ";
+													Spagenum++; //加载成功,当前页+1
+													console.log('成功+1,实到' + Spagenum);
+													console.log('成功+1,应到' + Spagenum);
+												},
+												error: function(xhr, type, errorThrown) {
+													Ypagenum--; //失败是应到-1
+													mui.toast("当前网络不好请重试");
+													mui("#upload")[0].innerHTML = "";
+												}
+											});
+										} else if(Spagenum == data.data.return.totalPages + 1) { //当前页不小于等于总页数时请求下一页
+											mui("#upload")[0].innerHTML = "到底了";
+										}
+									}
+								});
+							} else {
+								mui("#upload")[0].innerHTML = "";
+							}
+							plus.nativeUI.closeWaiting(); //关闭等待框
+						},
+						error: function(xhr, type, errorThrown) {
+							plus.nativeUI.closeWaiting(); //关闭等待框
+							mui("#upload")[0].innerHTML = "";
+						}
+					});
+				} //重载方法结束
+			});
+
+			//商品跳转详情
+			function goInfo(goodsId, storeId) {
+				if(storeId == 0) {
+					openview({
+						view: "market/yphDetail.html",
+						extrasobj: {
+							goodsId: goodsId
+						}
+					})
+				} else {
+					openview({
+						view: "market/mall-detail.html",
+						extrasobj: {
+							goodsId: goodsId
+						}
+					})
+				}
+
+			}
+
+
+		</script>
+	</body>
+
+</html>

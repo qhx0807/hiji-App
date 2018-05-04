@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>话费充值</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/reset.css">
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.rechargeTitle{margin-top: 0;}
+		</style>
+		<style type="text/css">
+			.mui-bar-nav{box-shadow: none !important;}
+			body{background-color: #f3f3f3;}
+			.liafter:after{
+				content: '';
+				display: block;
+				height: 1px;
+				background-color: rgba(0,0,0,0.1);
+				-webkit-transform: scaleY(.5);
+			}
+			#main li{height: 50px;line-height: 50px;padding-left: 20px; padding-right: 20px;background-color: #fff;font-size: 15px;color: #333;}
+			/*#main li span{font-size: 20px;color: #999;float: right;margin: 18px 10px 0;}*/
+			.aClick:active{background-color: #eee !important;}
+			#xieyi{text-align: center;margin-top: 60px;color: #e21919;font-size: 13px;}
+			.r-text{
+				width: 100px;
+				float: left;
+				text-align: left;
+				font-size: 15px;color: #333;
+			}
+			.r-value{
+				/*float: right;*/
+				text-align: right;
+				font-size: 15px;color: #333;
+				vertical-align: baseline;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.mui-icon-arrowright{
+				position: absolute;
+				right: 10px;
+				top: 15px;
+				color: #999;
+				font-size: 20px;
+			}
+			.quan-box{
+				height: 300px;
+				margin: 0 8px;
+				border-radius: 4px;
+				background-color: #fff;
+				overflow: scroll;
+			}
+			.quan-list{
+				list-style: none;
+				padding: 16px 10px;
+			}
+			.quan-list li{
+				height: 60px;
+				background-image: url('../../img/market/youhuihong.png');
+				background-repeat: no-repeat;
+	            background-origin: top left;
+	            background-position: center;
+	            background-size: 100% 100%;
+	            margin-bottom: 18px;
+	            background-color: #fff;
+	            color: #fff;
+			}
+			.quan-list li p{
+				color: #fff;
+				padding-top: 15px;
+				padding-left: 36px;
+				font-size: 12px;
+			}
+			.submit{
+				border: none;
+				outline: none;
+				height: 45px;
+				width: 100%;
+				background-color: #FF625F;
+				color: #fff;
+				font-size: 16px;
+				letter-spacing: 2px;
+			}
+		</style>
+	</head>
+	<body >
+		<header class="mui-bar mui-bar-nav fineB">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize"></a>
+			<h1 class="mui-title">确认订单</h1>
+			<!--<a href="setup.html" class="fr shoucang sousuo mui-icon"><i class="iconfont icon-fenxiang"></i></a>-->
+		</header>
+		<script src="../../js/statusBar.js"></script>
+		<div id="main">
+			<ul>
+				<li class="aClick" id="editdata" style="margin-top: 62px;">
+					<p class="r-text">订单号</p>
+					<p class="r-value">1232123123123212312</p>
+				</li>
+				<li class="aClick" id="editpw" style="margin-top: 1px;">
+					<p class="r-text">手机号码</p>
+					<p class="r-value">18716742604</p>
+				</li>
+				<li class="aClick" id="appupgrade" style="margin-top: 1px;">
+					<p class="r-text">商品描述</p>
+					<p class="r-value">重庆移动 100元话费</p>
+				</li>
+				<li class="aClick" id="appupgrade" style="margin-top: 1px;">
+					<p class="r-text">交易金额</p>
+					<p class="r-value" style="color: #f60;">99.20元</p>
+				</li>
+				<li class="aClick" id="appupgrade" onclick="selectQuan()" style="margin-top: 12px; position: relative;">
+					<p class="r-text">电子券</p>
+					<p class="r-value" style="padding-right: 14px;font-size: 14px;color: #8f8f94">无可用优惠券</p>
+					<span class="mui-icon mui-icon-arrowright"></span>
+				</li>
+			</ul>
+			<div style="margin-top: 35px;padding: 0 12px;">
+				<button class="submit">确认</button>
+			</div>
+		</div>
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+		    <!-- 可选择菜单 -->
+		    <div class="quan-box">
+		    	<ul class="quan-list">
+			      <li >
+					<p>
+						<span>优惠券1： -2元</span>
+						<span style="float: right;padding-right: 10px;">2018-09-09 ~ 2019-09-12</span>
+					</p>
+			      </li>
+			      <li>
+			        <p>优惠券2： -2元</p>
+			      </li>
+			      <li></li>
+			    </ul>
+		    </div>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		        <a href="#sheet1"><b>取消</b></a>
+		      </li>
+		    </ul>
+		</div>
+		<script type="text/javascript">
+			var selectQuan = function () {
+				mui('#sheet1').popover('toggle');
+			}
+		</script>
+	</body>
+</html>

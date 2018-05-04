@@ -1,0 +1,128 @@
+/*交友主页*/
+.circleContain{padding: 5px;}
+.circleContain .circleBox{margin: 5px 5px;float: left;background: url(../img/makeFriend/friendB.png) no-repeat;background-size: 100% 100%;background-position: left top;padding: 1px;}
+.circleImg{width: calc((100vw - 34px)/2);width: -moz-calc((100vw - 34px)/2);width: -webkit-calc((100vw - 34px)/2);padding-top: 100%;overflow: hidden;position: relative;}
+.circleImg img.img1{position: absolute; top: 0;left: 0;width: 100%;border-radius: 3px 3px 0 0;}
+.circleName{font-size: ;}
+/*tab切换*/
+.QAhead{text-align: center;background-color: #f3f3f3;}
+.QAhead span{position: relative; display: inline-block;height:38px;line-height: 38px;color: #343434;font-size: 15px;margin: 0 3%;padding: 0 15px;}
+.QAhead span.active{color: #f63d41;}
+.QAhead span:after { content: ""; width: 0; height: 2px;-webkit-transform: scaleY(.75); background-color: #f63d41; position: absolute; bottom: 0px; left: 50%; }
+.QAhead span.active:after { transition: all 0.3s; width: 100% !important; left: 0 !important; }
+.listHead{height: 32px;line-height: 32px;font-size: 14px;color: #666;padding: 0 10px;}
+.listHead img{width: 25px;height: 25px;margin-right: 4px;}
+.listHead span{float: right;color: #999999;line-height: 18px;margin-top: 10px;font-size: 12px;padding: 0 3px;
+	background: url(../img/mainHtml/gengduokuang.png) no-repeat;background-size: 100% 100%;/*背景边框*/
+	}
+.listCon{padding: 10px 0 0 0;}
+.listCon p{color: #666;padding: 10px 4px 17px 4px; margin: 0 10px;}
+.moreCon{text-align: center;padding: 12px;}
+.moreCon span{display: inline-block;padding: 5px 18px;color: #888;
+	background: url(../img/mainHtml/gengduokuang.png) no-repeat;background-size: 100% 100%;
+}
+#listOldDiv{position: relative;top: 37px;}
+.listSon{width: 100%;}
+.middleI{opacity: 1; z-index: 100; transition-duration: .2s;transition-property:opacity left;transition-timing-function: ease-in-out;}
+.leftT{opacity: 0; z-index: 10;}	
+.listHead b{
+    float: right;
+    margin-top: 4px;
+    font-weight: 100;
+    padding-right: 6px;
+    color: #f63d41;
+}	
+/*tab切换结束*/
+
+/*交友自定义*/
+.QAhead{
+	background-color: #fff; 
+}
+
+/*交友主页*/
+.content0{
+	
+}
+/*交友主页动态模块*/
+.dongtai0{background-color: #f3f3f3;padding-top: 12px;padding-bottom: 2px;}
+.dongItem{display: flex;margin-top: -10px;}
+.DitemL{font-size: 22px;
+    color: #333;
+    padding: 10px;
+    width: 75px;
+    padding-right: 1px;
+    padding-left: 12px;
+    padding-top: 14px; }
+.DitemL span{    font-size: 14px; color: #999;
+    position: relative;
+    top: -5px;}
+.DitemR{    flex: 1;
+    padding: 12px;
+    background: url(../img/makeFriend/jiaoyouyoubian.png) 0 0 no-repeat;
+    background-size: contain;
+    padding-left: 23px;}
+.DitemRin{overflow: hidden;position: relative;background-color: #fff;padding: 8px;background: url(../img/makeFriend/jiaoyoudongtaiobeijing.png) 0 0 no-repeat;background-size: 100% 100%;}
+.DitemRin1{width: calc(100vw * 0.22);width: -webkit-calc(100vw * 0.22);width: -moz-calc(100vw * 0.22);height: calc(100vw * 0.22);height: -webkit-calc(100vw * 0.22);height: -moz-calc(100vw * 0.22);background-size: cover;float: left;background-color: #f3f3f3;}
+.DitemRin2{float: left;}
+.DitemRin h3{font-size: 14px;color: #888;position: relative;left: 5px;line-height: 18px;}
+.DitemRin p img{width: 13px;margin-left: 10px;}
+.DitemRin p{font-size: 12px;color: #999;position: absolute;bottom: 8px;right: 8px;}
+#centertitle{visibility: hidden;}
+.dongtai0{margin-bottom: 50px;}
+.DitemRin1{overflow: hidden;}
+.DitemRin1 img{width: 100%;}
+.zhaopians li span,.touxiangs li .span1{background-color: #f3f3f3 !important;}
+#upload{text-align: center;height: 30px;line-height: 30px;font-size: 15px;color: #888;}
+#upload img{width: 30px;}
+
+/*交友主页 交友 模块*/
+.jiaoyou0{background-color: #f3f3f3;padding-top: 10px;padding-bottom: 20px;}
+.MFdiv1{background-color: #fff;}
+.MFdiv1 h3{color: #555;font-size: 15px;padding: 10px;}
+.MFdiv1 h3 span{float: right;font-size: 13px;color: #888;}
+.zhaopians, .touxiangs{padding-bottom: 10px;}
+.touxiangs{white-space: nowrap;overflow-x: scroll;overflow-y: hidden;}
+.zhaopians{padding: 0 5px}
+.zhaopians li{float: left;width: calc((100vw - 10px) * 0.25);width: -webkit-calc((100vw - 10px) * 0.25);width: -moz-calc((100vw - 10px) * 0.25);height: calc((100vw - 10px) * 0.25);height: -webkit-calc((100vw - 10px) * 0.25);height: -moz-calc((100vw - 10px) * 0.25);padding: 5px;margin-top: -5px;}
+.zhaopians li span{display: inline-block;width: 100%;height: 100%;}
+.touxiangs li{display: inline-block; text-align: center;padding-left: 10px; padding-bottom: 10px;color: #666;}
+.touxiangs li .span1{display: inline-block; width: 55px;height: 55px;border-radius: 50%;background-color: indianred;}
+.MFdiv2 h4{font-size: 14px;padding: 15px 0;margin: 0 10px;color: #555;} 
+.MFdiv2 h4.h40{padding: 12px 0;} 
+.MFdiv2 h4 span{color: #999;display: inline-block;width: 80px;}
+.MFdiv2 .label{color: #fd6363;padding: 10px;font-size: 13px;padding-top: 0px;margin-top: -10px;}
+.MFdiv2 .label span{background: url(../img/makeFriend/bianqiankuang.png) 0 0 no-repeat;background-size: 100% 100%;margin-right: 10px;
+	white-space: nowrap;margin-top: 10px;display: inline-block;padding: 5px;}
+
+/*交友主页 底部 */
+body{padding-bottom: 50px;}
+.footF{position: fixed;bottom: 0;width: 100%;height: 50px;padding: 10px 0;    box-shadow: rgba(175, 166, 166, 0.85) 0px 0px 2px;}
+.footF .mui-row{height: 30px;line-height: 30px;font-size: 14px;text-align: center;}
+.footF .mui-col-sm-4{position: relative;}
+.footF .mui-col-sm-4:after{content: url(../img/makeFriend/xiaoxian.png);position: absolute;right: 0;top: 3px;}
+.footF .smend:after{content: '';}
+.footF .mui-col-sm-4 img{width: 20px;margin-right: 4px;margin-top: -4px;}
+
+/*交友主页 礼物  模块*/
+.gift0{padding: 5px;}
+.gift0 .mui-row .mui-col-sm-4{padding: 5px;}
+.mui-content{background-color: #fff;}
+.giftCon p{ height: calc((100vw - 40px) * 0.3);height: -webkit-calc((100vw - 40px) * 0.3);height: -moz-calc((100vw - 40px) * 0.3);}
+.giftCon{text-align: center;background: url(../img/mainHtml/baisedikuang.png) 0 0 no-repeat;background-size: 100% 100%;border-radius: 2px;overflow: hidden;}
+.giftCon h5{text-align: center;color: #f14a43;font-size: 15px;padding:3px 0;}
+.giftCon span{background-color: #f14a43;color: #fff;display: inline-block;    padding: 10px 0;font-size: 14px;width: 100%;}
+.giftCon2 span{width: 50%;float: left;}
+.giftCon2 span:last-child{background-color: #ff9800;}
+
+.markHI{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,0.4);}
+.changeHI{display: table;position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 200;}
+.HIcon{display: table-cell;vertical-align: middle;}
+.head1{height: 230px;width: 250px;}
+.content12{width: 250px;margin: 0 auto;background-color: #fff;padding-bottom: 12px;border-radius: 3px;overflow: hidden;position: relative; z-index: 200;}
+.operating{padding: 10px 7px;font-size: 15px;text-align: right;height: 52px;line-height: 28px;}
+.operating span.span1{color: #f14a43;float: left;}
+.operating span.span2{padding: 0 5px;}
+.operating img{width: 28px;}
+.HIconfirm{margin: 0 auto;width: 80px;text-align: center;background-color: #f14a43;color: #fff;padding: 7px 0;font-size: 14px;border-radius: 4px;}
+.photoItem .frph{background-color: #f3f3f3;}
+

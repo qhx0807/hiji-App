@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+	</head>
+
+	<body onload="document.body.scrollTop = document.body.scrollHeight">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="headbar mui-action-back mui-icon mui-icon-left-nav mui-pull-left normalSize"></a>
+		    <h1 class="mui-title">登录</h1>
+			<span class="mui-pull-right fenlei"></span>
+		</header>
+		<script src="../js/statusBar.js"></script><!--状态栏-->
+
+		<div class="loginwrap">
+		    <div class="logincell">
+		        <div class="loginCon">
+		        	<div class="loginNum clearfix">
+		        		<div class="yonghuPicW">
+		        			<img class="yonghuPic" src="../img/loginHtml/yonghu.png"/>
+		        		</div>
+						<input id='account' type="number" class="mui-input-clear mui-input" placeholder="请输入账号">
+		        	</div>
+		        	<div class="loginNum clearfix">
+		        		<div class="yonghuPicW">
+		        			<img class="yonghuPic" src="../img/loginHtml/mima.png"/>
+		        		</div>
+						<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+						<div class="yonghuPicW" id="huahua">
+		        			<img class="yonghuPic" src="../img/loginHtml/huahua.png"/>
+		        		</div>
+		        	</div>
+
+		        	<button id='confirmbtn' class=" mui-btn-block denlu cannotbtn">登录</button>
+		        	<div class="link-area loginFoot clearfix">
+		        		<a id='goSign'>注册账号</a>
+		        		<a id='forgetPassword'>忘记密码</a>
+					</div>
+		        </div>
+		    </div>
+		</div>
+
+<script src="../js/mui.min.js"></script>
+<script src="../js/artTemplate-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/app.js"></script>
+<script type="text/javascript">
+
+(function(){
+	mui.plusReady(function(){
+		sharecode();//获取分享有礼 时间区间 和邀请码
+	});
+	var account = document.getElementById('account');
+	var password = document.getElementById('password'),
+	reg_phone = /^1((3|4|5|8|7){1}\d{1}|70)\d{8}$/,//手机号正则
+	reg_pass = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+	//输入验证按钮状态
+	password.oninput = account.oninput = verification;
+	function verification(){
+		if(reg_pass.test(password.value) && reg_phone.test(account.value)){
+			mui('.denlu')[0].className = mui('.denlu')[0].className.replace(' cannotbtn','');
+		}else if(mui('.denlu')[0].className.indexOf('cannotbtn') == -1){
+			mui('.denlu')[0].className += ' cannotbtn';
+		}
+	}
+
+	mui('#confirmbtn')[0].addEventListener('click',function(){
+		if(!reg_phone.test(account.value)){
+			account.focus();
+			mui.toast('请输入正确的手机号码');
+		}else if(!reg_pass.test(password.value)){
+			mui.toast('请输入6-12位数字和字母组合密码');
+			password.focus();
+		}else{
+			plus.nativeUI.showWaiting();
+			var clientid =  plus.push.getClientInfo().clientid;
+			mui.ajax(serverUrl+'/api/useraccount/login',{
+				data:{"phone":account.value,"password":password.value,'clientID':clientid},
+				dataType:'json',
+				type:'post',
+				timeout:10000,
+				success:function(data,type,xhr){
+					console.log('登录返回'+JSON.stringify(data));
+					if(data.errno==0){
+						var mytoken = xhr.getResponseHeader('token');//替换默认token存入缓存
+						mui.plusReady(function(){
+							//登录成功, 缓存中如果oldtoken和myToken相同则在登陆状态
+							plus.storage.setItem("myToken",mytoken);
+							plus.storage.setItem("oldToken",mytoken);
+							var Acc_pass = [account.value,password.value];
+							plus.storage.setItem("Acc_pass",JSON.stringify(Acc_pass));//保存账号密码,用于自动登录
+							plus.storage.setItem("userid",JSON.stringify(data.data.return.user_id));
+							plus.storage.setItem("currentStoreId",JSON.stringify(data.data.store.store_id));
+							plus.storage.setItem('showLocal','true');
+
+							mui.fire(plus.webview.getWebviewById('lottery'),'refresh');//触发跳转页面刷新=》抽奖页面
+							if(data.data.store && data.data.store.canCheckUp == 1){
+								plus.storage.setItem('canCheckUp','yes')
+							}else{
+								plus.storage.setItem('canCheckUp','no')
+							}
+							if(data.data.store && data.data.store.canReviewCheckUp == 1){
+								plus.storage.setItem('canReviewCheckUp','yes')
+							}else{
+								plus.storage.setItem('canReviewCheckUp','no')
+							}
+							mui.fire(plus.webview.getWebviewById('center.html'),'refresh');//触发跳转页面刷新=》个人中心
+							mui.fire(plus.webview.getWebviewById('circle.html'),'refreshC');
+							mui.fire(plus.webview.getWebviewById('cart.html'),'refresh');
+							var index = plus.webview.getLaunchWebview();
+							mui.fire(index,'refresh3');
+							plus.webview.getWebviewById('activityDetail') && (mui.fire(plus.webview.getWebviewById('activityDetail'),'refresh'));//触发跳转页面刷新=》活动详情
+
+							if(plus.webview.getWebviewById('sign.html')){
+								plus.webview.getWebviewById('sign.html').close();
+							}
+
+							var time2 = setTimeout(function(){
+								plus.webview.currentWebview().close();
+//								var index = plus.webview.getLaunchWebview();
+//								mui.fire(index,'gohome',{hrefid:'center'});
+								//mui.fire(index,'gohome',{hrefid:'cart'});
+								plus.nativeUI.closeWaiting();
+								mui.toast('登录成功');
+							},500)
+						})
+					}else{
+						plus.nativeUI.closeWaiting();
+						switch(data.errmsg){
+							case 'LOGIN_ERROR':
+							mui.toast('账户和密码不匹配');
+							break;
+						}
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					plus.nativeUI.closeWaiting();
+					console.log('登录响应失败');
+				}
+			});
+		}
+
+	})
+	//打注册录页面
+	var goLogin=document.getElementById('goSign');
+	goLogin.addEventListener('tap', function(){
+		openview({
+			view:'sign.html',
+		});
+	});
+	//忘记密码
+	mui('#forgetPassword')[0].addEventListener('tap', function(){
+		openview({
+			view:'forgetpw.html',
+			id:'forgetpw',
+			extrasobj:{type:1}
+		});
+	});
+	//huahua
+	mui('#huahua')[0].addEventListener('tap',function(){
+		if(mui('#password')[0].type == 'password'){
+			mui('#password')[0].type = 'text';
+		}else{
+			mui('#password')[0].type = 'password';
+		}
+	})
+})();
+</script>
+	</body>
+
+</html>

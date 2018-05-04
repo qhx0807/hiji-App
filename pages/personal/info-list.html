@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>我的消息</title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="address=no">
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/index.css">
+		<link rel="stylesheet" href="../../css/reset.css">
+		<link rel="stylesheet" type="text/css" href="../../css/config.css"/>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/artTemplate-native.js"></script>
+
+	</head>
+	<style type="text/css">
+		#userBox{
+				background-color: #F53C42;
+				padding: 0px 0;
+			    position: relative;
+			    overflow: hidden;
+			    height: 3rem;
+		}
+		#mypic1{height: 100%;}
+		#beijing2{position: absolute;z-index:1;width: 100%;height: 100%;top: 0;background-color: rgba(0, 0, 0, 0.5);}
+
+		.userAvator{
+			position: absolute;
+			left: 50%;
+			width: 1rem;
+			bottom: 1.2rem;
+			height: 1rem;
+			-webkit-transform: translateX(-50%);
+			z-index: 9;
+			border-radius: 50%;
+		}
+		.idhiji,.personalSign{
+			position: absolute;
+			left: 50%;
+			bottom: 0.9rem;
+			-webkit-transform: translateX(-50%);
+			z-index: 9;
+			color: white;
+		}
+		.personalSign{bottom: 0.6rem; }
+		.personalSign img{width: 20px;margin-left: 5px;}
+		.newbop{bottom: 0.3rem;}
+		.bottomop{border-bottom: 1px solid #f3f3f3;}
+		.bottomop img{width:22px}
+		.flexr{display:flex;width:100%;background-color:white;justify-content:space-between;color: #303030;align-items: center;}
+		.flexa{display: flex;align-items: flex-start;line-height: 1.5;width: 100%;}
+		.bottomop>div{padding:14px 0;display:flex;width:50%;justify-content:center;align-items:center;position:relative;}
+		/*.bottomop div:first-child{border-right:1px solid #f3f3f3}*/
+		.bottomop .active{color:#f31414}
+		.bottomop div:after{position:absolute;bottom:0;left:50%;right:50%;height:2px;background-color:#f31414;content:""}
+		.bottomop .active:after{left:25px!important;right:25px!important;transition:all .3s}
+		/*#QA{padding-top: 52px;}*/
+		.qashadow{margin-bottom: 10px;background-color: white;padding:10px 15px;}
+		.qbot{margin-top: 10px;line-height: 1.3;}
+		.Avator{width: 40px!important;height: 40px!important;border-radius: 50%;}
+		.rsImg{margin-right:10px;border-radius:3px;overflow: hidden;flex-basis: -webkit-calc(100vw * 0.1);flex-basis: -moz-calc(100vw * 0.1);flex-basis: calc(100vw * 0.1);}
+		.rsImg img{width: 100%;border-radius: 50%;height: 30px;width: 30px;}
+		.listSon{position: absolute;left: -20px;top: 0;width: 100%;}
+		.middleI{position: absolute;left: 0px !important;top: 0;opacity: 1; z-index: 1; transition-duration: .2s;transition-property:opacity left;transition-timing-function: ease-in-out;}
+		.leftT{position: absolute;left: -20px !important;top: 0;opacity: 0; z-index: 10;}
+		.QA{display: none;}
+		.qative{display: block;}
+		.mui-bar-nav{box-shadow: none !important;}
+		#upload{height: 30px;min-height: 30px;padding-top: 0;}
+		.answerImf{padding: 0 15px;}
+		.answerImf .anImg{width:calc((100vw - 50px) / 4);height:calc((100vw - 50px) / 4);border-radius:3px;display: inline-block;}
+		.adge{display: block;width: 20px;height:20px;background-color: #f31414;color: white;text-align: center;line-height: 1.6;border-radius: 50%;}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav fineB">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize" style="margin-left: 0;"></a>
+		    <h1 class="mui-title">我的消息</h1>
+		</header>
+		<script src="../../js/statusBar.js"></script><!--状态栏-->
+
+		<!--状态栏结束-->
+		<!--<div id="container">-->
+		<div id="main">
+
+	    	<!--<div class="bottomop flexr" style="position: fixed;">
+				<div class="ft14 active">通知消息</div>
+				<div class="ft14">聊天记录</div>
+		 	</div>  -->
+
+
+			<div id="QA"><!--大盒子-->
+				<div class="QA qative dyCon" id="questions" style="display: block;">
+
+				</div><!--盒子一-->
+
+				<div class="QA dyCon" id="toanswers" style="display: none;">
+					<div class="qashadow">
+						<div class="qbot ft14 flexa" style="justify-content: space-around;">
+							<div class="flexa">
+								<div class="rsImg">
+									<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505302664713&di=afd24208c96df7088b6f6a3316cc28fa&imgtype=0&src=http%3A%2F%2Fimg14.360buyimg.com%2Fn1%2Fjfs%2Ft4300%2F175%2F3062826487%2F194099%2F8026677d%2F58d9ba97N66fbbcbb.jpg"/>
+								</div>
+								<div>
+									<div class="maincl ft14">Thefin</div>
+									<div class="maincl ft14" style="margin-top: 5px;">
+										hello
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="disablecl ft12">
+									16:33
+								</div>
+								<div class="ft12" style="margin-top: 5px;">
+									<span class="adge">2</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="qashadow">
+						<div class="qbot ft14 flexa" style="justify-content: space-around;">
+							<div class="flexa">
+								<div class="rsImg">
+									<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505302664713&di=afd24208c96df7088b6f6a3316cc28fa&imgtype=0&src=http%3A%2F%2Fimg14.360buyimg.com%2Fn1%2Fjfs%2Ft4300%2F175%2F3062826487%2F194099%2F8026677d%2F58d9ba97N66fbbcbb.jpg"/>
+								</div>
+								<div>
+									<div class="maincl ft14">Thefin</div>
+									<div class="disablecl ft12" style="margin-top: 5px;">
+										hello
+									</div>
+								</div>
+							</div>
+							<div>
+								<div class="disablecl ft12">
+									16:33
+								</div>
+								<div class="ft12" style="margin-top: 5px;">
+									<span class="adge">2</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!--盒子三-->
+
+				<script type="text/html" id="listinfo">
+					<%for(var i=0;i<list.length;i++){%>
+						 
+						<div class="qashadow readcg" data-id="<%=list[i].id%>"> 
+						<!--2活动消息  3系统提示 4HI 豆消息 5礼物 6评论 7点赞 8私信  9关注 11举报-->
+							<div class="qtop flexr">
+								<div class="ft14 activecl">
+									<%if(list[i].messageType == 2){%>
+										活动消息
+									<%}else if(list[i].messageType == 3){%>
+										系统提示 <br />
+									<%}else if(list[i].messageType == 4){%>
+										HI 豆消息<br />
+									<%}else if(list[i].messageType == 5 || list[i].messageType == 6 || list[i].messageType == 7 || list[i].messageType == 8 || list[i].messageType == 9 ){%>
+										HI友圈消息 
+									<%}else{%>
+										系统通知
+									<%}%>
+								</div>
+								<div class="">
+									<span class="disablecl">
+										<%=list[i].create_time%>
+										<%if(!list[i].isRead){%>
+										 <span style="width: 6px;height: 6px;border-radius: 50%;background-color: red;display: inline-block;"></span>
+										<%}%>
+									</span>
+								</div>
+							</div>
+							<%if(list[i].messageType == 1){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" style="justify-content: space-around;">
+									<div class="flexa">
+										<div>
+											<div class="maincl ft14 pad10" style="margin-top: 5px;">
+												<%=list[i].content%><br />
+											</div>
+										</div>
+									</div>
+								</div>
+							<%}else if(list[i].messageType == 2){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div> 
+							<%}else if(list[i].messageType == 3){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+							<%}else if(list[i].messageType == 4){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+							<%}else if(list[i].messageType ==5){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="elseCircleIndex(<%=list[i].userid%>)" style="justify-content: space-around;">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" onclick="elseCircleIndex(<%=list[i].sender%>)" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<img src="<%=list[i].content.data.gift[0].picImg[0].picImg%>" style="width: 45px;"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							<%}else if(list[i].messageType == 6){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="DTdetail('<%=list[i].content.newsId%>','<%=list[i].content.userid%>')">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" onclick="elseCircleIndex(<%=list[i].sender%>)" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<%=list[i].content.commont%>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							<%}else if(list[i].messageType == 7 || list[i].title.indexOf('点赞')>0){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="DTdetail('<%=list[i].content.id%>','<%=list[i].content.userid%>')">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" onclick="elseCircleIndex(<%=list[i].sender%>)" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<%=list[i].content.content%>
+											</div>
+											<%if(list[i].content.pic && list[i].content.pic[0] && list[i].content.pic[0].picImg){%>
+												<div class="maincl ft14" style="margin-top: 5px;">
+													<img src="<%=list[i].content.pic[0].picImg%>" style="width: 45px;"/>
+												</div>
+											<%}%>
+										</div>
+									</div>
+								</div>
+							<%}else if(list[i].messageType == 9){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="elseCircleIndex(<%=list[i].sender%>)">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<%=list[i].content.commont%>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							<%}else if(list[i].title.indexOf('打赏')>0){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="elseCircleIndex(<%=list[i].sender%>)">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							<%}else if(list[i].messageType == 8){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div> <!--toUserId myAvatar mynickname-->
+								<div class="qbot ft14 flexa" onclick="chat(<%=list[i].sender%>,'<%=list[i].nickname%>','<%=list[i].loginPic%>')">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<%=list[i].content.data.content%>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							<%}else if(list[i].messageType == 11){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+								<div class="qbot ft14 flexa" onclick="DTdetail('<%=list[i].content.id%>','<%=list[i].content.userid%>')" style="justify-content: space-around;">
+									<div class="flexa">
+										<div class="rsImg">
+											<img src="<%=list[i].avatar%>" onclick="elseCircleIndex(<%=list[i].sender%>)" />
+										</div>
+										<div>
+											<div class="maincl ft14"><%=list[i].nickname%></div>
+											<div class="maincl ft14" style="margin-top: 5px;">
+												<%=list[i].content.commont%>
+											</div>
+										</div>
+									</div>
+								</div>
+							<%}else if(list[i].title.indexOf('抽奖')>0){%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+							<%}else{%>
+								<div class="pad10 ft14">
+									<%=list[i].title%>
+								</div>
+							<%}%>
+						</div>
+					<%}%>
+				</script>
+			</div><!--大盒子-->
+
+		</div>
+	 </body>
+	 <script type="text/javascript">
+	 	//动态详情
+		function DTdetail(id,userid){
+			event.stopPropagation();
+			openview({
+				view:'../socialCircle/circleListInfo.html',
+				id:'circleListInfo',
+				extrasobj: {
+					infoid: id,
+					UserId:userid,
+					delc:1,
+				}
+			})
+		}
+		function chat(myuserid,mynickname,myavatar){
+			openview({
+ 				view:'../socialCircle/friendChat.html',
+ 				id:'friendChat',
+ 				extrasobj:{'toUserId':myuserid,'myAvatar':myavatar,'mynickname':mynickname}
+ 			})
+		}
+	 </script>
+	<script type="text/javascript">
+		shopData(0,0,false);//默认推荐
+
+		function shopData(typeNum,gender,refresh){ 
+			mui.plusReady(function(){
+		        plus.nativeUI.showWaiting();//显示等待框
+				var myuserid = plus.storage.getItem('userid'),
+				    cityNum = plus.storage.getItem('cityNum'),
+					oldToken = plus.storage.getItem('oldToken'); 
+				window.elseCircleIndex = function(id){
+					event.stopPropagation();
+					if(plus.storage.getItem('myToken')){
+						if(id == myuserid){
+							openview({
+						    		view:'../socialCircle/mycircleIndex.html',
+						    		id:'mycircleIndex'
+						    	})
+						}else{
+							openview({
+					    		view:'../socialCircle/elsecircleIndex.html',
+					    		id:'elsecircleIndex',
+					    		extrasobj:{userId:id}
+					    	})
+						}
+					}else{
+						mui.toast('请登录');
+						openview({
+							view:'login.html'
+						});
+					}
+			    }
+				if(typeNum == 0){
+					mui.ajax(serverUrl+'/api/index/message',{
+						data:{userid:myuserid,msgType:1},
+						dataType:'json',
+						type:'post',
+						timeout:10000,
+						headers:{"token":oldToken,'city':cityNum},
+						success:function(data,type,xhr){
+							
+							console.log('消息',data);
+					       	if(data.errno == 0){
+					       		/*记录已读消息数*/
+					       		if(data.data){
+					       			plus.storage.setItem("infoNums",JSON.stringify(data.data.length));
+					       		}
+						       	if(data.data.length){
+					     			var dataobj = {};
+					     			var nowArray = data.data;
+					     			for(var j = 0;j<nowArray.length;j++){
+					     				nowArray[j].loginPic = plus.storage.getItem("loginPic") || '';
+					     				nowArray[j].loginName = plus.storage.getItem("loginName") || '';
+					     				//整理头像格式
+										if(nowArray[j].avatar && nowArray[j].avatar!='null'){
+											if(JSON.parse(nowArray[j].avatar)[0].picImg.indexOf('http') == -1){
+												nowArray[j].avatar = serverimgUrl + JSON.parse(nowArray[j].avatar)[0].picImg;
+											}else{
+												nowArray[j].avatar = JSON.parse(nowArray[j].avatar)[0].picImg
+											}
+										}else{
+											nowArray[j].avatar = '../../img/10.png'
+										}
+
+										if(nowArray[j].nickname && nowArray[j].nickname !='null'){
+											if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(nowArray[j].nickname)){
+												nowArray[j].nickname = nowArray[j].nickname.substring(0,3)+"****"+nowArray[j].nickname.substring(7,11)
+											}
+										}else{
+											nowArray[j].nickname = '匿名'
+										}
+										var dt = new Date(nowArray[j].create_time).getTime();
+										nowArray[j].create_time = getDateDiff(dt);
+
+										if(nowArray[j].title.indexOf('举报')>0){
+											nowArray[j].content = JSON.parse(nowArray[j].content);
+										}
+										if(nowArray[j].messageType == 5 || nowArray[j].messageType == 8 || nowArray[j].messageType == 6 || nowArray[j].messageType == 7 || nowArray[j].messageType == 9){
+					     					if(nowArray[j].messageType == 7){
+												var aaa = JSON.parse(nowArray[j].content);
+					     						if(!aaa.id){ 
+					     							nowArray[j].content =  JSON.parse(JSON.parse(nowArray[j].content));
+					     						}else{
+					     							nowArray[j].content =  JSON.parse(nowArray[j].content);
+					     						}
+					     					}else{
+					     						nowArray[j].content =  JSON.parse(nowArray[j].content);
+					     					}
+					     					
+					     					if(nowArray[j].content.data && nowArray[j].content.data.gift){
+					     						nowArray[j].content.data.gift[0].picImg = JSON.parse(nowArray[j].content.data.gift[0].picImg)
+					     					}
+					     				}
+										if(nowArray[j].content && nowArray[j].content.pic && nowArray[j].content.pic!='null'){
+											nowArray[j].content.pic = JSON.parse(nowArray[j].content.pic);
+											//格式化时间
+											var dt = new Date(nowArray[j].content.create_time);
+											var date = [[dt.getFullYear(), dt.getMonth() + 1, dt.getDate()].join('-')].join(' ').replace(/(?=\b\d\b)/g, '0'); // 正则补零
+											nowArray[j].content.create_time = date;
+										}
+					     			}
+					     			dataobj.url = serverimgUrl;
+					     			dataobj.list = data.data;
+					     			var html = template("listinfo",dataobj);
+									document.getElementById("questions").innerHTML=html;
+									plus.nativeUI.closeWaiting();
+									var readAll = '';
+									$('.readcg').each(function(){
+										if($(this).index()+1 == $('.readcg').length){
+											readAll += $(this).attr('data-id');
+										}else{
+											readAll += $(this).attr('data-id')+',';
+										}
+									})
+									mui.ajax(serverUrl + '/api/index/readedmsg', {
+										data: {
+											id:readAll,
+											userid:myuserid,
+										},
+										dataType: 'json',
+										type: 'post',
+										headers: {
+											"token":oldToken,'city':cityNum
+										},
+										timeout: 10000,
+										success: function(data, type, xhr) {
+											console.log("已读", data);
+											mui.fire(plus.webview.getWebviewById('center.html'),'refreshCT');
+											
+										},
+										error: function(xhr, type, errorThrown) {
+											plus.nativeUI.closeWaiting();
+											mui.toast("网络不好请重试")
+										}
+									})
+								}else{
+									document.getElementById("questions").innerHTML='<div style="text-align: center;padding: 50px;">暂无通知消息</div>'
+									plus.nativeUI.closeWaiting(); 
+								}
+					       	}
+					       	plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							plus.nativeUI.closeWaiting();
+							mui.toast('当前网络不好,请重试')
+							console.log('当前网络不好,请重试');
+						}
+					});
+				}
+			})
+		}
+
+		//发布时间判断
+		var minute = 1000 * 60;
+		var hour = minute * 60;
+		var day = hour * 24;
+		var halfamonth = day * 15;
+		var month = day * 30;
+		function getDateDiff(dateTimeStamp){
+			var now = new Date().getTime();
+			var diffValue = now - dateTimeStamp;
+			var monthC =diffValue/month;
+			var weekC =diffValue/(7*day);
+			var dayC =diffValue/day;
+			var hourC =diffValue/hour;
+			var minC =diffValue/minute;
+			if(monthC>=1){
+			 result=parseInt(monthC) + "月前";
+			 }
+			 else if(weekC>=1){
+			 result=parseInt(weekC) + "周前";
+			 }
+			 else if(dayC>=1){
+			 result=parseInt(dayC) +"天前";
+			 }
+			 else if(hourC>=1){
+			 result=parseInt(hourC) +"小时前";
+			 }
+			 else if(minC>=1){
+			 result=parseInt(minC) +"分钟前";
+			 }else{
+			 result="刚刚";
+			 }
+			return result;
+		}
+	</script>
+
+
+</html>
