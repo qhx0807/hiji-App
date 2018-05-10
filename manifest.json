@@ -4225,7 +4225,8 @@
 					"pages/tickets/dataflowRecharge.html",
 					"pages/tickets/phone-record-de.html",
 					"pages/tickets/phone-record.html",
-					"pages/tickets/gamepay.html"
+					"pages/tickets/gamepay.html",
+					"pages/tickets/confirm.html"
 				],
 				"priority": 24
 			},

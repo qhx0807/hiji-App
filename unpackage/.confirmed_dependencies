@@ -171,7 +171,8 @@
       "pages/socialCircle/circleIndex0.html",
       "pages/socialCircle/mycircleIndex.html",
       "pages/hiVip.html",
-      "pages/answerBoard/myQa.html"
+      "pages/answerBoard/myQa.html",
+      "pages/limitTimeAct/Sign327/Sign327.html"
     ]
   },
   "pages/main.html": {
@@ -2608,7 +2609,8 @@
       "pages/tickets/phone-record.html",
       "pages/tickets/dataflowRecharge.html",
       "pages/tickets/phone-record-de.html",
-      "pages/tickets/gamepay.html"
+      "pages/tickets/gamepay.html",
+      "pages/tickets/confirm.html"
     ]
   },
   "pages/appriciate/apprenticeSub.html": {
@@ -3328,7 +3330,8 @@
     "refer": [
       "pages/market/mall-detail.html",
       "pages/tickets/phoneRecharge.html",
-      "pages/login.html"
+      "pages/login.html",
+      "pages/market/BuyOffer.html"
     ]
   },
   "pages/appriciate/appriciate.html": {
