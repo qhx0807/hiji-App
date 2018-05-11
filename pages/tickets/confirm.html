@@ -172,6 +172,8 @@
 				var platform = self.platform;
 				var advice = self.advice;
 				var yhqId = '';
+				var yhqStr = '';
+
 				
 				$("#sjNUm").text(mobileNo)
 				$("#jyje").text(advice + '元')
@@ -190,7 +192,6 @@
 					$("#payChoose").removeClass("mui-active");
 				})
 			
-				
 				var cityNum = plus.storage.getItem('cityNum');
 				var oldToken = plus.storage.getItem('oldToken');
 				var myuserid = plus.storage.getItem('userid');
@@ -210,15 +211,17 @@
 						if(data.data.length>0){
 							$("#quanList").empty()
 							$("#selectQuan").html("选择优惠券") 
-							data.data.forEach(function(item){
-								var str = '<li onclick="selectCard('+item.busno_id+', '+item.busno_sn+')">'
-										str+= '<p>话费充值优惠券：'+item.busno_sn+'</p>'
+							data.data.forEach(function(item){ 
+								// '+item.busno_id+',  
+								var str = '<li onclick=\"selectCard('+item.id+',\''+item.name+'\',\''+item.busno_sn+'\','+item.coupon_amount+')\">'
+										str+= '<p style="margin:0px; height:18px">'+item.title+'：'+item.coupon_amount+'元</p>'
+										str+= '<p style="margin:0px; height:18px;line-height:18px">'+item.begin_date+'至'+item.end_date+'</p>'
 										str+= '</li>'
 								$("#quanList").append(str)
 							})
 						}else{
 							$("#selectQuan").html("无可用优惠券喔~")
-							var html = '<p style="text-align: center;">无可用优惠券</p>'
+							var html = '<p style="text-align: center;">无可用优惠券</p>' 
 							$("#quanList").append(html)
 						}
 					},
@@ -227,11 +230,13 @@
 					}
 				})
 				
-				window.selectCard = function(id, name){
+				window.selectCard = function(id, name, str, val){
 					yhqId = id
-					$("#selectQuan").html("优惠券:"+ name)
+					yhqStr = str
+					var p = Number(advice) - Number(val)
+					$("#jyje").text(p + '元')
+					$("#selectQuan").html("优惠券:"+ name+ '&nbsp;' + '减'+val+'元')
 					mui('#sheet1').popover('toggle');
-					
 				}
 				
 				
@@ -295,9 +300,38 @@
 						return;
 					}
 					
+					window.missQuan = function(id, str){
+						mui.ajax('http://abcd.zlzmm.com:6789/index.php/api/rechargecallback',{
+							data: {
+								busno_id: id,
+								busno_sn: str
+							},
+							type: 'post', 
+							timeout: 10000, 
+							success:function(data){
+								
+							},
+							error: function(xhr, type, errorThrown){
+
+							}
+						})
+					}
 					
 					
 					function gopay(id) {
+						var a = {
+							id:idNum,
+							mobileNo: mobileNo,
+							rechargeAmount: rechargeAmount,
+							userid: userid,
+							payType: id,
+							version:version,
+							platform:platform,
+							token: oldToken,
+							busno_id: yhqId,
+							busno_sn: yhqStr
+						}
+						console.log(JSON.stringify(a))
 						mui.ajax('http://abcd.zlzmm.com:6789/index.php/api/recharge', {
 								data: {
 									id:idNum,
@@ -309,6 +343,7 @@
 									platform:platform,
 									token: oldToken,
 									busno_id: yhqId,
+									busno_sn: yhqStr
 									},
 									type: 'post', //HTTP请求类型
 									headers: {
@@ -317,7 +352,7 @@
 									timeout: 10000, //超时时间设置为10秒；
 									success: function(data) {
 										console.log(JSON.stringify(data))
-//										alert(JSON.stringify(data)) 
+//										alert(JSON.stringify(data))
 										//记录缓存 
 										var Recording = JSON.parse(plus.storage.getItem('Recording')) || [];
 										if(Recording.length){
@@ -373,6 +408,8 @@
 												console.log("----- 支付成功 -----");
 												$("#payChoose").removeClass("mui-active");
 												var result = JSON.stringify(result)
+												// 核销券
+												missQuan(yhqId, yhqStr)
 												//修改状态
 //																		mui.ajax(serverUrl+'/api/qianmi/paybill',{
 //																			data:{new_qianmi_order_id:newOrderID,billId:billId,userid:myuserid,noiftyData:result},
@@ -411,6 +448,8 @@
 												console.log("----- 支付成功 -----", JSON.stringify(result));
 												plus.nativeUI.closeWaiting();
 												plus.nativeUI.alert("支付成功");
+												// 核销券
+												missQuan(yhqId, yhqStr)
 												$("#payChoose").removeClass("mui-active");
 												var result = JSON.stringify(result)
 //																		//修改状态
@@ -436,10 +475,12 @@
 //																			}
 //																		});
 											}, function(e) {
+
 												console.log("----- 支付失败 -----");
 												console.log("[" + e.code + "]：" + e.message);
 												plus.nativeUI.closeWaiting();
 												plus.nativeUI.alert("支付失败");
+												
 											});
 										}
 									},

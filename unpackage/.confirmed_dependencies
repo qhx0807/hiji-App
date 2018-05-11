@@ -172,7 +172,8 @@
       "pages/socialCircle/mycircleIndex.html",
       "pages/hiVip.html",
       "pages/answerBoard/myQa.html",
-      "pages/limitTimeAct/Sign327/Sign327.html"
+      "pages/limitTimeAct/Sign327/Sign327.html",
+      "pages/personal/my-yaoqing.html"
     ]
   },
   "pages/main.html": {

@@ -497,69 +497,113 @@
 												var oldToken = plus.storage.getItem('oldToken');
 												var ownPhone = JSON.parse(plus.storage.getItem('Acc_pass'))[0];
 												var cityNum = plus.storage.getItem('cityNum');
-												mui.prompt('null','请输入邀请码','邀请码',['确认','取消'],function(e) {
-													if(e.index == 0) {
+//												mui.prompt('null','请输入邀请码','邀请码',['确认','取消'],function(e) {
+//													if(e.index == 0) {
+//														if(e.value && e.value!=' '){
+//															var commont = e.value;
+//															var imei = plus.device.uuid;
+//															var reg_phone = /^1((3|4|5|8|7){1}\d{1}|70)\d{8}$/;//手机号正则
+//															if(reg_phone.test(commont)){
+//																//邀请好友 分享码输入功能（判断标准：为手机号码）
+//																mui.ajax(serverUrl+'/api/index/sharegetcoupon',{
+//																	data:{
+//																		"userId":myuserid,
+//																		'invitationCode':commont,//(别人的手机号)
+//																		'fromType':1,
+//																		'phone':ownPhone,//(自己的手机号)
+//																		'isAddUser':1
+//																	},
+//																	dataType:'json',
+//																	type:'post',
+//																	timeout:10000,
+//																	headers: {"token": oldToken,'city': cityNum},
+//																	success:function(data,type,xhr){
+//																		console.log('分享获劵',data);
+//																		if(data.errno == 0){
+//																			mui.alert(data.errmsg || '操作成功');
+//																		}else{
+//																			mui.alert(data.errmsg);
+//																		}
+//																	},
+//																	error:function(xhr,type,errorThrown){
+//																		console.error('分享获劵  ---- 失败');
+//																	}
+//																});
+//															}else{
+//																//老的邀请码
+//												    				mui.ajax(serverUrl + '/api/index/sharecoupon', {
+//												    					data:{'userid':myuserid,'invitationCode':commont,macId:imei},
+//																	dataType: 'json',
+//																	type: 'post',
+//																	timeout: 10000,
+//																	headers: {"token": oldToken,'city': cityNum},
+//																	success: function(data, type, xhr) {
+//																		console.log('邀请码'+JSON.stringify(data));
+//																		if(data.errno == 0){
+//																			mui.alert('操作成功');
+//																		}else{
+//																			mui.alert(data.errmsg);
+//																		}
+//																	},
+//																	error: function(xhr, type, errorThrown) {
+//																		console.log('邀请码,响应失败');
+//																	}
+//																});
+//															}
+//
+//
+//
+//
+//
+//														}else{
+//															mui.toast('留言失败')
+//														}
+//													}
+//												},'')
+
+												mui.prompt('null','请输入邀请码','邀请码',['确认','取消'],function(e){
+													if(e.index == 0){
 														if(e.value && e.value!=' '){
 															var commont = e.value;
 															var imei = plus.device.uuid;
 															var reg_phone = /^1((3|4|5|8|7){1}\d{1}|70)\d{8}$/;//手机号正则
 															if(reg_phone.test(commont)){
-																//邀请好友 分享码输入功能（判断标准：为手机号码）
-																mui.ajax(serverUrl+'/api/index/sharegetcoupon',{
-																	data:{
-																		"userId":myuserid,
+																plus.nativeUI.showWaiting()
+																mui.ajax('http://abcd.zlzmm.com:6789/index.php/api/shareinvite', {
+																	data: {
+																		"userid":myuserid,
 																		'invitationCode':commont,//(别人的手机号)
-																		'fromType':1,
 																		'phone':ownPhone,//(自己的手机号)
-																		'isAddUser':1
+																		'equipment': imei,
 																	},
 																	dataType:'json',
 																	type:'post',
 																	timeout:10000,
-																	headers: {"token": oldToken,'city': cityNum},
-																	success:function(data,type,xhr){
-																		console.log('分享获劵',data);
-																		if(data.errno == 0){
-																			mui.alert(data.errmsg || '操作成功');
+																	success:function(data){
+																		plus.nativeUI.closeWaiting()
+																		if(data.code == 0){
+																			mui.toast('操作成功，优惠券已发送至您的账户！')
 																		}else{
-																			mui.alert(data.errmsg);
+																			mui.toast(data.msg)
 																		}
 																	},
-																	error:function(xhr,type,errorThrown){
-																		console.error('分享获劵  ---- 失败');
-																	}
-																});
-															}else{
-																//老的邀请码
-												    				mui.ajax(serverUrl + '/api/index/sharecoupon', {
-												    					data:{'userid':myuserid,'invitationCode':commont,macId:imei},
-																	dataType: 'json',
-																	type: 'post',
-																	timeout: 10000,
-																	headers: {"token": oldToken,'city': cityNum},
-																	success: function(data, type, xhr) {
-																		console.log('邀请码'+JSON.stringify(data));
-																		if(data.errno == 0){
-																			mui.alert('操作成功');
-																		}else{
-																			mui.alert(data.errmsg);
-																		}
-																	},
-																	error: function(xhr, type, errorThrown) {
+																	error:function(xhr, type, errorThrown){
+																		plus.nativeUI.closeWaiting()
+																		mui.toast('响应失败')
 																		console.log('邀请码,响应失败');
 																	}
-																});
+																})
+															}else{
+																mui.toast('邀请码不正确')
 															}
-
-
-
-
-
 														}else{
-															mui.toast('留言失败')
+															mui.toast('邀请码不正确')
 														}
 													}
-												},'')
+												})
+												
+												
+												
 											}else{//没登陆直接打开登录页面
 												mui.toast('请登录');
 												openview({

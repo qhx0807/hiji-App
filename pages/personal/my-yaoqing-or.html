@@ -54,6 +54,7 @@
 				<h3 class="h301 fineB">邀请记录</h3>
 			 	<div class="listCon">
 			 		<%for(var i = 0;i<list.length;i++){%>
+			 			<%if(list[i].userid && list[i].userid!=null){%>
 			 				<div class="follow">
 								<div class="fchidl">
 									<div>
@@ -67,11 +68,11 @@
 											<%= list[i].nickname%>
 
 										</div>
-										
 									</div>
-									<div style="float:right;text-align: right;color: #444444;"><%= list[i].darwtime%></div>
+
 								</div>
 							</div>
+						<%}%>
 					<%}%>
 
 				</div>
@@ -108,15 +109,15 @@
 				var invitationCode = JSON.parse(plus.storage.getItem('Acc_pass'))[0];//手机号
 				var thumbs = '../img/logomifeng.png';
 				var msg = {
-					title:'接受好友邀请，享5元话费券，充值100元立减5元！',
-					content:'接受好友邀请，享5元话费券，充值100元立减5元！',
+					title:'下载HI集得好礼，我的邀请码:'+invitationCode+'！',
+					content:'下载HI集得好礼，我的邀请码:'+invitationCode+'！',
 					//href:fxUrl+'login.html?code='+invitationCode,
-					href:'http://abcd.zlzmm.com:6789/upApp/sharecode.html?code='+ invitationCode,
+					href:'http://abcd.zlzmm.com:6789/upApp/upgrade.html',
 					thumbs:[thumbs],
 					pictures:[thumbs]
 				};
 				showSfun1(msg);
-			}); 
+			});
 		}
 
 		mui.plusReady(function(){
@@ -125,49 +126,48 @@
 			var	myuserid = plus.storage.getItem('userid');
 			var	ownPhone = JSON.parse(plus.storage.getItem('Acc_pass'))[0];
 			mui('#yaoqingma11')[0].innerHTML = '你的邀请码：'+ownPhone;
-
-			window.getData = function(page){
-				mui.ajax('http://abcd.zlzmm.com:6789/index.php/api/yaoqing',{
-					data:{"userid":myuserid, "page":page},
-					type:'post',
-					timeout:8000,
-					headers:{"token":oldToken,"city":cityNum},
-					success:function(data,type,xhr){
-						console.log('获取数据返回',data);
-						console.log(JSON.stringify(data))
-						if(data.code == 0){ 
-							if(data.result.data && data.result.data.length){
-								for(var i = 0 ;i<data.result.data.length;i++){
-									if(!data.result.data[i].nickname){
-										data.result.data[i].nickname = '匿名'
-									}else{
-										if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(data.result.data[i].nickname)){
-											data.result.data[i].nickname = data.result.data[i].nickname.substring(0,3)+"****"+data.result.data[i].nickname.substring(7,11);
-										}
+			mui.ajax(serverUrl+'/api/index/inviteelist',{
+				data:{"userId":myuserid,'userPhone':ownPhone},
+				type:'post',
+				timeout:8000,
+				headers:{"token":oldToken,"city":cityNum},
+				success:function(data,type,xhr){
+					console.log('获取数据返回',data);
+					if(data.errno == 0){
+						if(data.data && data.data.length){
+							for(var i = 0 ;i<data.data.length;i++){
+								if(!data.data[i].nickname){
+									data.data[i].nickname = '匿名'
+								}else{
+									if(/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(data.data[i].nickname)){
+										data.data[i].nickname = data.data[i].nickname.substring(0,3)+"****"+data.data[i].nickname.substring(7,11);
 									}
-									if(data.result.data[i].avatar && data.result.data[i].avatar!='null'){
-										
-									}else{ 
-										data.result.data[i].avatar = '../../img/10.png'
-									} 
-	
 								}
-								document.getElementById('likeMe').innerHTML = template('likeMeTpl', {list:data.result.data,url:serverimgUrl});
-	
-							}else{
-								document.getElementById('likeMe').innerHTML = "<div style='text-align: center;padding: 30px;color:#666;font-size: 14px;'>没有被邀请的人</div>";
+								if(data.data[i].avatar && data.data[i].avatar!='null'){
+									if(JSON.parse(data.data[i].avatar)[0].picImg.indexOf('http')== -1){
+										data.data[i].avatar = serverimgUrl + JSON.parse(data.data[i].avatar)[0].picImg;
+									}else{
+										data.data[i].avatar = JSON.parse(data.data[i].avatar)[0].picImg;
+									}
+								}else{
+									data.data[i].avatar = '../../img/10.png'
+								}
+
 							}
+							document.getElementById('likeMe').innerHTML = template('likeMeTpl', {list:data.data,url:serverimgUrl});
+
 						}else{
-							console.log(data.errmsg);
+							document.getElementById('likeMe').innerHTML = "<div style='text-align: center;padding: 30px;color:#666;font-size: 14px;'>没有被邀请的人</div>";
 						}
-					},
-					error:function(xhr,type,errorThrown){
-						console.log('获取数据,响应失败');
+					}else{
+						console.log(data.errmsg);
 					}
-				});
-			}
-			
-			getData(1)
+				},
+				error:function(xhr,type,errorThrown){
+					console.log('获取数据,响应失败');
+				}
+			});
+
 		})
 
 
