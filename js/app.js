@@ -32,7 +32,15 @@ function alertY(content){ //向前的方法
 }
 
 //banner跳转
-window.bannerGo = function(id,url, name, route) {
+window.bannerGo = function(id, url, name, route) {
+	if(url == 'yaoqing'){
+		openview({
+			view: '../activity/invite.html',
+			id: "yaoqing"
+		})
+		return false
+	}
+	
 	if(url.indexOf('http')>-1 || url.indexOf('HTTP')>-1){//远程
 		if(route == 'one'){//层级
 			var bannerTplHtml = 'bannerTpl.html';

@@ -6190,5 +6190,10 @@
     "refer": [
       "pages/market/mall-detail.html"
     ]
+  },
+  "pages/personal/my-yaoqing.html": {
+    "refer": [
+      "pages/activity/invite.html"
+    ]
   }
 }

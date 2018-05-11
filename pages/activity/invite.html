@@ -100,9 +100,12 @@
 </head>
 
 <body>
-    <div class="">
-
-        <div class="feebox f-sm column">
+	<header class="mui-bar mui-bar-nav" id="header" style="padding-top: 20px;height: 70px!important;padding-bottom: 10px;">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left bigSize back"></a>
+		<h1 class="mui-title findUser">邀请好友</h1>
+	</header>
+    <div class="" style="padding-top: 50px;">
+        <div class="feebox f-sm column" >
             <div class="sharecode"><span></span></div>
             <div class="f-md d-rule tcenter">活动规则</div>
             <div class="btn-share tcenter f-big" id="share">
@@ -137,17 +140,19 @@
     <script>
         mui.plusReady(function () {
             var	ownPhone = JSON.parse(plus.storage.getItem('Acc_pass'))[0];
+            var	myuserid = plus.storage.getItem('userid');
             $(".sharecode span").html(ownPhone);
             $("#share").click(function () {
-                console.log(123);
-                var msg = {
-                    title: '',
-                    content: '',
-                    href:'http://abcd.zlzmm.com:6789/upApp/sharecode.html?code='+ownPhone,
-                    thumbs: ['../../img/logomifeng.png'],
-                    pictures: []
-                };
-                showSfun1(msg);
+				var thumbs = '../img/logomifeng.png';
+				var msg = {
+					title:'接受好友邀请，享5元话费券，充值100元立减5元！',
+					content:'接受好友邀请，享5元话费券，充值100元立减5元！',
+					//href:fxUrl+'login.html?code='+invitationCode,
+					href:'http://abcd.zlzmm.com:6789/upApp/sharecode.html?code='+ ownPhone,
+					thumbs:[thumbs],
+					pictures:[thumbs]
+				};
+				showSfun1(msg);
             });
             $(".d-rule").click(function () {
                 dialog.init({
@@ -165,12 +170,11 @@
 				data:{"userid":myuserid},
 				type:'post',
 				timeout:8000,
-				headers:{"token":oldToken,"city":cityNum},
 				success:function(data,type,xhr){
 					console.log('获取数据返回',data);
 					console.log(JSON.stringify(data))
 					if(data.code == 0){
-						if(data.result && data.result.length){
+						if(data.result.count){
 							var length= data.result.count;
                             $(".invitenum").html(length);
                             $(".inviteindex").html(length*5);

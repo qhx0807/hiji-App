@@ -8865,6 +8865,13 @@
 					"pages/login.html"
 				],
 				"priority": 0
+			},
+			"pages/personal/my-yaoqing.html": {
+				"resources": [],
+				"refer": [
+					"pages/activity/invite.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {
