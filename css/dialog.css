@@ -1,0 +1,159 @@
+.dialog-bg{
+    position: fixed;
+    background: rgba(0,0,0,.3);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+}
+.dialog-bg *{
+    box-sizing: border-box;
+}
+.dialog-bg>div{
+    background: #fff;
+    border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+}
+.dialog-bg .alert-box{
+    min-width: 200px;
+    max-width: 600px;
+    height: auto;
+    padding: 30px 20px 20px 20px;
+}
+.dialog-bg .alert-box .a-canc{
+
+}
+.dialog-bg .dialog-info{
+    min-width: 500px;
+    max-width: 800px;
+}
+.dialog-bg .dialog-head{
+    width: 100%;
+    position: relative;
+    text-align: center;
+    background: transparent;
+    font-size: 16px;
+    color: #333333;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 3px;
+}
+
+.dialog-bg .dialog-head .b-close{
+    width: 30px;
+    height: 30px;
+    display: block;
+    position: absolute;
+    top:0;
+    right: 0;
+    background: url("../img/icon-close.png") no-repeat center;
+    background-size: 50%;
+}
+
+.dialog-bg .dialog-body{
+    width: 100%;
+    padding: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dialog-bg .dialog-info .dialog-body .id-img{
+    max-height: 500px;
+    max-width: 500px;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    position: relative;
+    display: block;
+}
+
+.dialog-bg .dialog-foot{
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+}
+.tips-box{
+    padding: 20px;
+    min-width: 80px;
+    max-width: 200px;
+    background: rgba(0,0,0,.8);
+    color: #dedede !important;
+    font-size: 18px;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    z-index: 300;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.alert-box .img{
+    display: block;
+    position: relative;
+    margin: 30px auto;
+}
+.a-canc, .a-ok{
+    position: relative;
+    width: 110px;
+    border-radius: 3px;
+    padding: 0 10px;
+    line-height: 28px;
+    height: 30px;
+    display: block;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 14px;
+}
+ .a-ok{
+    background: #e74445;
+     border: #e74445 1px solid;
+    color: #fff;
+     font-size: 14px;
+}
+ .a-canc{
+     border: #e74445 1px solid;
+     background: #fff;
+     color: #e74445;
+ }
+.dialog-bg .alert-img{
+    width: 100px;
+    height:100px ;
+    background: url("../img/prompting.png")no-repeat center;
+    background-size: 60% auto;
+    -moz-background-size: 60% auto;
+    -webkit-background-size: 60% auto;
+    position: relative;
+    margin: 30px auto;
+}
+ .alert{
+    font-size: 20px;
+    margin: 20px auto;
+     text-align: center;
+}
+
+ .dialog-info .dialog-body{
+     padding: 25px;
+     max-height:800px;
+     overflow-y: auto;
+ }
+ .dialog-bg .dialog-bottom{
+     top:auto;
+     left: 0;
+     bottom: 0;
+     transform: translate(0,0) !important;
+     -moz-transform: translate(0,0) !important;
+     -webkit-transform: translate(0,0) !important;
+     width: 100%;
+     min-width: 100%;
+ }

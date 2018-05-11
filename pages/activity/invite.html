@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分享邀请码</title>
+    <script src="../../js/jquery.min.js"></script>
+    <!-- <script src="js/dialog.js"></script> -->
+    <!-- <link rel="stylesheet" href="css/dialog.css"> -->
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/act.css">
+    <link rel="stylesheet" href="../../css/dialog.css">
+    <link href="../../css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="../../css/act.css"> -->
+    <style>
+        .feebox {
+            width: 100%;
+            padding:0 ;
+            background: url(../../img/act/02_01.jpg) center no-repeat;
+            height: 130vw;
+            background-size: cover;
+            justify-content: flex-end;
+
+        }
+
+        .btn-share img {
+            width: 85%;
+            line-height: 3rem;
+            border-radius: 1.5rem;
+        }
+
+        .s-line {
+            width: 4rem;
+            height: 2px;
+            background-color: #898989;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .invtitle {
+            
+            padding: .5rem;
+        }
+        .infobox{
+            width:100%;
+        
+            background-color: #fff;
+        }
+        .infobox>div{
+            width: 50%;
+        }
+        .infobox>div>.f-big{
+            line-height: 3rem;
+        }
+        p {
+            color: #292929;
+        }
+        .bg-white{
+            padding: 1rem;
+            
+        }
+        .d-rule{
+            margin: .5rem;
+            color: brown;
+        }
+        .sharecode{
+            width: 64%;
+            height: 3rem;
+            background: url(../../img/act/codebtn.jpg) left center no-repeat;
+            background-size: cover;
+            margin: 0 auto;
+            box-shadow: -4px 4px 7px rgba(0,0,0,.2);
+            position: relative;
+        }
+        .sharecode span{
+            display: block;
+            line-height: 2rem;
+            color:firebrick;
+            font-weight: 600;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+            font-size: .8rem;
+        }
+        .discribe{
+            margin-top: 1rem;
+
+        }
+        .discribe img{
+            width:100%; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+
+        <div class="feebox f-sm column">
+            <div class="sharecode"><span></span></div>
+            <div class="f-md d-rule tcenter">活动规则</div>
+            <div class="btn-share tcenter f-big" id="share">
+                <img src="../../img/act/02_03.png" alt="">
+            </div>
+        </div>
+        <div class="bg-white ">
+            <p class="f-md tcenter invtitle">我的邀请战绩</p>
+        <div class="s-line"></div>
+        <div class="row infobox tcenter">
+            <div class=" tcenter" id="">
+                <!-- <img src="img/help.png" alt=""> -->
+                <p class="f-big invitenum">0</p>
+                <p class="f-sm">共邀请好友</p>
+            </div>
+            <div class=" tcenter" id="">
+                <!-- <img src="img/help.png" alt=""> -->
+                <p class="f-big inviteindex">0</p>
+                <p class="f-sm">我的奖品</p>
+            </div>
+
+        </div>
+        </div>
+        
+        <div class="discribe">
+            <img src="../../img/act/02_03.jpg" alt="">
+        </div>
+    </div>
+    <script src="../../js/mui.min.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="../../js/dialog.js"></script>
+    <script>
+        mui.plusReady(function () {
+            var	ownPhone = JSON.parse(plus.storage.getItem('Acc_pass'))[0];
+            $(".sharecode span").html(ownPhone);
+            $("#share").click(function () {
+                console.log(123);
+                var msg = {
+                    title: '',
+                    content: '',
+                    href:'http://abcd.zlzmm.com:6789/upApp/sharecode.html?code='+ownPhone,
+                    thumbs: ['../../img/logomifeng.png'],
+                    pictures: []
+                };
+                showSfun1(msg);
+            });
+            $(".d-rule").click(function () {
+                dialog.init({
+                    type: "info",
+                    title: "活动规则",
+                    content: `<pre>1、活动期间，用户邀请好友注册成为HI集会员，邀请方与被邀请方均可获得5元话费券一张，在手机充值时直接抵扣现金。</pre>
+                        <pre>2、被邀请方输入邀请方邀请码后，话费券发放到双方会员帐户。</pre>
+                        <pre>3、话费券限充值100元以上面值时使用。</pre>
+                        <pre>4、话费券不可叠加使用，单个订单仅限使用一张券。</pre>
+                        `,
+                    sub: "我知道了",
+                })
+            });
+            mui.ajax('http://abcd.zlzmm.com:6789/index.php/api/yaoqing',{
+				data:{"userid":myuserid},
+				type:'post',
+				timeout:8000,
+				headers:{"token":oldToken,"city":cityNum},
+				success:function(data,type,xhr){
+					console.log('获取数据返回',data);
+					console.log(JSON.stringify(data))
+					if(data.code == 0){
+						if(data.result && data.result.length){
+							var length= data.result.count;
+                            $(".invitenum").html(length);
+                            $(".inviteindex").html(length*5);
+						}else{
+							$(".invitenum").html(0);
+						}
+					}else{
+						console.log(data.errmsg);
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					console.log('获取数据,响应失败');
+				}
+			});
+        });
+    </script>
+</body>
+
+</html>

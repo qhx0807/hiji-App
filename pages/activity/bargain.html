@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1, minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>砍价免费拿</title>
+    <!-- <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 + 'px';
+    </script> -->
+    <script src="../../js/jquery.min.js"></script>
+    <!-- <script src="js/dialog.js"></script> -->
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/act.css">
+    <link rel="stylesheet" href="../../css/dialog.css">
+
+</head>
+
+<body>
+    <div class="viewbox">
+        <div class="rule f-sm">活动规则
+            <span>?</span>
+        </div>
+        <img src="" alt="" class="imghead">
+        <div class="titlebox">
+
+            <p class="username tcenter f-sm f-grey">发起砍价用户</p>
+            <p class="f-md f-black tcenter f-find">我发现一件好货，一起来砍价0元拿吧</p>
+            <div class="goodsbox row">
+                <img src="" alt="" class="goods">
+
+                <div class="goodsdtl">
+                    <p class="f-sm f-black">商品介绍</p>
+                    <p class="d-bottom row spb">
+                        <span class="f-md f-red" id="price">￥200.00</span>
+                        <!-- <span class="f-sm f-grey">1000人已0元拿</span> -->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="f-md f-light tcenter">已砍
+            <span class="f-big f-org">23.21</span>元，还差
+            <span class="f-org">5</span>元</p>
+        <div class="otherbargain row">
+            <div class="btn-barg tcenter" id="b-help">
+                <img src="../../img/act/help.png" alt="">
+                <!-- 帮他砍价 -->
+            </div>
+            <div class="btn-barg tcenter" id="b-join">
+                <img src="../../img/act/help.png" alt="">
+                <!-- 我要参与 -->
+            </div>
+        </div>
+        <div class="mybargain">
+            <div class="btn-barg btn-invite tcenter" id="b-invite">
+                <img src="../../img/act/share.png" alt="">
+                <!-- 邀请朋友帮我砍价 -->
+            </div>
+        </div>
+        <div class="bargainbox f-light">
+            <p class="f-md f-light tcenter">砍价帮</p>
+            <ul>
+                <li class="barglist row">
+                    <img src="" alt="" class="list-img">
+                    <div class="right-box row">
+                        <div class="list-name f-sm">名字</div>
+                        <div class=" f-sm f-org">砍掉1.00元</div>
+                    </div>
+
+                </li>
+
+            </ul>
+            <p class="more tcenter">查看更多</p>
+        </div>
+        <div class="bargainbox f-light">
+            <p class="f-md f-light tcenter">砍价排行榜</p>
+            <ul>
+                <li class="barglist row">
+                    <img src="" alt="" class="list-img">
+                    <div class="right-box row">
+                        <div class="list-name f-sm">名字</div>
+                        <div class=" f-sm f-org">砍掉1.00元</div>
+                    </div>
+
+                </li>
+
+            </ul>
+            <p class="more tcenter">查看更多</p>
+        </div>
+    </div>
+    <script src="../../js/dialog.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($(".barglist").length <= 20) {
+                $(".more").hide();
+                console.log($(".barglist").length);
+            } else {
+                $(".more").show();
+            }
+           
+        });
+        $(document).on("click", "#b-invite", function () {
+                 dialog.init({
+                     type:"info",
+                     title:"请登录",
+                     content:"<div class='d-login row'><span>账号</span><input type='text' id='l-name'/></div><div class='d-login row'><span>密码</span><input type='password' id='l-pass'/></div>",
+                     sub:"登陆",
+                 });
+                // console.log($(document).find("#b-invite").html());
+            })
+        $(".rule").click(function(){
+            dialog.init({
+                type:"info",
+                title:"活动规则",
+                content:`<pre>活动时间：</pre>
+                        <pre>活动内容：活动期间，HI集会员分享砍价链接，邀请好友帮忙砍价，砍价商品为IPad mini2，起砍价为2498元，底价为498元。</pre>
+                        <pre>活动规则：HI集会员参与砍价活动，分享砍价链接，邀请好友砍价。好友打开活动链接，注册HI集会员，帮好友砍价。每位HI集会员可砍价范围0.5-5元，金额为系统随机。活动期间内，最先砍价到498元的用户，获得498元购买资格。如截止活动结束，没有人成功砍价到498元，以活动结束时砍价最低的用户及砍价的金额进行成交。如获得购买资格的会员放弃购买，则由活动中第二位获得资格的用户进行替补。</pre>
+                        `,
+                sub:"我知道了",
+            })
+        });
+    </script>
+</body>
+
+</html>
