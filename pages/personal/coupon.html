@@ -335,6 +335,81 @@
 						mui.toast('响应失败  !');
 					}
 				});
+
+				$.ajax({
+				    data:{userid: userId}, 
+					dataType:'json',
+					type:'post',
+					url:"http://abcd.zlzmm.com:6789/index.php/api/userphonecard",
+					success:function(data){
+                        if(data.errono==0){
+                            if(data.data.normal.length){
+								$("#allc").find(".nothing").hiden();
+								for(var i=0;i<data.data.normal.length;i++){
+									var temp=`
+									<div class="offerWrap">
+										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+										<div class="offerTop">
+										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
+										   <p>  </p>
+								        </div>
+									</div>
+									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
+								        <span>使用详情</span>
+							        </div>
+								    `
+									$("#allc").append(temp);
+								}
+								
+							}else{
+
+							}
+						    if(data.data.writeoff.length){
+								$("#allc2").find(".nothing").hiden();
+								for(var i=0;i<data.data.normal.length;i++){
+									var temp=`
+									<div class="offerWrap offerWrap3">
+										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+										<div class="offerTop">
+										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
+										   <p> <span class="span3">已使用</span> </p>
+								        </div>
+									</div>
+									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
+								        <span>使用详情</span>
+							        </div>
+								    `
+									$("#allc2").append(temp);
+								}
+                             }else{
+                             
+                             }
+                             if(data.data.overdue.length){
+								$("#allc3").find(".nothing").hiden();
+								for(var i=0;i<data.data.normal.length;i++){
+									var temp=`
+									<div class="offerWrap offerWrap3">
+										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+										<div class="offerTop">
+										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
+										   <p> <span class="span3">已过期</span> </p>
+								        </div>
+									</div>
+									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
+								        <span>使用详情</span>
+							        </div>
+								    `
+									$("#allc3").append(temp);
+								}
+                             }else{
+                             
+                             }
+
+						}else{
+                            alert(data.errmsg);
+						}
+					},
+			    })
 				
 			})();
 			if($('#allC').children().length == 0){ 
