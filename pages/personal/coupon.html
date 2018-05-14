@@ -245,7 +245,7 @@
 						console.log('data',data);
 						if(data.errno == 0) { 
 							if(!data.data.user_coupon || data.data.user_coupon.length == 0){   
-								mui('.notice')[0].innerHTML='<div class="nothing" style="margin-top:40%"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>';
+//								mui('.notice')[0].innerHTML='<div class="nothing" style="margin-top:40%"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>';
 //								mui('#allC')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有未使用的优惠券哟！</p></div>';
 //								mui('#ableC')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有未使用的优惠券哟！</p></div>';
 //								mui('#disableC-detail')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有已使用的优惠券哟！</p></div>';
@@ -282,28 +282,28 @@
 											
 										}
 										if(allc.allLi.length == 0){
-											mui('#allc')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有可使用的优惠券哟！</p></div>';
+//											mui('#allc')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有可使用的优惠券哟！</p></div>';
 										}else{
 											console.log('可用',allc);
 											var html2 = template('allcTpl',allc);
 											document.getElementById('allc').innerHTML = html2;//铺可用
 										}
 										if(allc2.allLi.length == 0){
-											mui('#allc2')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有已使用的优惠券哟！</p></div>';
+//											mui('#allc2')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有已使用的优惠券哟！</p></div>';
 										}else{
 											console.log('已使用',allc2);
 											var html2 = template('allc2Tpl',allc2);
 											document.getElementById('allc2').innerHTML = html2;//铺可用
 										}
 										if(allc3.allLi.length == 0){
-											mui('#allc3')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有过期的优惠券哟！</p></div>';
+//											mui('#allc3')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有过期的优惠券哟！</p></div>';
 										}else{
 											console.log('过期',allc3);
 											var html2 = template('allc3Tpl',allc3);
 											document.getElementById('allc3').innerHTML = html2;//铺可用
 										}
 										if(allc4.allLi.length == 0){
-											mui('#allc4')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有作废的优惠券哟！</p></div>';
+//											mui('#allc4')[0].innerHTML='<div class="nothing"><img src="../../img/theList/coupon.png"/><p>你没有作废的优惠券哟！</p></div>';
 										}else{
 											console.log('作废',allc4);
 											var html2 = template('allc4Tpl',allc4);
@@ -317,6 +317,79 @@
 									}
 									
 								}
+							
+							$.ajax({
+							    data:{userid: userId}, 
+								dataType:'json',
+								type:'post',
+								url:"http://abcd.zlzmm.com:6789/index.php/api/userphonecard",
+								success:function(data){
+			                        if(data.errno ==0){
+			                            if(data.data && data.data.normal){ 
+											for(var i=0;i<data.data.normal.length;i++){ 
+												var temp=`
+												<div class="offerWrap">
+													<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+													<div class="offerTop">
+													   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
+													   <p> ${data.data.normal[i].title} </p>
+											        </div>
+												</div>
+												<div class="useinfo" onclick="Ccdetail('${data.data.normal[i].content}')">
+											        <span>使用详情</span>
+										        </div>
+											    `
+												$("#allc").append(temp);
+											}
+											
+										}else{
+			
+										}
+									    if(data.data && data.data.writeoff){
+			//								$("#allc2").find(".nothing").hiden();
+											for(var i=0;i<data.data.writeoff.length;i++){
+												var temp=`
+												<div class="offerWrap offerWrap3" style="">
+													<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+													<div class="offerTop">
+													   <h4> <b class="b2"></b><span class="span1">`+data.data.writeoff[i].name+`</span> <span class="span2">`+data.data.writeoff[i].begin_date +` ~ `+data.data.writeoff[i].end_date +`</span></h4>
+													   <p>${data.data.writeoff[i].title}<span class="span3">已使用</span> </p>
+											        </div>
+												</div>
+												<div class="useinfo" onclick="Ccdetail('${data.data.writeoff[i].content}')">
+											        <span>使用详情</span>
+										        </div>
+											    `
+												$("#allc2").append(temp);
+											}
+			                             }else{
+			                             
+			                             }
+			                             if(data.data && data.data.overdue){
+											for(var i=0;i<data.data.overdue.length;i++){
+												var temp=`
+												<div class="offerWrap offerWrap3">
+													<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
+													<div class="offerTop">
+													   <h4> <b class="b2"></b><span class="span1">`+data.data.overdue[i].name+`</span> <span class="span2">`+data.data.overdue[i].begin_date +` ~ `+data.data.overdue[i].end_date +`</span></h4>
+													   <p>${data.data.overdue[i].title}<span class="span3">已过期</span> </p>
+											        </div>
+												</div>
+												<div class="useinfo" onclick="Ccdetail('${data.data.overdue[i].content}')">
+											        <span>使用详情</span>
+										        </div>
+											    `
+												$("#allc3").append(temp);
+											}
+			                             }else{
+			                             
+			                             }
+			
+									}else{
+			                            alert(data.errmsg);
+									}
+								},
+						    })
 							
 							//点击进入券的详情
 							window.Cdetail = function(Cid){
@@ -336,86 +409,13 @@
 					}
 				});
 
-				$.ajax({
-				    data:{userid: userId}, 
-					dataType:'json',
-					type:'post',
-					url:"http://abcd.zlzmm.com:6789/index.php/api/userphonecard",
-					success:function(data){
-                        if(data.errono==0){
-                            if(data.data.normal.length){
-								$("#allc").find(".nothing").hiden();
-								for(var i=0;i<data.data.normal.length;i++){
-									var temp=`
-									<div class="offerWrap">
-										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
-										<div class="offerTop">
-										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
-										   <p>  </p>
-								        </div>
-									</div>
-									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
-								        <span>使用详情</span>
-							        </div>
-								    `
-									$("#allc").append(temp);
-								}
-								
-							}else{
-
-							}
-						    if(data.data.writeoff.length){
-								$("#allc2").find(".nothing").hiden();
-								for(var i=0;i<data.data.normal.length;i++){
-									var temp=`
-									<div class="offerWrap offerWrap3">
-										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
-										<div class="offerTop">
-										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
-										   <p> <span class="span3">已使用</span> </p>
-								        </div>
-									</div>
-									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
-								        <span>使用详情</span>
-							        </div>
-								    `
-									$("#allc2").append(temp);
-								}
-                             }else{
-                             
-                             }
-                             if(data.data.overdue.length){
-								$("#allc3").find(".nothing").hiden();
-								for(var i=0;i<data.data.normal.length;i++){
-									var temp=`
-									<div class="offerWrap offerWrap3">
-										<div style="padding:5px!important;font-size: 14px!important;">话费充值优惠券</div>
-										<div class="offerTop">
-										   <h4> <b class="b2"></b><span class="span1">`+data.data.normal[i].name+`</span> <span class="span2">`+data.data.normal[i].begin_date +` ~ `+data.data.normal[i].end_date +`</span></h4>
-										   <p> <span class="span3">已过期</span> </p>
-								        </div>
-									</div>
-									<div class="useinfo" onclick="Ccdetail(`+data.data.normal[i].content+`)">
-								        <span>使用详情</span>
-							        </div>
-								    `
-									$("#allc3").append(temp);
-								}
-                             }else{
-                             
-                             }
-
-						}else{
-                            alert(data.errmsg);
-						}
-					},
-			    })
+				
 				
 			})();
 			if($('#allC').children().length == 0){ 
 				$('#allC').css('display','block')
 				$('#allC').html('<div class="nothing" style="display:block"><img src="../../img/theList/coupon.png"/><p>你没有优惠券哟！</p></div>')
-				}
+			}
 		</script>
 	</body>
 </html>
